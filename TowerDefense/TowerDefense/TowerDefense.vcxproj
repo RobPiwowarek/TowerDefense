@@ -41,10 +41,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>C:\Users\Łycha\Source\Repos\TowerDefense\TowerDefense\TowerDefense\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Łycha\Source\Repos\TowerDefense\TowerDefense\TowerDefense\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)$(ProjectName)\Release\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)$(ProjectName)\Release\</OutDir>
     <IncludePath>C:\Users\Łycha\Source\Repos\TowerDefense\TowerDefense\TowerDefense\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Łycha\Source\Repos\TowerDefense\TowerDefense\TowerDefense\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -75,6 +75,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="bin\openal32.dll" />
+    <None Include="bin\sfml-audio-2.dll" />
+    <None Include="bin\sfml-graphics-2.dll" />
+    <None Include="bin\sfml-network-2.dll" />
+    <None Include="bin\sfml-system-2.dll" />
+    <None Include="bin\sfml-window-2.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
