@@ -6,6 +6,11 @@
 *.user
 *.sln.docstates
 *.sln
+*.txt
+*.idea
+*.cmake
+*.cmake~
+cmake_modules/
 
 # Compiled Object files
 *.slo
