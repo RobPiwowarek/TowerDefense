@@ -13,7 +13,7 @@ tower_defense::Entity::Entity(const Entity &e)
         : Entity(e.location, e.angle, e.size, e.objClass) {
 }
 
-double tower_defense::Entity::getSqDistance(const tower_defense::Entity *e) {
+double tower_defense::Entity::getSqDistance(const tower_defense::Entity *e) const {
     return pow(e->getLocation().getX() - this->getLocation().getX(), 2.0f) +
            pow(e->getLocation().getY() - this->getLocation().getY(), 2.0f);
 }

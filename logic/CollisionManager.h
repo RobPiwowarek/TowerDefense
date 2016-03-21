@@ -5,6 +5,9 @@
 #ifndef TOWERDEFENSE_COLLISIONMANAGER_H
 #define TOWERDEFENSE_COLLISIONMANAGER_H
 
+#include <vector>
+#include "Entity.h"
+
 namespace tower_defense {
     class CollisionManager {
         // singleton
@@ -12,7 +15,8 @@ namespace tower_defense {
 
 
         // TODO: tablica przechowujaca aktualnie znajdujace sie miniony na mapie, tak samo pociski
-
+        std::vector<Entity> bullets;
+        std::vector<Entity> minions;
 
     public:
         bool CheckCollision();
@@ -27,6 +31,14 @@ namespace tower_defense {
             return instance;
         }
 
+        const std::vector<Entity> &getBullets() const {
+            return bullets;
+        }
+
+
+        const std::vector<Entity> &getMinions() const {
+            return minions;
+        }
 
     };
 }

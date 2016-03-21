@@ -36,7 +36,7 @@ namespace tower_defense {
         double getSize() const;
 
         /// gets square of the distance between this entity and the given
-        double getSqDistance(const Entity *e) const;
+        double getSqDistance(const tower_defense::Entity *e) const;
 
         /// gets type of the entity
         int getObjClass() const;

@@ -22,7 +22,8 @@ double tower_defense::PathElement::getSqDistance(const Entity *e) const {
 }
 
 double tower_defense::PathElement::getAngle() const {
-    return atan2(this->X1.getX(), this->X1.getY());
+    Point temp = this->getX1();
+    return atan2(temp.getX(), temp.getY());
 }
 
 int tower_defense::PathElement::getNInPath() const {
