@@ -4,7 +4,8 @@
 namespace tower_defense {
 
     ///the Point class, representing a point on the map
-    class Point {
+    class Point 
+	{
     public:
         /// creates a new instance of Point class,
         /// with coordintase (0, 0)

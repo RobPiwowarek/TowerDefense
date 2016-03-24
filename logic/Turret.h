@@ -1,18 +1,22 @@
 #ifndef TURRET_H
 #define TURRET_H
 
+#include <list>
+
+namespace tower_defense {
+	class Turret;
+}
 #include "Entity.h"
 #include "Minion.h"
 #include "Weapon.h"
-#include <list>
 
-namespace tower_defense
-{
+namespace tower_defense {
 	/// class that represents an anti-minion
 	/// player's turret
 	class Turret : public Entity
 	{
 	public:
+
 		/// creates a new instance of turret
 		/// using given values
 		Turret(const int size, const int turretClass, const double rotationSpeed, const int level, const Weapon& wBase);

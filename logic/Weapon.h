@@ -1,20 +1,31 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "Minion.h";
-#include "Turret.h";
-
 #include <list>
 
-namespace tower_defense
-{
+namespace tower_defense {
+	class Weapon;
+}
+
+#include "Minion.h"
+#include "Turret.h"
+#include "WeaponFire.h"
+
+typedef std::list<std::pair<int, tower_defense::WeaponFire*> > WeaponFireList;
+
+namespace tower_defense {
+
 	/// class for objects that represent turret's weapons
 	class Weapon
 	{
 	public:
 		/// creates an instance of Weapon object
 		/// using given values
-		Weapon(const double range, const int fireRate, const int objClass);
+		/// weaponFireList is list of weapon fires,
+		/// sorted by fire time in weapon cycle
+		/// highest time must be lower than fireRate
+		Weapon(const double range, const int fireRate, const int objClass,
+			const WeaponFireList* const weaponFireList);
 		/// creates an exact copy of base
 		/// with given parent
 		Weapon(const Weapon& base, const Turret* const parent);
@@ -35,6 +46,9 @@ namespace tower_defense
 		bool refresh(const std::list<Minion*>& enemies);
 
 	private:
+		const WeaponFireList* fires;
+		WeaponFireList::const_iterator cur;
+
 		double range;
 		int fireRate;
 		int reloading;

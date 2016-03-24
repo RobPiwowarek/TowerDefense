@@ -1,11 +1,15 @@
 #ifndef WEAPON_FIRE_H
 #define WEAPON_FIRE_H
 
+#include <list>
+
+namespace tower_defense {
+	class WeaponFire;
+}
+
 #include "Entity.h"
 #include "FireType.h"
 #include "Minion.h"
-
-#include <list>
 
 namespace tower_defense
 {

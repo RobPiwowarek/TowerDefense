@@ -1,13 +1,15 @@
 #include "Weapon.h"
 
 
-tower_defense::Weapon::Weapon(const double range, const int fireRate, const int objClass)
+tower_defense::Weapon::Weapon(
+	const double range, const int fireRate, const int objClass, const WeaponFireList* const weaponFireList)
 {
 	this->fireRate = fireRate;
 	this->range = range;
 	this->parent = nullptr;
 	this->reloading = 0;
 	this->objClass = objClass;
+	this->fires = weaponFireList;
 }
 
 tower_defense::Weapon::Weapon(const Weapon& base, const Turret* const parent)
@@ -17,6 +19,8 @@ tower_defense::Weapon::Weapon(const Weapon& base, const Turret* const parent)
 	this->parent = parent;
 	this->reloading = 0;
 	this->objClass = base.objClass;
+	this->fires = base.fires;
+	this->cur = fires->begin();
 }
 
 double tower_defense::Weapon::getRange() const

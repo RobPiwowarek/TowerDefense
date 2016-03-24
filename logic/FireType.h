@@ -7,9 +7,9 @@ namespace tower_defense
 	/// of WeaponFire objects
 	enum FireType
 	{
-		Bullet = 0,
-		Beam = 1,
-		Ring = 2,
+		bullet = 0,
+		beam = 1,
+		ring = 2,
 	};
 }
 

@@ -10,8 +10,7 @@ tower_defense::Turret::Turret(const int size, const int turretClass, const doubl
 }
 
 tower_defense::Turret::Turret(const Turret& base, const Point& location)
-	: Entity(base)
-{
+	: Entity(base) {
 	this->weapon = new Weapon(*base.weapon, this);
 	this->location = location;
 	this->level = base.level;

@@ -1,13 +1,18 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+namespace tower_defense {
+	class Entity;
+}
+
 #include "Point.h"
 
 
 namespace tower_defense {
     /// class for basic entity,
     /// base for any game object
-    class Entity {
+    class Entity 
+	{
     public:
         /// creates a new instance of Entity object,
         /// with given values
@@ -29,9 +34,6 @@ namespace tower_defense {
         /// sets the location of the entity
         void setLocation(const tower_defense::Point &location);
 
-        /// refreshes the entity, return whether it should be removed or not
-        virtual bool refresh() = 0;
-
         /// gets size of the entity (radius)
         double getSize() const;
 
@@ -42,7 +44,7 @@ namespace tower_defense {
         int getObjClass() const;
 
     protected:
-        tower_defense::Point location;
+        Point location;
         double angle;
         double size;
         int objClass;
