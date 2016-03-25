@@ -46,7 +46,7 @@ namespace tower_defense {
 		bool refresh(const std::list<Minion*>& enemies);
 
 	private:
-		const WeaponFireList* fires;
+		const WeaponFireList* fireList;
 		WeaponFireList::const_iterator cur;
 
 		double range;

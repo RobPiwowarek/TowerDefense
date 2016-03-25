@@ -10,6 +10,7 @@ namespace tower_defense {
 #include "Entity.h"
 #include "FireType.h"
 #include "Minion.h"
+#include "Grid.h"
 
 namespace tower_defense
 {
@@ -18,10 +19,28 @@ namespace tower_defense
 	class WeaponFire : public Entity
 	{
 	public:
+
+		/// returns damage dealt by hit
+		double getDamage() const;
+
+		/// returns left lifetime
+		double getLifeTime() const;
+
+		/// returs velocity of the bullet/ring/...
+		double getVelocity() const;
+
+		/// refreshes object
+		virtual bool refresh(Grid& grid) = 0;
+
+		/// returns type of this object
+		FireType getType() const;
+
+	protected:
+
 		/// creates new instance of WeaponFire object
 		/// using given values
-		WeaponFire(const int damage, const bool hitOnlyFirst, const double splash, const double size,
-			const int lifeTime, const FireType type, const double velocity, const int fireClass);
+		WeaponFire(const int damage, const double size,
+			const int lifeTime, const FireType type, const int fireClass);
 		/// creates an instance of WeaponFire object
 		/// that is a copy of base
 		/// and will be fired with angle modified by angleModifier
@@ -31,36 +50,11 @@ namespace tower_defense
 		/// located in location and directed in angle
 		WeaponFire(const WeaponFire& base, const Point& location, const double angle);
 
-		/// returns damage dealt by hit
-		double getDamage() const;
-
-		/// returns whether hits only first enemy or goes on
-		bool isHitOnlyFirst() const;
-
-		/// returns splash radius
-		double getSplash() const;
-
-		/// returns left lifetime
-		double getLifeTime() const;
-
-		/// returs velocity of the bullet/ring/...
-		double getVelocity() const;
-
-		/// refreshes object
-		bool refresh(std::list<Minion*>& enemies);
-
-		/// returns type of this object
-		FireType getType() const;
-
-	private:
 		int damage;
-		bool hitOnlyFirst;
-		double splash;
 		int lifeTime;
-		double velocity;
 		FireType type;
 
-		bool hits(Minion* m);
+		virtual bool hits(Minion* m) = 0;
 	};
 }
 
