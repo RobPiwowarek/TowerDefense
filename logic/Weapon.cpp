@@ -9,7 +9,7 @@ tower_defense::Weapon::Weapon(
 	this->parent = nullptr;
 	this->reloading = 0;
 	this->objClass = objClass;
-	this->fires = weaponFireList;
+	this->fireList = weaponFireList;
 }
 
 tower_defense::Weapon::Weapon(const Weapon& base, const Turret* const parent)
@@ -19,8 +19,8 @@ tower_defense::Weapon::Weapon(const Weapon& base, const Turret* const parent)
 	this->parent = parent;
 	this->reloading = 0;
 	this->objClass = base.objClass;
-	this->fires = base.fires;
-	this->cur = fires->begin();
+	this->fireList = base.fireList;
+	this->cur = fireList->begin();
 }
 
 double tower_defense::Weapon::getRange() const

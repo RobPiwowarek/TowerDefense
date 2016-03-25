@@ -1,5 +1,4 @@
-#include "Bullet.h";
-
+#include "Bullet.h"
 
 tower_defense::Bullet::Bullet(const int damage, const double size, const bool hitOnlyFirst, const double splash,
 	const int velocity, const int lifeTime, const int fireClass) 
