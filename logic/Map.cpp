@@ -17,6 +17,10 @@ tower_defense::Map::~Map() {
 	}
 }
 
+void tower_defense::Map::refresh(Player &p) {
+	// TODO: EVERYTHING
+}
+
 double tower_defense::Map::getWidth() const {
 	return this->grid->getWidth();
 }
