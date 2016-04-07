@@ -1,5 +1,5 @@
-#ifndef TOWERDEFENSE_GAME_H
-#define TOWERDEFENSE_GAME_H
+#ifndef GAME_H
+#define GAME_H
 
 #include "Map.h"
 #include "MinionWave.h"
@@ -22,4 +22,4 @@ namespace tower_defense {
     };
 
 }
-#endif //TOWERDEFENSE_GAME_H
+#endif

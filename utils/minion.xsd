@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="minion">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="imgSrc" type="xs:anyURI" />
+        <xs:element name="size" type="xs:double" />
+        <xs:element name="velocity" type="xs:double" />
+        <xs:element name="damage" type="xs:positiveInteger" />
+        <xs:element name="reward" type="xs:positiveInteger" />
+        
+        <xs:element name="priority">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Turret|Closer|Item"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

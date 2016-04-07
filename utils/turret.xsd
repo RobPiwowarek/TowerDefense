@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  
+  <xs:element name="turret">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="imgsrc" type="xs:anyURI" />
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="size" type="xs:double" />
+        <xs:element name="rotationSpeed" type="xs:double" />
+        
+        <xs:element name="weapon">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="reloadTime" type="xs:positiveInteger" />
+              
+              <xs:element name="weaponFire" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+
+                    <xs:element name="fireTime" type="xs:nonNegativeInteger" />
+                    
+                    <xs:element name="type">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="Bullet|Beam|Ring" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+
+                    <xs:element name="src" type="xs:anyURI" /> <!--ALWAYS-->
+                    <xs:element name="velocity" type="xs:double" minOccurs="0" /> <!--Bullet & Ring ONLY-->
+                    <xs:element name="size" type="xs:double" /> <!--ALWAYS-->
+                    <xs:element name="lifeTime" type="xs:positiveInteger" /> <!--ALWAYS-->
+                    
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
