@@ -52,7 +52,7 @@ bool tower_defense::Turret::refresh(std::list<Minion *> enemies) {
     // if in range
     if (enemies.front()->getSqDistance(this) <= pow(this->getWeapon().getRange(), 2.0f)){
         // shoot at enemy
-        this->weapon->shoot(enemies.front())
+        this->weapon->shoot(enemies.front());
     }
 
 }

@@ -1,7 +1,3 @@
-//
-// Created by aaron on 19.03.16.
-//
-
 #ifndef TOWERDEFENSE_COLLISIONMANAGER_H
 #define TOWERDEFENSE_COLLISIONMANAGER_H
 

@@ -8,6 +8,7 @@ namespace tower_defense {
 }
 #include "Minion.h"
 #include "Point.h"
+#include "Turret.h"
 
 namespace tower_defense {
 	class GridElement 
@@ -31,7 +32,7 @@ namespace tower_defense {
 
         /// sets turret at the current grid element
         /// returns false if failed to set turret
-        bool setTurret(Turret t);
+        bool setTurret(Turret *t);
 
 		/// returns minions at the current grid element
 		std::set<Minion*>& getMinions();
@@ -44,7 +45,7 @@ namespace tower_defense {
 		int distToTarget;
 		int distToTurret;
 
-		Turret turret = nullptr;
+		Turret *turret = nullptr;
 		std::set<Minion*> minions;
 	};
 }
