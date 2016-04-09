@@ -46,10 +46,10 @@ namespace tower_defense {
         int getMaxHealth() const;
 
         /// reduces current health by damage returns false if failed to deal damage.
-        bool receiveDamage(const int damage);
+        bool receiveDamage(const int damage, Grid& g);
 
         /// destroys turret
-        void destroy();
+        void destroy(Grid& g);
 
 /// refreshes turret (and it's weapon)
 		bool refresh(std::list<Minion*> enemies);

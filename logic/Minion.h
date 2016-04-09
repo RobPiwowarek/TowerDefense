@@ -37,6 +37,9 @@ namespace tower_defense
 		/// refreshes minion
 		void refresh(Grid& g);
 
+		/// chooses next destination
+		void chooseDestination(Grid& g);
+
 	private:
 		int health;
 		int reward;

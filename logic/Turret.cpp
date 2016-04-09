@@ -21,19 +21,21 @@ int tower_defense::Turret::getCurrentHealth() const { return this->currentHealth
 
 int tower_defense::Turret::getMaxHealth() const { return this->maxHealth; }
 
-bool tower_defense::Turret::receiveDamage(const int damage) {
+bool tower_defense::Turret::receiveDamage(const int damage, Grid& g) {
     if (this->currentHealth <= 0) return false;
     else{
         this->currentHealth-=damage;
     }
 
-    if (this->currentHealth <= 0) this->destroy();
+    if (this->currentHealth <= 0) this->destroy(g);
 
     return true;
 }
 
 //TODO: implement
-void tower_defense::Turret::destroy() { }
+void tower_defense::Turret::destroy(Grid& g) {
+    g.getElement(this->location).setTurret(nullptr);
+}
 
 void tower_defense::Turret::setCurrentHealth(int currentHealth) {
 	if (currentHealth >= this->maxHealth){
