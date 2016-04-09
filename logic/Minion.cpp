@@ -1,7 +1,7 @@
 #include "Minion.h"
 
 tower_defense::Minion::Minion(
-	const double velocity, const double size, const int minionClass, const int reward, const int healt, const int damage)
+	const double velocity, const double size, const int minionClass, const int reward, const int health, const int damage)
 	: Entity(Point(0,0), 0.0, size, minionClass) {
 	this->velocity = velocity;
 	this->reward = reward;
@@ -16,6 +16,18 @@ tower_defense::Minion::Minion(const Minion& base, const Point& x0)
 	this->health = base.health;
 	this->location = x0;
 	this->next = nullptr;
+}
+
+void tower_defense::Minion::refresh(Grid &g) {
+	
+}
+
+int tower_defense::Minion::getDamage() {
+    return this->damage;
+}
+
+double tower_defense::Minion::getVelocity() {
+    return this->velocity;
 }
 
 int tower_defense::Minion::getReward() const

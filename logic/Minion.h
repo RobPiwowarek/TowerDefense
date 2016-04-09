@@ -14,7 +14,7 @@ namespace tower_defense
 	{
 	public:
 		/// creates a minion prototype with given values
-		Minion(const double velocity, const double size, const int minionClass, const int reward, const int healt, const int damage);
+		Minion(const double velocity, const double size, const int minionClass, const int reward, const int health, const int damage);
 		/// creates a minion using given
 		/// that will follow given Path
 		Minion(const Minion& base, const Point& x0);

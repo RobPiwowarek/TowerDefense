@@ -13,8 +13,6 @@ namespace tower_defense {
         // singleton
         static CollisionManager *instance;
 
-
-        // TODO: tablica przechowujaca aktualnie znajdujace sie miniony na mapie, tak samo pociski
         std::vector<Entity> bullets;
         std::vector<Entity> minions;
 
