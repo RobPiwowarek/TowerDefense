@@ -19,7 +19,15 @@ tower_defense::Minion::Minion(const Minion& base, const Point& x0)
 }
 
 void tower_defense::Minion::refresh(Grid &g) {
-	
+    // TODO: choose next target/location
+
+    //
+
+	// Update location
+    this->getLocation().setPoint(this->next->getLocation());
+
+
+
 }
 
 int tower_defense::Minion::getDamage() {

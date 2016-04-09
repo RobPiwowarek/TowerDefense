@@ -26,3 +26,8 @@ void tower_defense::Point::setX(double x) {
 void tower_defense::Point::setY(double y) {
     this->y = y;
 }
+
+void tower_defense::Point::setPoint(const Point &p) {
+    this->x = p.getX();
+    this->y = p.getY();
+}

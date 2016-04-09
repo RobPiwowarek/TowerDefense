@@ -31,6 +31,9 @@ namespace tower_defense {
         /// sets y coordinate
         void setY(double y);
 
+        /// sets xy
+        void setPoint(const Point &p);
+
     private:
         double x;
         double y;
