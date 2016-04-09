@@ -10,6 +10,9 @@ namespace tower_defense {
 #include "Minion.h"
 #include "Turret.h"
 #include "WeaponFire.h"
+#include "Bullet.h"
+#include "Ring.h"
+#include "Beam.h"
 
 typedef std::list<std::pair<int, tower_defense::WeaponFire*> > WeaponFireList;
 
@@ -20,7 +23,7 @@ namespace tower_defense {
 	{
 	public:
 		/// creates an instance of Weapon object
-		/// using given values
+        /// using given values
 		/// weaponFireList is list of weapon fires,
 		/// sorted by fire time in weapon cycle
 		/// highest time must be lower than fireRate
@@ -41,6 +44,9 @@ namespace tower_defense {
 
 		/// returns weapon's type
 		int getClass() const;
+
+		/// shoots at target enemy
+		bool shoot(Minion* target) const;
 
 		/// refreshes weapon
 		bool refresh(const std::list<Minion*>& enemies);

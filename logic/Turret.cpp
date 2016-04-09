@@ -45,6 +45,18 @@ void tower_defense::Turret::setCurrentHealth(int currentHealth) {
 		this->currentHealth = currentHealth;
 }
 
+// TODO: ask kuba if it should do something else
+bool tower_defense::Turret::refresh(std::list<Minion *> enemies) {
+    // assuming first enemy is the closest.
+
+    // if in range
+    if (enemies.front()->getSqDistance(this) <= pow(this->getWeapon().getRange(), 2.0f)){
+        // shoot at enemy
+        this->weapon->shoot(enemies.front())
+    }
+
+}
+
 tower_defense::Turret::~Turret()
 {
 	delete this->weapon;

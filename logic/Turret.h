@@ -2,6 +2,7 @@
 #define TURRET_H
 
 #include <list>
+#include <cmath>
 
 namespace tower_defense {
 	class Turret;

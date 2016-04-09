@@ -52,6 +52,7 @@ namespace tower_defense
 
 		int damage;
 		int lifeTime;
+		Minion target = nullptr;
 		FireType type;
 
 		virtual bool hits(Minion* m) = 0;
