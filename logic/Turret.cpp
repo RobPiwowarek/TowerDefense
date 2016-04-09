@@ -17,6 +17,32 @@ tower_defense::Turret::Turret(const Turret& base, const Point& location)
 	this->rotationSpeed = base.rotationSpeed;
 }
 
+int tower_defense::Turret::getCurrentHealth() const { return this->currentHealth; }
+
+int tower_defense::Turret::getMaxHealth() const { return this->maxHealth; }
+
+bool tower_defense::Turret::receiveDamage(const int damage) {
+    if (this->currentHealth <= 0) return false;
+    else{
+        this->currentHealth-=damage;
+    }
+
+    if (this->currentHealth <= 0) this->destroy();
+
+    return true;
+}
+
+//TODO: implement
+void tower_defense::Turret::destroy() { }
+
+void tower_defense::Turret::setCurrentHealth(int currentHealth) {
+	if (currentHealth >= this->maxHealth){
+		this->currentHealth = this->maxHealth;
+	}
+	else
+		this->currentHealth = currentHealth;
+}
+
 tower_defense::Turret::~Turret()
 {
 	delete this->weapon;

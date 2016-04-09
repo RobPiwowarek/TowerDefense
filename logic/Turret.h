@@ -36,7 +36,22 @@ namespace tower_defense {
 		/// sets turret's level
 		void setLevel(int lvl);
 
-		/// refreshes turret (and it's weapon)
+        /// returns current turret's health
+        int getCurrentHealth() const;
+
+        /// sets current turret's health
+        void setCurrentHealth(int currentHealth);
+
+        /// returns current turret's max health
+        int getMaxHealth() const;
+
+        /// reduces current health by damage returns false if failed to deal damage.
+        bool receiveDamage(const int damage);
+
+        /// destroys turret
+        void destroy();
+
+/// refreshes turret (and it's weapon)
 		bool refresh(std::list<Minion*> enemies);
 
 		/// returns turret current weapon
@@ -45,6 +60,8 @@ namespace tower_defense {
 	private:
 		Weapon* weapon;
 		int level;
+		int currentHealth;
+		int maxHealth;
 		double rotationSpeed;
 	};
 }

@@ -30,6 +30,7 @@ namespace tower_defense {
 		Turret& getTurret();
 
         /// sets turret at the current grid element
+        /// returns false if failed to set turret
         bool setTurret(Turret t);
 
 		/// returns minions at the current grid element
