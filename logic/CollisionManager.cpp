@@ -1,7 +1,3 @@
-//
-// Created by aaron on 19.03.16.
-//
-
 #include <cmath>
 #include "CollisionManager.h"
 

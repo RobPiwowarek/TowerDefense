@@ -7,6 +7,18 @@ tower_defense::GridElement::GridElement(const Point& location) {
 	this->distToTurret = 0;
 }
 
+tower_defense::Turret tower_defense::GridElement::getTurret() {
+	return this->turret;
+}
+
+bool tower_defense::GridElement::setTurret(Turret* t) {
+	if (this->minions != nullptr || this->turret != nullptr)
+		return false;
+
+	this->turret = t;
+	return true;
+}
+
 int tower_defense::GridElement::getDistToTarget() const {
 	return this->distToTarget;
 }

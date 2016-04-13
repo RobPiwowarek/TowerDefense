@@ -17,6 +17,46 @@ tower_defense::Turret::Turret(const Turret& base, const Point& location)
 	this->rotationSpeed = base.rotationSpeed;
 }
 
+int tower_defense::Turret::getCurrentHealth() const { return this->currentHealth; }
+
+int tower_defense::Turret::getMaxHealth() const { return this->maxHealth; }
+
+bool tower_defense::Turret::receiveDamage(const int damage, Grid& g) {
+    if (this->currentHealth <= 0) return false;
+    else{
+        this->currentHealth-=damage;
+    }
+
+    if (this->currentHealth <= 0) this->destroy(g);
+
+    return true;
+}
+
+//TODO: implement
+void tower_defense::Turret::destroy(Grid& g) {
+    g.getElement(this->location).setTurret(nullptr);
+}
+
+void tower_defense::Turret::setCurrentHealth(int currentHealth) {
+	if (currentHealth >= this->maxHealth){
+		this->currentHealth = this->maxHealth;
+	}
+	else
+		this->currentHealth = currentHealth;
+}
+
+// TODO: ask kuba if it should do something else
+bool tower_defense::Turret::refresh(std::list<Minion *> enemies) {
+    // assuming first enemy is the closest.
+
+    // if in range
+    if (enemies.front()->getSqDistance(this) <= pow(this->getWeapon().getRange(), 2.0f)){
+        // shoot at enemy
+        this->weapon->shoot(enemies.front());
+    }
+
+}
+
 tower_defense::Turret::~Turret()
 {
 	delete this->weapon;

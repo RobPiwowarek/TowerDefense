@@ -23,6 +23,11 @@ tower_defense::Weapon::Weapon(const Weapon& base, const Turret* const parent)
 	this->cur = fireList->begin();
 }
 
+//TODO:
+bool tower_defense::Weapon::shoot(Minion *target) const {
+
+}
+
 double tower_defense::Weapon::getRange() const
 {
 	return this->range;
