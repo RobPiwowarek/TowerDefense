@@ -25,7 +25,7 @@ tower_defense::Weapon::Weapon(const Weapon& base, const Turret* const parent)
 
 //TODO:
 bool tower_defense::Weapon::shoot(Minion *target) const {
-
+	return true;
 }
 
 double tower_defense::Weapon::getRange() const

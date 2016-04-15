@@ -31,14 +31,14 @@ namespace tower_defense {
 		double getVelocity() const;
 
 		/// refreshes object
-		bool refresh(Grid& grid);
+		//bool refresh(Grid& grid);
 
 	private:
 		bool hitOnlyFirst;
 		double splash;
 		double velocity;
 
-		bool hits(Minion* m);
+		//bool hits(Minion* m);
 	};
 }
 

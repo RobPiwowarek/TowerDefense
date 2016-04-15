@@ -10,9 +10,6 @@ namespace tower_defense {
 #include "Minion.h"
 #include "Turret.h"
 #include "WeaponFire.h"
-#include "Bullet.h"
-#include "Ring.h"
-#include "Beam.h"
 
 typedef std::list<std::pair<int, tower_defense::WeaponFire*> > WeaponFireList;
 

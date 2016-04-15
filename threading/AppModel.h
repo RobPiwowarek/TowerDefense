@@ -37,7 +37,6 @@ public:
 
 	~AppModel();
 private:
-	static std::mutex instanceLocker;
 
 	ResourceManager<tower_defense::Game>* game;
 	ResourceManager<Refresher>* refresher;

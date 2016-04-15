@@ -1,5 +1,5 @@
-#ifndef TOWERDEFENSE_MENU_H
-#define TOWERDEFENSE_MENU_H
+#ifndef MENU_H
+#define MENU_H
 
 #include "SFML/Graphics.hpp"
 

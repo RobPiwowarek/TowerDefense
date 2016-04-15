@@ -6,7 +6,7 @@ void graphics::TextureManager::add(std::string name) {
 		if (t->loadFromFile(name))
 			this->textures[name] = t;
 		else delete t;
-	}`
+	}
 }
 
 void graphics::TextureManager::add_base(std::string name) {

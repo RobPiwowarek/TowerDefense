@@ -28,7 +28,7 @@ namespace tower_defense {
 		void setDistToTurret(const int dist);
 
 		/// returns turret at the current grid element
-		Turret& getTurret();
+		Turret* getTurret();
 
         /// sets turret at the current grid element
         /// returns false if failed to set turret
@@ -45,8 +45,8 @@ namespace tower_defense {
 		int distToTarget;
 		int distToTurret;
 
-		Turret *turret = nullptr;
-		std::set<Minion*> minions;
+		Turret *turret = nullptr; //TODO: is it really neccessary?
+		std::set<Minion*>* minions;
 	};
 }
 #endif

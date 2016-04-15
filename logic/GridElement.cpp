@@ -7,7 +7,7 @@ tower_defense::GridElement::GridElement(const Point& location) {
 	this->distToTurret = 0;
 }
 
-tower_defense::Turret tower_defense::GridElement::getTurret() {
+tower_defense::Turret* tower_defense::GridElement::getTurret() {
 	return this->turret;
 }
 
@@ -36,7 +36,7 @@ void tower_defense::GridElement::setDistToTurret(const int dist) {
 }
 
 std::set<tower_defense::Minion*>& tower_defense::GridElement::getMinions() {
-	return this->minions;
+	return *this->minions;
 }
 
 tower_defense::Point tower_defense::GridElement::getLocation() const {

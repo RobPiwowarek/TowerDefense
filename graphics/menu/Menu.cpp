@@ -1,7 +1,9 @@
 #include "Menu.h"
-
+#include  <iostream>
 Menu::Menu(float width, float height) {
-    if (!font.loadFromFile("arial.ttf")) {
+	if (!font.loadFromFile("arial.ttf")) {
+		std::cout << "Error loading font";
+		return;
         // todo: handle error
     }
 

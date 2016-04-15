@@ -5,6 +5,7 @@
 #include "..\graphics\TextureManager.h"
 
 AppModel& AppModel::getInstance() {
+	static std::mutex instanceLocker;
 	instanceLocker.lock();
 	static AppModel instance;
 	instanceLocker.unlock();
@@ -40,5 +41,5 @@ AppModel::AppModel() {
 	this->game = nullptr;
 	this->refresher = nullptr;
 
-	this->textureManager = new ResourceManager<graphics::TextureManager>(new graphics::TextureManager());
+	this->textureManager = new ResourceManager<graphics::TextureManager>(new graphics::TextureManager);
 }

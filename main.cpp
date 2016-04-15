@@ -1,8 +1,9 @@
 #include <iostream>
-#include "menu/Menu.h"
+#include "graphics/menu/Menu.h"
 
 int main(void){
     sf::RenderWindow window(sf::VideoMode(600, 600), "TowerDefense");
+
 
     Menu menu(window.getSize().x, window.getSize().y);
 
@@ -50,13 +51,13 @@ int main(void){
                     break;
             }
         }
-    }
 
-    window.clear();
+	    window.clear();
 
-    menu.draw(window);
+		menu.draw(window);
 
-    window.display();
+		window.display();
+	}
 
     return 0;
 }

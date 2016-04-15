@@ -26,11 +26,11 @@ namespace tower_defense {
 		bool isHitOnlyFirst() const;
 
 		/// refreshes the beam
-		bool refresh(Grid& grid);
+		//bool refresh(Grid& grid);
 	private:
 		bool hitOnlyFirst;
 
-		bool hits(Minion* m);
+		//bool hits(Minion* m);
 	};
 }
 
