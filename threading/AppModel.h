@@ -2,15 +2,20 @@
 #define APP_MODEL_H
 
 #include <mutex>
+#include "ResourceManager.h"
 
 class Refresher;
-template<class T> class ResourceManager;
+
 
 namespace tower_defense {
 	class Game;
 }
 namespace graphics {
 	class TextureManager;
+}
+namespace data {
+	class MinionManager;
+	class GameManager;
 }
 
 /*
@@ -28,6 +33,10 @@ public:
 	ResourceManager<Refresher>& getRefresher();
 	//returns the texture manager
 	ResourceManager<graphics::TextureManager>& getTextures();
+	//returns the minion manager
+	ResourceManager<data::MinionManager>& getMinionManager();
+	//returns the game manager
+	ResourceManager<data::GameManager>& getGameManager();
 
 	//creates the game and refresher
 	//does not runs the refresher
@@ -41,6 +50,8 @@ private:
 	ResourceManager<tower_defense::Game>* game;
 	ResourceManager<Refresher>* refresher;
 	ResourceManager<graphics::TextureManager>* textureManager;
+	ResourceManager<data::MinionManager>* minionManager;
+	ResourceManager<data::GameManager>* gameManager;
 
 	AppModel();
 

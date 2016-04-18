@@ -11,14 +11,14 @@ namespace graphics {
 	class TextureManager {
 	public:
 		// adds texture from image file to the manager
-		void add(std::string name);
+		void add(const std::string& name, const std::string& path);
 		// adds texture from image file to the manager
-		void add_base(std::string name);
+		void add_base(const std::string& name, const std::string& path);
 		// removes all textures from manager except base
 		void clear();
 		// returns texture with given name
 		// with base at lower priority
-		const sf::Texture& get(std::string name) const;
+		const sf::Texture& get(const std::string& name) const;
 		~TextureManager();
 	private:
 		std::map<std::string, sf::Texture*> textures_base;

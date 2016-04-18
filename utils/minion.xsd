@@ -10,6 +10,7 @@
         <xs:element name="velocity" type="xs:double" />
         <xs:element name="damage" type="xs:positiveInteger" />
         <xs:element name="reward" type="xs:positiveInteger" />
+        <xs:element name="attackSpeed" type="xs:positiveInteger" />
         
         <xs:element name="priority">
           <xs:simpleType>

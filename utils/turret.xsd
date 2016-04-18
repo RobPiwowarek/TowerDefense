@@ -10,6 +10,7 @@
         <xs:element name="name" type="xs:string" />
         <xs:element name="size" type="xs:double" />
         <xs:element name="rotationSpeed" type="xs:double" />
+        <xs:element name="health" type="xs:integer" />
         
         <xs:element name="weapon">
           <xs:complexType>

@@ -7,7 +7,7 @@ namespace tower_defense {
 	{
     public:
         /// creates a player with given health and money
-        Player(const int health, const int money);
+        Player(const int money);
 
         /// returns the amount of player's money
         int getMoney() const;
@@ -15,14 +15,7 @@ namespace tower_defense {
         /// sets player's money
         void setMoney(const int money);
 
-        /// returns the amount of player's health
-        int getHealth() const;
-
-        /// sets player's health
-        void setHealth(const int health);
-
     private:
-        int health;
         int money;
     };
 }

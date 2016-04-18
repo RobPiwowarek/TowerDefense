@@ -1,12 +1,14 @@
 #include "Minion.h"
 
 tower_defense::Minion::Minion(
-	const double velocity, const double size, const int minionClass, const int reward, const int health, const int damage)
+	const double velocity, const double size, const int minionClass,
+	const int reward, const int health, const int damage, const MinionPriority priority)
 	: Entity(Point(0,0), 0.0, size, minionClass) {
 	this->velocity = velocity;
 	this->reward = reward;
 	this->health = health;
 	this->next = nullptr;
+	this->priority = priority;
 }
 
 tower_defense::Minion::Minion(const Minion& base, const Point& x0)

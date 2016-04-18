@@ -3,6 +3,8 @@
 #include "AppModel.h"
 #include "ResourceManager.h"
 #include "..\graphics\TextureManager.h"
+#include "..\data\MinionManager.h"
+#include "..\data\GameManager.h"
 
 AppModel& AppModel::getInstance() {
 	static std::mutex instanceLocker;
@@ -30,6 +32,14 @@ ResourceManager<graphics::TextureManager>& AppModel::getTextures() {
 	return *this->textureManager;
 }
 
+ResourceManager<data::MinionManager>& AppModel::getMinionManager() {
+	return *this->minionManager;
+}
+
+ResourceManager<data::GameManager>& AppModel::getGameManager() {
+	return *this->gameManager;
+}
+
 AppModel::~AppModel() {
 	delete this->game;
 	delete this->refresher;
@@ -42,4 +52,6 @@ AppModel::AppModel() {
 	this->refresher = nullptr;
 
 	this->textureManager = new ResourceManager<graphics::TextureManager>(new graphics::TextureManager);
+	this->minionManager = new ResourceManager<data::MinionManager>(new data::MinionManager);
+	this->gameManager = new ResourceManager<data::GameManager>(new data::GameManager);
 }

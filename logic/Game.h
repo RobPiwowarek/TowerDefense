@@ -7,7 +7,7 @@
 namespace tower_defense {
     class Game {
     public:
-        Game(Map, MinionWave, Player);
+        Game(Map*, Player*);
         ~Game();
         tower_defense::Map& getMap();
         tower_defense::MinionWave& getCurrentWave();
@@ -16,9 +16,10 @@ namespace tower_defense {
         void refresh();
 
     private:
-        Map map;
-        MinionWave wave;
-        Player player;
+        Map* map;
+		int curWave;
+        MinionWave* wave;
+        Player* player;
     };
 
 }

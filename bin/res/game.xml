@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" ?>
+<game>
+ <map>
+  <size>3</size>
+  <playerarea>1</playerarea>
+  
+  <texture x="0" y ="0">
+   green.jpg
+  </texture>
+  <texture x="0" y="1">
+   yellow.jpg
+  </texture>
+  <texture x="0" y ="2">
+   green.jpg
+  </texture>
+  <texture x="1" y="0">
+   yellow.jpg
+  </texture>
+  <texture x="1" y ="1">
+   green.jpg
+  </texture>
+  <texture x="1" y="2">
+   yellow.jpg
+  </texture>
+  <texture x="2" y ="0">
+   green.jpg
+  </texture>
+  <texture x="2" y="1">
+   yellow.jpg
+  </texture>
+  <texture x="2" y ="2">
+   green.jpg
+  </texture>
+ </map>
+ 
+ <player>
+  <startingMoney>100</startingMoney>
+ </player>
+</game>

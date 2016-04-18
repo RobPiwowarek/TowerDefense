@@ -1,7 +1,32 @@
 #include <iostream>
 #include "graphics/menu/Menu.h"
 
-int main(void){
+#define LOAD_TEST
+// test of game loading
+
+#ifdef LOAD_TEST
+#include "threading\AppModel.h"
+#include "logic\Game.h"
+#include "data\GameManager.h"
+#include "graphics\TextureManager.h"
+#endif
+
+int main(int argn, char** argv){
+	for (int i = 0; i < argn; i++)
+		std::cout << argv[i] << std::endl;
+
+#ifdef LOAD_TEST
+	std::cout << "" << std::endl;
+	std::string path;
+	std::getline(std::cin, path);
+
+	tower_defense::Game* g = AppModel::getInstance().getGameManager().get()->load(path);
+	std::cout << "Map size: " << g->getMap().getWidth() << std::endl;
+	std::getline(std::cin, path);
+
+#endif
+
+
     sf::RenderWindow window(sf::VideoMode(600, 600), "TowerDefense");
 
 
@@ -58,6 +83,5 @@ int main(void){
 
 		window.display();
 	}
-
     return 0;
 }

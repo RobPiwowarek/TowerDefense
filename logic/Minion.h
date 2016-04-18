@@ -13,8 +13,15 @@ namespace tower_defense
 	class Minion : public Entity
 	{
 	public:
+		enum MinionPriority {
+			Turret,
+			Item,
+			Closer
+		};
+
 		/// creates a minion prototype with given values
-		Minion(const double velocity, const double size, const int minionClass, const int reward, const int health, const int damage);
+		Minion(const double velocity, const double size, const int minionClass, const int reward,
+			const int health, const int damage, const MinionPriority priority);
 		/// creates a minion using given
 		/// that will follow given Path
 		Minion(const Minion& base, const Point& x0);
@@ -50,6 +57,8 @@ namespace tower_defense
 		double velocity;
 
 		GridElement* next;
+
+		MinionPriority priority;
 	};
 }
 
