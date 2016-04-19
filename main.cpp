@@ -8,6 +8,7 @@
 #include "threading\AppModel.h"
 #include "logic\Game.h"
 #include "data\GameManager.h"
+#include "data\MinionManager.h"
 #include "graphics\TextureManager.h"
 #endif
 
@@ -16,13 +17,23 @@ int main(int argn, char** argv){
 		std::cout << argv[i] << std::endl;
 
 #ifdef LOAD_TEST
-	std::cout << "" << std::endl;
-	std::string path;
-	std::getline(std::cin, path);
+	std::string path = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\/")) + "\\res\\game.xml";
+	std::cout << "Loading " << path << std::endl;
+
 
 	tower_defense::Game* g = AppModel::getInstance().getGameManager().get()->load(path);
 	std::cout << "Map size: " << g->getMap().getWidth() << std::endl;
+
+	const tower_defense::Minion& m = AppModel::getInstance().getMinionManager().get()->getMinion(0);
+
+	std::cout << "Minion 0:" << std::endl;
+	std::cout << "\tHealth: " << m.getHealth() << std::endl;
+	std::cout << "\tReward:" << m.getReward() << std::endl;
+	std::cout << "\tSize:" << m.getSize() << std::endl;
+
 	std::getline(std::cin, path);
+
+	delete g;
 
 #endif
 

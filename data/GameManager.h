@@ -25,6 +25,7 @@ namespace data {
 	private:
 		tower_defense::Map* loadMap(const std::string& directory, const pugi::xml_node& map);
 		tower_defense::Player* loadPlayer(const std::string& directory, const pugi::xml_node& player);
+		void loadWaves(const std::string& directory, const pugi::xml_node& waves);
 
 		int mapSize;
 		int playerAreaSize;

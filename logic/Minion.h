@@ -42,7 +42,7 @@ namespace tower_defense
 		double getVelocity();
 
 		/// refreshes minion
-		void refresh(Grid& g);
+		bool refresh(Grid& g);
 
 		/// chooses next destination
 		void chooseDestination(Grid& g);

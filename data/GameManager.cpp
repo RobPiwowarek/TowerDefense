@@ -1,4 +1,6 @@
 #include "GameManager.h"
+#include "MinionWaveManager.h"
+
 #include "../threading/AppModel.h"
 #include "../threading/ResourceManager.h"
 #include "../graphics/TextureManager.h"
@@ -9,8 +11,6 @@
 
 #include <exception>
 
-
-#include <iostream>
 
 
 using namespace data;
@@ -50,7 +50,9 @@ Game* GameManager::load(const string& path) {
 	map = loadMap(directory, game.child("map"));
 	player = loadPlayer(directory, game.child("player"));
 
-	//TODO load minions, waves, items, turrets;
+	loadWaves(directory, game.child("waves"));
+
+	//TODO load items, turrets;
 
 	return new Game(map, player);
 }
@@ -89,6 +91,17 @@ Map* GameManager::loadMap(const string& directory, const pugi::xml_node& map) {
 
 Player* GameManager::loadPlayer(const std::string& directory, const pugi::xml_node& player) {
 	return new Player(atoi(player.child("startingMoney").child_value()));
+}
+
+void GameManager::loadWaves(const std::string& directory, const pugi::xml_node& waves) {
+	vector<string> waveList;
+	pugi::xml_object_range<pugi::xml_named_node_iterator> waveNodes = waves.children("wave");
+	for (pugi::xml_named_node_iterator it = waveNodes.begin();
+		it != waveNodes.end(); it++)
+		waveList.push_back(it->child_value());
+
+	AppModel::getInstance().getMinionWaveManager().get()->load(directory, waveList);
+	AppModel::getInstance().getMinionWaveManager().release();
 }
 
 GameManager::~GameManager() {

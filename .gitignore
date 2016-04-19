@@ -10,6 +10,9 @@
 *.idea
 *.cmake
 *.cmake~
+*.pdb
+*.log
+*.tlog
 cmake_modules/
 
 # Compiled Object files

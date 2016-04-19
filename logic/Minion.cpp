@@ -28,7 +28,7 @@ void tower_defense::Minion::chooseDestination(Grid &g) {
     // w przeciwnym wypadku idz do najblizszego turreta
 }
 
-void tower_defense::Minion::refresh(Grid &g) {
+bool tower_defense::Minion::refresh(Grid &g) {
     // TODO: choose next target/location
     chooseDestination(g);
     // attack turret/pickup item?
