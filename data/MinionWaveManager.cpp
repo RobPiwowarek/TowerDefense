@@ -46,7 +46,6 @@ MinionWaveManager::~MinionWaveManager() {
 
 MinionWave* MinionWaveManager::loadWave(const string& directory, const string& name) {
 	xml_document waveDoc;
-	xml_parse_status r;
 	if (!waveDoc.load_file((directory + WAVE_LOCATION + name + ".xml").c_str(),
 		pugi::parse_default | pugi::parse_trim_pcdata, pugi::encoding_utf8))
 		return nullptr;

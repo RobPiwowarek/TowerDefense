@@ -67,7 +67,7 @@ const Texture& MinionManager::getTexture(int minionClass) const {
 
 	ResourceManager<graphics::TextureManager>& textures = AppModel::getInstance().getTextures();
 
-	const Texture& toRet = textures.get()->get(this->textures.find(minionClass)->second);
+	const Texture& toRet = textures.get()->get(graphics::TextureManager::MINION, minionClass);
 
 	textures.release();
 
@@ -104,7 +104,8 @@ Minion* MinionManager::load(const string& mDirectory, const string& name) {
 		break;
 	}
 
-	AppModel::getInstance().getTextures().get()->add("minion:" + name, mDirectory + root.child_value("img"));
+	AppModel::getInstance().getTextures().get()->add(graphics::TextureManager::MINION, nextClass,
+		mDirectory + root.child_value("img"));
 	AppModel::getInstance().getTextures().release();
 
 	return new Minion(velocity, size, nextClass++, reward, health, damage, priority);

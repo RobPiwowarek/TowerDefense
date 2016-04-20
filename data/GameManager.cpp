@@ -70,6 +70,8 @@ const Texture& GameManager::getMapTexture(int x, int y) const {
 Map* GameManager::loadMap(const string& directory, const pugi::xml_node& map) {
 	graphics::TextureManager* textureManager = AppModel::getInstance().getTextures().get();
 
+	std::map<string, unsigned int> loadedTextures;
+
 	this->mapSize = atoi(map.child("size").child_value());
 
 	pugi::xml_object_range<pugi::xml_named_node_iterator> textures = map.children("texture");
@@ -79,9 +81,14 @@ Map* GameManager::loadMap(const string& directory, const pugi::xml_node& map) {
 
 		x = it->attribute("x").as_int();
 		y = it->attribute("y").as_int();
-		this->mapTextures[make_pair(x, y)] = it->child_value();
 
-		textureManager->add(it->child_value(), directory + "map\\" + it->child_value());
+		string texture = it->child_value();
+		if (loadedTextures[texture])
+			this->mapTextures[make_pair(x, y)] = loadedTextures[texture];
+		else
+			this->mapTextures[make_pair(x, y)] = loadedTextures[texture] =
+			textureManager->add(graphics::TextureManager::MAP, loadedTextures.size() - 1,
+			directory + MAP_TEXTURES_LOCATION + texture);
 	}
 
 	AppModel::getInstance().getTextures().release();
