@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="wave">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="timeBetweenMinions" type="xs:positiveInteger" />
+        <xs:element name="minion" type="xs:anyURI" maxOccurs="unbounded" />
+        
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
