@@ -33,7 +33,9 @@ namespace graphics {
 		TextureManager();
 		~TextureManager();
 	private:
-		int flagsShift;
+		int objIdShift;
+
+		unsigned int id(unsigned int flags, unsigned int objId) const;
 
 		std::map<unsigned int, sf::Texture*> baseTextures;
 		std::map<unsigned int, sf::Texture*> textures;

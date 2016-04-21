@@ -23,9 +23,8 @@ namespace tower_defense {
 		bool finished() const;
 
 		/// refreshes wave
-		/// returns pointer to minion that is to be spawned
+		/// returns pointer to BASE of minion that is to be spawned
 		/// or nullptr if none
-		/// minion must be deleted after their no longer used
 		Minion* refresh();
 	private:
 		std::queue<Minion*> minions;

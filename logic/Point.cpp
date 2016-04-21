@@ -31,3 +31,39 @@ void tower_defense::Point::setPoint(const Point &p) {
     this->x = p.getX();
     this->y = p.getY();
 }
+
+
+tower_defense::Point tower_defense::Point::operator-(const Point &p) const {
+	return Point(x - p.x, y - p.y);
+}
+tower_defense::Point tower_defense::Point::operator+(const Point &p) const {
+	return Point(x + p.x, y + p.y);
+}
+
+tower_defense::Point& tower_defense::Point::operator+=(const Point &p) {
+	this->x += p.x;
+	this->y += p.y;
+	return *this;
+}
+tower_defense::Point& tower_defense::Point::operator-=(const Point &p) {
+	this->x -= p.x;
+	this->y -= p.y;
+	return *this;
+}
+
+tower_defense::Point tower_defense::Point::operator*(double i) const {
+	return Point(x * i, y * i);
+}
+tower_defense::Point tower_defense::Point::operator/(double i) const {
+	return Point(x / i, y / i);
+}
+tower_defense::Point& tower_defense::Point::operator*=(double i) {
+	this->x *= i;
+	this->y *= i;
+	return *this;
+}
+tower_defense::Point& tower_defense::Point::operator/=(double i) {
+	this->x /= i;
+	this->y /= i;
+	return *this;
+}

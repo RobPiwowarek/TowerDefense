@@ -43,7 +43,8 @@ public:
 
 	//creates the game and refresher
 	//does not runs the refresher
-	void createGame(std::string name);
+	//return true on success
+	bool createGame(const std::string& xmlURI);
 	//closes the game
 	void closeGame();
 

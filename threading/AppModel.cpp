@@ -2,6 +2,8 @@
 
 #include "AppModel.h"
 #include "ResourceManager.h"
+#include "Refresher.h"
+#include "..\logic\Game.h"
 #include "..\graphics\TextureManager.h"
 #include "..\data\MinionManager.h"
 #include "..\data\GameManager.h"
@@ -59,4 +61,31 @@ AppModel::AppModel() {
 	this->minionManager = new ResourceManager<data::MinionManager>(new data::MinionManager);
 	this->gameManager = new ResourceManager<data::GameManager>(new data::GameManager);
 	this->minionWaveManager = new ResourceManager<data::MinionWaveManager>(new data::MinionWaveManager);
+}
+
+bool AppModel::createGame(const std::string& xmlURI) {
+	bool r = false;
+	try {
+		this->game = new ResourceManager<tower_defense::Game>(this->gameManager->get()->load(xmlURI));
+		r = true;
+		this->gameManager->release();
+	}
+	catch (std::exception e) {
+		if (!r)
+			this->gameManager->release();
+		this->closeGame();
+		return false;
+	}
+
+	return true;
+}
+
+void AppModel::closeGame() {
+	delete this->refresher;
+	this->refresher = nullptr;
+	delete this->game;
+	this->game = nullptr;
+
+	this->gameManager->get()->clear();
+	this->gameManager->release();
 }

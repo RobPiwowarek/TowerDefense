@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "MinionWaveManager.h"
+#include "MinionManager.h"
 
 #include "../threading/AppModel.h"
 #include "../threading/ResourceManager.h"
@@ -18,13 +19,19 @@ using namespace tower_defense;
 using namespace std;
 using namespace sf;
 
-#define POINT_OUT_OF_MAP throw exception("Exception: Given point is out of map");
+#define POINT_OUT_OF_MAP(x, y) throw exception((string("Exception: Given point is out of map: ") + to_string(x) + "," + to_string(y)).c_str());
 
 #define FAILED_TO_LOAD_GAME throw exception("Exception: Failed to load game");
 
 void GameManager::clear() {
 	this->mapTextures.clear();
-	//TODO
+
+	AppModel::getInstance().getMinionManager().get()->clear();
+	AppModel::getInstance().getMinionManager().release();
+	AppModel::getInstance().getMinionWaveManager().get()->clear();
+	AppModel::getInstance().getMinionWaveManager().release();
+	AppModel::getInstance().getTextures().get()->clear();
+	AppModel::getInstance().getTextures().release();
 }
 
 Game* GameManager::load(const string& path) {
@@ -59,7 +66,7 @@ Game* GameManager::load(const string& path) {
 
 const Texture& GameManager::getMapTexture(int x, int y) const {
 	if (x >= this->mapSize || y >= this->mapSize || x < 0 || y < 0)
-		POINT_OUT_OF_MAP
+		POINT_OUT_OF_MAP(x, y)
 
 	const Texture& toRet = AppModel::getInstance().getTextures().get()->get(this->mapTextures.find(make_pair(x, y))->second);
 	AppModel::getInstance().getTextures().release();

@@ -34,6 +34,14 @@ namespace tower_defense {
         /// sets xy
         void setPoint(const Point &p);
 
+		Point operator-(const Point &p) const;
+		Point operator+(const Point &p) const;
+		Point& operator+=(const Point &p);
+		Point& operator-=(const Point &p);
+		Point operator*(double i) const;
+		Point operator/(double i) const;
+		Point& operator*=(double i);
+		Point& operator/=(double i);
     private:
         double x;
         double y;

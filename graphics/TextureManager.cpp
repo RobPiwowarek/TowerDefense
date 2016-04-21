@@ -8,20 +8,25 @@
 #define TEXTURE_LOADING_FAILIURE(x) throw std::exception(("Exception: Failed to load texture:\n\t" + std::string(x)).c_str());
 #define TEXTURE_DOES_NOT_EXISIT throw std::exception("Exception: Failed to get a texture");
 
+#ifdef LOAD_TEST
 #include <iostream> 
 #include <bitset>
+#endif
 
 unsigned int graphics::TextureManager::add(const unsigned int flag, const unsigned int objId, const std::string& path) {
-	if (objId >> flagsShift)
-		OBJ_ID_OVERFLOW(objId >> flagsShift)
+	if (objId >> objIdShift)
+		OBJ_ID_OVERFLOW(objId)
 
-	const unsigned int id = (flag << flagsShift) | objId;
+	const unsigned int id = this->id(flag, objId);
 
 	if (this->textures.find(id) == this->textures.end()) {
 		sf::Texture* t = new sf::Texture();
-		if (t->loadFromFile(path))
-			(id & (BASE << flagsShift) ? this->baseTextures[id] : this->textures[id]) = t,
+		if (t->loadFromFile(path)) {
+			((id & BASE) ? this->baseTextures[id] : this->textures[id]) = t;
+#ifdef LOAD_TEST
 			std::cout << std::bitset<sizeof id * 8>(id) << std::endl;
+#endif
+		}
 		else {
 			delete t;
 			TEXTURE_LOADING_FAILIURE(path)
@@ -40,10 +45,10 @@ void graphics::TextureManager::clear() {
 }
 
 const sf::Texture& graphics::TextureManager::get(const unsigned int flag, const unsigned int objId) const {
-	if (objId << -flagsShift)
+	if (objId << -objIdShift)
 		OBJ_ID_OVERFLOW(objId)
 
-	return this->get(flag << this->flagsShift | objId);
+	return this->get(id(flag, objId));
 }
 
 const sf::Texture& graphics::TextureManager::get(const unsigned int id) const {
@@ -64,8 +69,12 @@ graphics::TextureManager::~TextureManager() {
 }
 
 graphics::TextureManager::TextureManager() {
-	if (sizeof(unsigned int) <= flagsShift)
+	if (sizeof(unsigned int) * 8 <= FLAGS)
 		UNSIGNED_INTEGER_TO_SMALL
 
-	this->flagsShift = sizeof(unsigned int) * 8 - FLAGS;
+	this->objIdShift = sizeof(unsigned int) * 8 - FLAGS;
+}
+
+unsigned int graphics::TextureManager::id(unsigned int flag, unsigned int objId) const {
+	return objId << objIdShift | flag;
 }

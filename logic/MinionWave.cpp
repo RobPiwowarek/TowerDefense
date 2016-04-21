@@ -6,10 +6,6 @@ tower_defense::MinionWave::MinionWave(const std::queue<Minion*>& minions, const 
 	this->timeToNext = this->timeBetweenMinions = timeBetweenMinions;
 }
 tower_defense::MinionWave::~MinionWave() {
-	while (!this->minions.empty()) {
-		delete this->minions.front();
-		this->minions.pop();
-	}
 }
 
 bool tower_defense::MinionWave::finished() const {
