@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-namespace tower_defense{
+namespace tower_defense {
     class Item;
 }
 

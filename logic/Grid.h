@@ -2,37 +2,39 @@
 #define GRID_H
 
 namespace tower_defense {
-	class Grid;
+    class Grid;
 }
+
 #include "GridElement.h"
 
 namespace tower_defense {
 
-	class Grid
-	{
+    class Grid {
 
-	public:
-		/// creates grid with given size
-		Grid(int x, int y, Map& m);
-		~Grid();
+    public:
+        /// creates grid with given size
+        Grid(int x, int y, Map &m);
 
-		/// returns grid's width
-		int getWidth() const;
-		/// returns grid's height
-		int getHeight() const;
+        ~Grid();
 
-		/// returns element
-		GridElement& getElement(const Point& p);
+        /// returns grid's width
+        int getWidth() const;
 
-		/// calculate distances
-		void calculateDistance();
+        /// returns grid's height
+        int getHeight() const;
 
-	private:
-		int height;
-		int width;
-		GridElement*** elements;
-        Map& map;
-	};
+        /// returns element
+        GridElement &getElement(const Point &p);
+
+        /// calculate distances
+        void calculateDistance();
+
+    private:
+        int height;
+        int width;
+        GridElement ***elements;
+        Map &map;
+    };
 }
 
 #endif

@@ -32,42 +32,40 @@
 #include <SFML/Graphics/RenderStates.hpp>
 
 
-namespace sf
-{
-class RenderTarget;
+namespace sf {
+    class RenderTarget;
 
 ////////////////////////////////////////////////////////////
 /// \brief Abstract base class for objects that can be drawn
 ///        to a render target
 ///
 ////////////////////////////////////////////////////////////
-class SFML_GRAPHICS_API Drawable
-{
-public:
+    class SFML_GRAPHICS_API Drawable {
+    public:
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Virtual destructor
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual ~Drawable() {}
+        ////////////////////////////////////////////////////////////
+        /// \brief Virtual destructor
+        ///
+        ////////////////////////////////////////////////////////////
+        virtual ~Drawable() { }
 
-protected:
+    protected:
 
-    friend class RenderTarget;
+        friend class RenderTarget;
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Draw the object to a render target
-    ///
-    /// This is a pure virtual function that has to be implemented
-    /// by the derived class to define how the drawable should be
-    /// drawn.
-    ///
-    /// \param target Render target to draw to
-    /// \param states Current render states
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual void draw(RenderTarget& target, RenderStates states) const = 0;
-};
+        ////////////////////////////////////////////////////////////
+        /// \brief Draw the object to a render target
+        ///
+        /// This is a pure virtual function that has to be implemented
+        /// by the derived class to define how the drawable should be
+        /// drawn.
+        ///
+        /// \param target Render target to draw to
+        /// \param states Current render states
+        ///
+        ////////////////////////////////////////////////////////////
+        virtual void draw(RenderTarget &target, RenderStates states) const = 0;
+    };
 
 } // namespace sf
 

@@ -26,57 +26,54 @@
 #define SFML_CONTEXTSETTINGS_HPP
 
 
-namespace sf
-{
+namespace sf {
 ////////////////////////////////////////////////////////////
 /// \brief Structure defining the settings of the OpenGL
 ///        context attached to a window
 ///
 ////////////////////////////////////////////////////////////
-struct ContextSettings
-{
-    ////////////////////////////////////////////////////////////
-    /// \brief Enumeration of the context attribute flags
-    ///
-    ////////////////////////////////////////////////////////////
-    enum Attribute
-    {
-        Default = 0,      ///< Non-debug, compatibility context (this and the core attribute are mutually exclusive)
-        Core    = 1 << 0, ///< Core attribute
-        Debug   = 1 << 2  ///< Debug attribute
+    struct ContextSettings {
+        ////////////////////////////////////////////////////////////
+        /// \brief Enumeration of the context attribute flags
+        ///
+        ////////////////////////////////////////////////////////////
+        enum Attribute {
+            Default = 0,      ///< Non-debug, compatibility context (this and the core attribute are mutually exclusive)
+            Core = 1 << 0, ///< Core attribute
+            Debug = 1 << 2  ///< Debug attribute
+        };
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        /// \param depth        Depth buffer bits
+        /// \param stencil      Stencil buffer bits
+        /// \param antialiasing Antialiasing level
+        /// \param major        Major number of the context version
+        /// \param minor        Minor number of the context version
+        /// \param attributes   Attribute flags of the context
+        ///
+        ////////////////////////////////////////////////////////////
+        explicit ContextSettings(unsigned int depth = 0, unsigned int stencil = 0, unsigned int antialiasing = 0,
+                                 unsigned int major = 1, unsigned int minor = 1, unsigned int attributes = Default) :
+                depthBits(depth),
+                stencilBits(stencil),
+                antialiasingLevel(antialiasing),
+                majorVersion(major),
+                minorVersion(minor),
+                attributeFlags(attributes) {
+        }
+
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        unsigned int depthBits;         ///< Bits of the depth buffer
+        unsigned int stencilBits;       ///< Bits of the stencil buffer
+        unsigned int antialiasingLevel; ///< Level of antialiasing
+        unsigned int majorVersion;      ///< Major number of the context version to create
+        unsigned int minorVersion;      ///< Minor number of the context version to create
+        Uint32 attributeFlags;    ///< The attribute flags to create the context with
     };
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Default constructor
-    ///
-    /// \param depth        Depth buffer bits
-    /// \param stencil      Stencil buffer bits
-    /// \param antialiasing Antialiasing level
-    /// \param major        Major number of the context version
-    /// \param minor        Minor number of the context version
-    /// \param attributes   Attribute flags of the context
-    ///
-    ////////////////////////////////////////////////////////////
-    explicit ContextSettings(unsigned int depth = 0, unsigned int stencil = 0, unsigned int antialiasing = 0, unsigned int major = 1, unsigned int minor = 1, unsigned int attributes = Default) :
-    depthBits        (depth),
-    stencilBits      (stencil),
-    antialiasingLevel(antialiasing),
-    majorVersion     (major),
-    minorVersion     (minor),
-    attributeFlags   (attributes)
-    {
-    }
-
-    ////////////////////////////////////////////////////////////
-    // Member data
-    ////////////////////////////////////////////////////////////
-    unsigned int depthBits;         ///< Bits of the depth buffer
-    unsigned int stencilBits;       ///< Bits of the stencil buffer
-    unsigned int antialiasingLevel; ///< Level of antialiasing
-    unsigned int majorVersion;      ///< Major number of the context version to create
-    unsigned int minorVersion;      ///< Minor number of the context version to create
-    Uint32       attributeFlags;    ///< The attribute flags to create the context with
-};
 
 } // namespace sf
 

@@ -4,34 +4,36 @@
 #include <queue>
 
 namespace tower_defense {
-	class MinionWave;
+    class MinionWave;
 }
 
 #include "Minion.h"
 
 namespace tower_defense {
-	/// class for wave of minions
-	class MinionWave {
-	public:
-		/// creates new wave with given time between minion spawns
-		/// minion objects must be allocated with new keyword
-		MinionWave(const std::queue<Minion*>& minions, const int timeBetweenMinions);
-		//TODO copying constructor
-		~MinionWave();
+    /// class for wave of minions
+    class MinionWave {
+    public:
+        /// creates new wave with given time between minion spawns
+        /// minion objects must be allocated with new keyword
+        MinionWave(const std::queue<Minion *> &minions, const int timeBetweenMinions);
 
-		/// returns if the last minion was already returned
-		bool finished() const;
+        //TODO copying constructor
+        ~MinionWave();
 
-		/// refreshes wave
-		/// returns pointer to minion that is to be spawned
-		/// or nullptr if none
-		/// minion must be deleted after their no longer used
-		Minion* refresh();
-	private:
-		std::queue<Minion*> minions;
-		int timeToNext;
-		int timeBetweenMinions;
-	};
+        /// returns if the last minion was already returned
+        bool finished() const;
+
+        /// refreshes wave
+        /// returns pointer to minion that is to be spawned
+        /// or nullptr if none
+        /// minion must be deleted after their no longer used
+        Minion *refresh();
+
+    private:
+        std::queue<Minion *> minions;
+        int timeToNext;
+        int timeBetweenMinions;
+    };
 }
 
 #endif

@@ -2,75 +2,75 @@
 #define MINION_H
 
 namespace tower_defense {
-	class Minion;
+    class Minion;
 }
+
 #include "Entity.h"
 #include "Grid.h"
 #include "../threading/AppModel.h"
 #include "../logic/Game.h"
 #include "Game.h"
 
-namespace tower_defense
-{
-	/// class for minion objects
-	class Minion : public Entity
-	{
-	public:
-		enum TargetPriority {
-			Turret,
-			Item,
-			Closer
-		};
+namespace tower_defense {
+    /// class for minion objects
+    class Minion : public Entity {
+    public:
+        enum TargetPriority {
+            Turret,
+            Item,
+            Closer
+        };
 
-		/// creates a minion prototype with given values
-		Minion(const double velocity, const double size, const int minionClass, const int reward,
-			const int health, const int damage, const TargetPriority priority);
-		/// creates a minion using given
-		/// that will follow given Path
-		Minion(const Minion& base, const Point& x0);
+        /// creates a minion prototype with given values
+        Minion(const double velocity, const double size, const int minionClass, const int reward,
+               const int health, const int damage, const TargetPriority priority);
 
-		/// kills the minion
-		void death(Game &game);
+        /// creates a minion using given
+        /// that will follow given Path
+        Minion(const Minion &base, const Point &x0);
 
-		/// returns reward gained for destroying this minion
-		int getReward() const;
+        /// kills the minion
+        void death(Game &game);
 
-		/// returns current minion's health
-		int getHealth() const;
+        /// returns reward gained for destroying this minion
+        int getReward() const;
 
-		/// sets minion health
-		void setHealth(int value);
-		
-		/// returns damage dealt by minion attack
-		int getDamage() const;
+        /// returns current minion's health
+        int getHealth() const;
 
-		/// returns velocity of a minion
-		double getVelocity() const;
+        /// sets minion health
+        void setHealth(int value);
+
+        /// returns damage dealt by minion attack
+        int getDamage() const;
+
+        /// returns velocity of a minion
+        double getVelocity() const;
 
         /// checks if minion is alive
         bool isDead() const;
 
-		/// refreshes minion
-		void refresh(Grid& g, Game& game);
+        /// refreshes minion
+        void refresh(Grid &g, Game &game);
 
-		/// chooses next destination
-		void chooseDestination(Grid& g, Game &game);
+        /// chooses next destination
+        void chooseDestination(Grid &g, Game &game);
 
-	private:
-		int health;
-		int reward;
-		int damage;
+    private:
+        int health;
+        int reward;
+        int damage;
 
         int attackSpeed;
-		int attackRefreshing;
-		double velocity;
+        int attackRefreshing;
+        double velocity;
 
         bool dead = false;
 
-		GridElement* next;
+        GridElement *next;
 
-		TargetPriority target;
-	};
+        TargetPriority target;
+    };
 }
 
 #endif

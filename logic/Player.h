@@ -3,8 +3,7 @@
 
 namespace tower_defense {
     /// class that represents the player
-    class Player 
-	{
+    class Player {
     public:
         /// creates a player with given health and money
         Player(const int money);

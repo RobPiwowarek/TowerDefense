@@ -32,55 +32,53 @@
 #include <SFML/System/Vector2.hpp>
 
 
-namespace sf
-{
-class Window;
+namespace sf {
+    class Window;
 
 ////////////////////////////////////////////////////////////
 /// \brief Give access to the real-time state of the touches
 ///
 ////////////////////////////////////////////////////////////
-class SFML_WINDOW_API Touch
-{
-public:
+    class SFML_WINDOW_API Touch {
+    public:
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Check if a touch event is currently down
-    ///
-    /// \param finger Finger index
-    ///
-    /// \return True if \a finger is currently touching the screen, false otherwise
-    ///
-    ////////////////////////////////////////////////////////////
-    static bool isDown(unsigned int finger);
+        ////////////////////////////////////////////////////////////
+        /// \brief Check if a touch event is currently down
+        ///
+        /// \param finger Finger index
+        ///
+        /// \return True if \a finger is currently touching the screen, false otherwise
+        ///
+        ////////////////////////////////////////////////////////////
+        static bool isDown(unsigned int finger);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the current position of a touch in desktop coordinates
-    ///
-    /// This function returns the current touch position
-    /// in global (desktop) coordinates.
-    ///
-    /// \param finger Finger index
-    ///
-    /// \return Current position of \a finger, or undefined if it's not down
-    ///
-    ////////////////////////////////////////////////////////////
-    static Vector2i getPosition(unsigned int finger);
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the current position of a touch in desktop coordinates
+        ///
+        /// This function returns the current touch position
+        /// in global (desktop) coordinates.
+        ///
+        /// \param finger Finger index
+        ///
+        /// \return Current position of \a finger, or undefined if it's not down
+        ///
+        ////////////////////////////////////////////////////////////
+        static Vector2i getPosition(unsigned int finger);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the current position of a touch in window coordinates
-    ///
-    /// This function returns the current touch position
-    /// in global (desktop) coordinates.
-    ///
-    /// \param finger Finger index
-    /// \param relativeTo Reference window
-    ///
-    /// \return Current position of \a finger, or undefined if it's not down
-    ///
-    ////////////////////////////////////////////////////////////
-    static Vector2i getPosition(unsigned int finger, const Window& relativeTo);
-};
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the current position of a touch in window coordinates
+        ///
+        /// This function returns the current touch position
+        /// in global (desktop) coordinates.
+        ///
+        /// \param finger Finger index
+        /// \param relativeTo Reference window
+        ///
+        /// \return Current position of \a finger, or undefined if it's not down
+        ///
+        ////////////////////////////////////////////////////////////
+        static Vector2i getPosition(unsigned int finger, const Window &relativeTo);
+    };
 
 } // namespace sf
 
