@@ -37,142 +37,140 @@
 #include <vector>
 
 
-namespace sf
-{
-class InputStream;
+namespace sf {
+    class InputStream;
 
 ////////////////////////////////////////////////////////////
 /// \brief Streamed music played from an audio file
 ///
 ////////////////////////////////////////////////////////////
-class SFML_AUDIO_API Music : public SoundStream
-{
-public:
+    class SFML_AUDIO_API Music : public SoundStream {
+    public:
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Default constructor
-    ///
-    ////////////////////////////////////////////////////////////
-    Music();
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        ////////////////////////////////////////////////////////////
+        Music();
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Destructor
-    ///
-    ////////////////////////////////////////////////////////////
-    ~Music();
+        ////////////////////////////////////////////////////////////
+        /// \brief Destructor
+        ///
+        ////////////////////////////////////////////////////////////
+        ~Music();
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Open a music from an audio file
-    ///
-    /// This function doesn't start playing the music (call play()
-    /// to do so).
-    /// See the documentation of sf::InputSoundFile for the list
-    /// of supported formats.
-    ///
-    /// \warning Since the music is not loaded at once but rather
-    /// streamed continuously, the file must remain accessible until
-    /// the sf::Music object loads a new music or is destroyed.
-    ///
-    /// \param filename Path of the music file to open
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see openFromMemory, openFromStream
-    ///
-    ////////////////////////////////////////////////////////////
-    bool openFromFile(const std::string& filename);
+        ////////////////////////////////////////////////////////////
+        /// \brief Open a music from an audio file
+        ///
+        /// This function doesn't start playing the music (call play()
+        /// to do so).
+        /// See the documentation of sf::InputSoundFile for the list
+        /// of supported formats.
+        ///
+        /// \warning Since the music is not loaded at once but rather
+        /// streamed continuously, the file must remain accessible until
+        /// the sf::Music object loads a new music or is destroyed.
+        ///
+        /// \param filename Path of the music file to open
+        ///
+        /// \return True if loading succeeded, false if it failed
+        ///
+        /// \see openFromMemory, openFromStream
+        ///
+        ////////////////////////////////////////////////////////////
+        bool openFromFile(const std::string &filename);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Open a music from an audio file in memory
-    ///
-    /// This function doesn't start playing the music (call play()
-    /// to do so).
-    /// See the documentation of sf::InputSoundFile for the list
-    /// of supported formats.
-    ///
-    /// \warning Since the music is not loaded at once but rather streamed
-    /// continuously, the \a data buffer must remain accessible until
-    /// the sf::Music object loads a new music or is destroyed. That is,
-    /// you can't deallocate the buffer right after calling this function.
-    ///
-    /// \param data        Pointer to the file data in memory
-    /// \param sizeInBytes Size of the data to load, in bytes
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see openFromFile, openFromStream
-    ///
-    ////////////////////////////////////////////////////////////
-    bool openFromMemory(const void* data, std::size_t sizeInBytes);
+        ////////////////////////////////////////////////////////////
+        /// \brief Open a music from an audio file in memory
+        ///
+        /// This function doesn't start playing the music (call play()
+        /// to do so).
+        /// See the documentation of sf::InputSoundFile for the list
+        /// of supported formats.
+        ///
+        /// \warning Since the music is not loaded at once but rather streamed
+        /// continuously, the \a data buffer must remain accessible until
+        /// the sf::Music object loads a new music or is destroyed. That is,
+        /// you can't deallocate the buffer right after calling this function.
+        ///
+        /// \param data        Pointer to the file data in memory
+        /// \param sizeInBytes Size of the data to load, in bytes
+        ///
+        /// \return True if loading succeeded, false if it failed
+        ///
+        /// \see openFromFile, openFromStream
+        ///
+        ////////////////////////////////////////////////////////////
+        bool openFromMemory(const void *data, std::size_t sizeInBytes);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Open a music from an audio file in a custom stream
-    ///
-    /// This function doesn't start playing the music (call play()
-    /// to do so).
-    /// See the documentation of sf::InputSoundFile for the list
-    /// of supported formats.
-    ///
-    /// \warning Since the music is not loaded at once but rather
-    /// streamed continuously, the \a stream must remain accessible
-    /// until the sf::Music object loads a new music or is destroyed.
-    ///
-    /// \param stream Source stream to read from
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see openFromFile, openFromMemory
-    ///
-    ////////////////////////////////////////////////////////////
-    bool openFromStream(InputStream& stream);
+        ////////////////////////////////////////////////////////////
+        /// \brief Open a music from an audio file in a custom stream
+        ///
+        /// This function doesn't start playing the music (call play()
+        /// to do so).
+        /// See the documentation of sf::InputSoundFile for the list
+        /// of supported formats.
+        ///
+        /// \warning Since the music is not loaded at once but rather
+        /// streamed continuously, the \a stream must remain accessible
+        /// until the sf::Music object loads a new music or is destroyed.
+        ///
+        /// \param stream Source stream to read from
+        ///
+        /// \return True if loading succeeded, false if it failed
+        ///
+        /// \see openFromFile, openFromMemory
+        ///
+        ////////////////////////////////////////////////////////////
+        bool openFromStream(InputStream &stream);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the total duration of the music
-    ///
-    /// \return Music duration
-    ///
-    ////////////////////////////////////////////////////////////
-    Time getDuration() const;
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the total duration of the music
+        ///
+        /// \return Music duration
+        ///
+        ////////////////////////////////////////////////////////////
+        Time getDuration() const;
 
-protected:
+    protected:
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Request a new chunk of audio samples from the stream source
-    ///
-    /// This function fills the chunk from the next samples
-    /// to read from the audio file.
-    ///
-    /// \param data Chunk of data to fill
-    ///
-    /// \return True to continue playback, false to stop
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual bool onGetData(Chunk& data);
+        ////////////////////////////////////////////////////////////
+        /// \brief Request a new chunk of audio samples from the stream source
+        ///
+        /// This function fills the chunk from the next samples
+        /// to read from the audio file.
+        ///
+        /// \param data Chunk of data to fill
+        ///
+        /// \return True to continue playback, false to stop
+        ///
+        ////////////////////////////////////////////////////////////
+        virtual bool onGetData(Chunk &data);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Change the current playing position in the stream source
-    ///
-    /// \param timeOffset New playing position, from the beginning of the music
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual void onSeek(Time timeOffset);
+        ////////////////////////////////////////////////////////////
+        /// \brief Change the current playing position in the stream source
+        ///
+        /// \param timeOffset New playing position, from the beginning of the music
+        ///
+        ////////////////////////////////////////////////////////////
+        virtual void onSeek(Time timeOffset);
 
-private:
+    private:
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Initialize the internal state after loading a new music
-    ///
-    ////////////////////////////////////////////////////////////
-    void initialize();
+        ////////////////////////////////////////////////////////////
+        /// \brief Initialize the internal state after loading a new music
+        ///
+        ////////////////////////////////////////////////////////////
+        void initialize();
 
-    ////////////////////////////////////////////////////////////
-    // Member data
-    ////////////////////////////////////////////////////////////
-    InputSoundFile     m_file;     ///< The streamed music file
-    Time               m_duration; ///< Music duration
-    std::vector<Int16> m_samples;  ///< Temporary buffer of samples
-    Mutex              m_mutex;    ///< Mutex protecting the data
-};
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        InputSoundFile m_file;     ///< The streamed music file
+        Time m_duration; ///< Music duration
+        std::vector<Int16> m_samples;  ///< Temporary buffer of samples
+        Mutex m_mutex;    ///< Mutex protecting the data
+    };
 
 } // namespace sf
 

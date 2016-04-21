@@ -5,18 +5,22 @@
 
 #define MAX_NUMBER_OF_ITEMS 3
 
-namespace tower_defense{
+namespace tower_defense {
     class Menu;
 }
 
 class Menu {
 public:
     Menu(float width, float height);
+
     ~Menu();
 
     void draw(sf::RenderWindow &window);
+
     void moveUp();
+
     void moveDown();
+
     int getPressedItem();
 
 private:

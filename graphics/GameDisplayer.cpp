@@ -28,13 +28,10 @@ int GameDisplayer::getPointsPerUnit() const {
 	return this->pointsPerUnit;
 }
 
-#include <iostream>
-
 void GameDisplayer::moveScreen(const Point& dp) {
 	this->curPosition += dp;
 
-
-	//checkCurPosition();
+	checkCurPosition();
 }
 
 void GameDisplayer::setScreenPos(const tower_defense::Point& p) {

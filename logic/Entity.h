@@ -2,7 +2,7 @@
 #define ENTITY_H
 
 namespace tower_defense {
-	class Entity;
+    class Entity;
 }
 
 #include "Point.h"
@@ -11,8 +11,7 @@ namespace tower_defense {
 namespace tower_defense {
     /// class for basic entity,
     /// base for any game object
-    class Entity 
-	{
+    class Entity {
     public:
         /// creates a new instance of Entity object,
         /// with given values

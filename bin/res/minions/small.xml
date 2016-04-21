@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0"?>
 
 <minion>
- <img>small.png</img>
- <size>0.1</size>
- <velocity>0.05</velocity>
- <damage>1</damage>
- <reward>5</reward>
- <attackSpeed>10</attackSpeed>
- <health>2</health>
- <priority>Item</priority>
+    <img>small.png</img>
+    <size>0.1</size>
+    <velocity>0.05</velocity>
+    <damage>1</damage>
+    <reward>5</reward>
+    <attackSpeed>10</attackSpeed>
+    <health>2</health>
+    <priority>Item</priority>
 </minion>

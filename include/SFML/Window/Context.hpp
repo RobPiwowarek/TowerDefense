@@ -34,80 +34,77 @@
 #include <SFML/System/NonCopyable.hpp>
 
 
-namespace sf
-{
-namespace priv
-{
-    class GlContext;
-}
+namespace sf {
+    namespace priv {
+        class GlContext;
+    }
 
-typedef void (*GlFunctionPointer)();
+    typedef void (*GlFunctionPointer)();
 
 ////////////////////////////////////////////////////////////
 /// \brief Class holding a valid drawing context
 ///
 ////////////////////////////////////////////////////////////
-class SFML_WINDOW_API Context : GlResource, NonCopyable
-{
-public:
+    class SFML_WINDOW_API Context : GlResource, NonCopyable {
+    public:
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Default constructor
-    ///
-    /// The constructor creates and activates the context
-    ///
-    ////////////////////////////////////////////////////////////
-    Context();
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        /// The constructor creates and activates the context
+        ///
+        ////////////////////////////////////////////////////////////
+        Context();
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Destructor
-    ///
-    /// The destructor deactivates and destroys the context
-    ///
-    ////////////////////////////////////////////////////////////
-    ~Context();
+        ////////////////////////////////////////////////////////////
+        /// \brief Destructor
+        ///
+        /// The destructor deactivates and destroys the context
+        ///
+        ////////////////////////////////////////////////////////////
+        ~Context();
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Activate or deactivate explicitly the context
-    ///
-    /// \param active True to activate, false to deactivate
-    ///
-    /// \return True on success, false on failure
-    ///
-    ////////////////////////////////////////////////////////////
-    bool setActive(bool active);
+        ////////////////////////////////////////////////////////////
+        /// \brief Activate or deactivate explicitly the context
+        ///
+        /// \param active True to activate, false to deactivate
+        ///
+        /// \return True on success, false on failure
+        ///
+        ////////////////////////////////////////////////////////////
+        bool setActive(bool active);
 
-public:
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the address of an OpenGL function
-    ///
-    /// \param name Name of the function to get the address of
-    ///
-    /// \return Address of the OpenGL function, 0 on failure
-    ///
-    ////////////////////////////////////////////////////////////
-    static GlFunctionPointer getFunction(const char* name);
+    public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Get the address of an OpenGL function
+        ///
+        /// \param name Name of the function to get the address of
+        ///
+        /// \return Address of the OpenGL function, 0 on failure
+        ///
+        ////////////////////////////////////////////////////////////
+        static GlFunctionPointer getFunction(const char *name);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Construct a in-memory context
-    ///
-    /// This constructor is for internal use, you don't need
-    /// to bother with it.
-    ///
-    /// \param settings Creation parameters
-    /// \param width    Back buffer width
-    /// \param height   Back buffer height
-    ///
-    ////////////////////////////////////////////////////////////
-    Context(const ContextSettings& settings, unsigned int width, unsigned int height);
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct a in-memory context
+        ///
+        /// This constructor is for internal use, you don't need
+        /// to bother with it.
+        ///
+        /// \param settings Creation parameters
+        /// \param width    Back buffer width
+        /// \param height   Back buffer height
+        ///
+        ////////////////////////////////////////////////////////////
+        Context(const ContextSettings &settings, unsigned int width, unsigned int height);
 
-private:
+    private:
 
-    ////////////////////////////////////////////////////////////
-    // Member data
-    ////////////////////////////////////////////////////////////
-    priv::GlContext* m_context; ///< Internal OpenGL context
-};
+        ////////////////////////////////////////////////////////////
+        // Member data
+        ////////////////////////////////////////////////////////////
+        priv::GlContext *m_context; ///< Internal OpenGL context
+    };
 
 } // namespace sf
 

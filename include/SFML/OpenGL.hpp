@@ -38,35 +38,37 @@
 ////////////////////////////////////////////////////////////
 #if defined(SFML_SYSTEM_WINDOWS)
 
-    // The Visual C++ version of gl.h uses WINGDIAPI and APIENTRY but doesn't define them
-    #ifdef _MSC_VER
-        #include <windows.h>
-    #endif
+// The Visual C++ version of gl.h uses WINGDIAPI and APIENTRY but doesn't define them
+#ifdef _MSC_VER
+#include <windows.h>
+#endif
 
-    #include <GL/gl.h>
+#include <GL/gl.h>
 
 #elif defined(SFML_SYSTEM_LINUX) || defined(SFML_SYSTEM_FREEBSD)
 
-    #if defined(SFML_OPENGL_ES)
-        #include <GLES/gl.h>
-        #include <GLES/glext.h>
-    #else
-        #include <GL/gl.h>
-    #endif
+#if defined(SFML_OPENGL_ES)
+#include <GLES/gl.h>
+#include <GLES/glext.h>
+#else
+
+#include <GL/gl.h>
+
+#endif
 
 #elif defined(SFML_SYSTEM_MACOS)
 
-    #include <OpenGL/gl.h>
+#include <OpenGL/gl.h>
 
 #elif defined (SFML_SYSTEM_IOS)
 
-    #include <OpenGLES/ES1/gl.h>
-    #include <OpenGLES/ES1/glext.h>
+#include <OpenGLES/ES1/gl.h>
+#include <OpenGLES/ES1/glext.h>
 
 #elif defined (SFML_SYSTEM_ANDROID)
 
-    #include <GLES/gl.h>
-    #include <GLES/glext.h>
+#include <GLES/gl.h>
+#include <GLES/glext.h>
 
 #endif
 

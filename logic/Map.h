@@ -4,7 +4,7 @@
 #include <set>
 
 namespace tower_defense {
-	class Map;
+    class Map;
 }
 
 #include "Point.h"
@@ -13,39 +13,59 @@ namespace tower_defense {
 #include "Minion.h"
 #include "WeaponFire.h"
 #include "Player.h"
+#include "Game.h"
+#include "Item.h"
 
 namespace tower_defense {
-	class Map {
-	public:
-		/// creates a new map with given size
-		Map(const int width, const int height);
-		~Map();
-		/// returns map's width
-		double getWidth() const;
-		/// returns map's height
-		double getHeight() const;
+    class Map {
+    public:
+        /// creates a new map with given size
+        Map(const int width, const int height, Game &g);
 
-		/// adds a minion to map
-		void addMinion(Minion* m);
-		/// adds a turret to map
-		void addTurret(Turret* t, Point p);
+        ~Map();
 
-		/// returns set of minions
-		std::set<Minion*>& getMinions();
-		/// returns set of turrets
-		std::set<Turret*>& getTurrets();
-		/// returns set of weaponfires
-		std::set<WeaponFire*>& getWeaponFires();
+        /// returns map's width
+        double getWidth() const;
 
-		/// refreshes all elements contained by the map
-		void refresh(Player& p);
+        /// returns map's height
+        double getHeight() const;
 
-	private:
-		Grid* grid;
-		std::set<Minion*> minions;
-		std::set<WeaponFire*> weaponFires;
-		std::set<Turret*> turrets;
-	};
+        /// adds a minion to map
+        void addMinion(Minion *m);
+
+        /// adds a turret to map
+        void addTurret(Turret *t, Point p);
+
+        /// adds an item to map
+        void addItem(Item *i);
+
+
+        /// returns set of minions
+        std::set<Minion *> &getMinions();
+
+        /// returns set of turrets
+        std::set<Turret *> &getTurrets();
+
+        /// returns set of weaponfires
+        std::set<WeaponFire *> &getWeaponFires();
+
+        // returns set of items
+        std::set<Item *> &getItems();
+
+        /// returns grid
+        Grid &getGrid() const;
+
+        /// refreshes all elements contained by the map
+        void refresh(Player &p, Game &game);
+
+    private:
+        Grid *grid;
+        Game &game;
+        std::set<Minion *> minions;
+        std::set<WeaponFire *> weaponFires;
+        std::set<Turret *> turrets;
+        std::set<Item *> items;
+    };
 }
 
 #endif

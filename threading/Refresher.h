@@ -7,36 +7,38 @@
 
 class Refresher {
 public:
-	/// creates a new instance of refresher that will
-	/// refresh the game's engine
-	Refresher();
-	~Refresher();
+    /// creates a new instance of refresher that will
+    /// refresh the game's engine
+    Refresher();
 
-	/// starts refresher if is not going, else does nothing
-	void start();
+    ~Refresher();
 
-	/// stops refresher if is going, else does nothing
-	void stop();
+    /// starts refresher if is not going, else does nothing
+    void start();
 
-	/// returns time between refreshes in miliseconds
-	int getInterval() const;
+    /// stops refresher if is going, else does nothing
+    void stop();
 
-	/// sets time between refreshes in miliseconds
-	void setInterval(int interval);
+    /// returns time between refreshes in miliseconds
+    int getInterval() const;
 
-	/// returns if the refresher has been started
-	bool isGoing() const;
+    /// sets time between refreshes in miliseconds
+    void setInterval(int interval);
+
+    /// returns if the refresher has been started
+    bool isGoing() const;
+
 private:
-	std::mutex startStopMutex;
+    std::mutex startStopMutex;
 
-	std::mutex goingMutex;
-	bool going;
-	std::mutex intervalMutex;
-	int interval;
+    std::mutex goingMutex;
+    bool going;
+    std::mutex intervalMutex;
+    int interval;
 
-	std::thread* thread;
+    std::thread *thread;
 
-	void refresh();
+    void refresh();
 
 };
 

@@ -8,15 +8,17 @@ class Refresher;
 
 
 namespace tower_defense {
-	class Game;
+    class Game;
 }
 namespace graphics {
-	class TextureManager;
+    class TextureManager;
 }
 namespace data {
-	class MinionManager;
-	class MinionWaveManager;
-	class GameManager;
+    class MinionManager;
+
+    class MinionWaveManager;
+
+    class GameManager;
 }
 
 /*
@@ -51,18 +53,18 @@ public:
 	~AppModel();
 private:
 
-	ResourceManager<tower_defense::Game>* game;
-	ResourceManager<Refresher>* refresher;
-	ResourceManager<graphics::TextureManager>* textureManager;
-	ResourceManager<data::MinionManager>* minionManager;
-	ResourceManager<data::GameManager>* gameManager;
-	ResourceManager<data::MinionWaveManager>* minionWaveManager;
+    ResourceManager<tower_defense::Game> *game;
+    ResourceManager<Refresher> *refresher;
+    ResourceManager<graphics::TextureManager> *textureManager;
+    ResourceManager<data::MinionManager> *minionManager;
+    ResourceManager<data::GameManager> *gameManager;
+    ResourceManager<data::MinionWaveManager> *minionWaveManager;
 
-	AppModel();
+    AppModel();
 
-	AppModel& operator=(const AppModel& a) {
+    AppModel &operator=(const AppModel &a) {
 
-	}
+    }
 };
 
 #endif

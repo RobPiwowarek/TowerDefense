@@ -4,7 +4,7 @@
 #include <queue>
 
 namespace tower_defense {
-	class MinionWave;
+    class MinionWave;
 }
 
 #include "Minion.h"

@@ -31,12 +31,11 @@
 #include <SFML/Config.hpp>
 
 #if defined(SFML_SYSTEM_WINDOWS)
-    #include <basetsd.h>
+#include <basetsd.h>
 #endif
 
 
-namespace sf
-{
+namespace sf {
 ////////////////////////////////////////////////////////////
 // Define the low-level socket handle type, specific to
 // each platform
