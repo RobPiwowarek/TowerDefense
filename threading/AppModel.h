@@ -15,7 +15,6 @@ namespace graphics {
 }
 namespace data {
 	class MinionManager;
-	class MinionWaveManager;
 	class GameManager;
 }
 
@@ -36,8 +35,6 @@ public:
 	ResourceManager<graphics::TextureManager>& getTextures();
 	//returns the minion manager
 	ResourceManager<data::MinionManager>& getMinionManager();
-	//returns the minion wave manager
-	ResourceManager<data::MinionWaveManager>& getMinionWaveManager();
 	//returns the game manager
 	ResourceManager<data::GameManager>& getGameManager();
 
@@ -55,7 +52,6 @@ private:
 	ResourceManager<graphics::TextureManager>* textureManager;
 	ResourceManager<data::MinionManager>* minionManager;
 	ResourceManager<data::GameManager>* gameManager;
-	ResourceManager<data::MinionWaveManager>* minionWaveManager;
 
 	AppModel();
 

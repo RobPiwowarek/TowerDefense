@@ -5,19 +5,19 @@ namespace data {
 	class MinionWaveManager;
 }
 
-#include <vector>
+#include <vector>;
 #include "../logic/MinionWave.h"
 
 namespace data {
 	class MinionWaveManager {
 	public:
-		const std::string WAVE_LOCATION = "waves\\";
+		const std::string WAVE_LOCATION = "waves/";
 
 		// clears the manager
 		void clear();
 
-		// loads waves from (directory)(WAVE_LOCATION)*.xml
-		void load(const std::string& directory, const std::vector<std::string>& waves);
+		// loads waves from (GAME_FILE_LOCATION)(WAVE_LOCATION)
+		void load(std::vector<std::string> waves);
 
 		// returns minionwave with given index
 		const tower_defense::MinionWave& get(int i) const;
@@ -26,10 +26,6 @@ namespace data {
 		const int count() const;
 	private:
 		std::vector<tower_defense::MinionWave*> waves;
-
-		tower_defense::MinionWave* loadWave(const std::string& directory, const std::string& path);
-
-		~MinionWaveManager();
 	};
 }
 
