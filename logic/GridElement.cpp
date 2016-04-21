@@ -1,6 +1,6 @@
 #include "GridElement.h"
 
-tower_defense::GridElement::GridElement(const Point& location) {
+tower_defense::GridElement::GridElement(const Point& location, Grid& g): grid(g) {
 	this->location = location;
 
 	this->distToTarget = 0;
@@ -15,8 +15,53 @@ bool tower_defense::GridElement::setTurret(Turret* t) {
 	if (this->minions != nullptr || this->turret != nullptr)
 		return false;
 
+    this->occupied = true;
 	this->turret = t;
 	return true;
+}
+
+tower_defense::GridElement& tower_defense::GridElement::getUpNeighbour() const {
+    int y = this->location.getY()-1;
+
+    GridElement& temp = grid.getElement(new Point(this->x, y));
+
+    if (temp == nullptr) return nullptr;
+
+    return temp;
+}
+
+tower_defense::GridElement& tower_defense::GridElement::getDownNeighbour() const {
+    int y = this->location.getY()+1;
+
+    GridElement& temp = grid.getElement(new Point(this->x, y));
+
+    if (temp == nullptr) return nullptr;
+
+    return temp;
+}
+
+tower_defense::GridElement& tower_defense::GridElement::getLeftNeighbour() const {
+    int x = this->location.getY()-1;
+
+    GridElement& temp = grid.getElement(new Point(x, this->y));
+
+    if (temp == nullptr) return nullptr;
+
+    return temp;
+}
+
+tower_defense::GridElement& tower_defense::GridElement::getRightNeighbour() const {
+    int x = this->location.getY()+1;
+
+    GridElement& temp = grid.getElement(new Point(x, this->y));
+
+    if (temp == nullptr) return nullptr;
+
+    return temp;
+}
+
+bool tower_defense::GridElement::hasTurret() const {
+    return occupied;
 }
 
 int tower_defense::GridElement::getDistToTarget() const {
