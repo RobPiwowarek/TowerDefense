@@ -23,12 +23,15 @@ namespace data {
 
 		~GameManager();
 	private:
+		const std::string MAP_TEXTURES_LOCATION = "map\\";
+
 		tower_defense::Map* loadMap(const std::string& directory, const pugi::xml_node& map);
 		tower_defense::Player* loadPlayer(const std::string& directory, const pugi::xml_node& player);
+		void loadWaves(const std::string& directory, const pugi::xml_node& waves);
 
 		int mapSize;
 		int playerAreaSize;
-		std::map<std::pair<int, int>, std::string> mapTextures;
+		std::map<std::pair<int, int>, unsigned int> mapTextures;
 	};
 }
 

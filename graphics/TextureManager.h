@@ -9,20 +9,34 @@
 
 namespace graphics {
 	class TextureManager {
+	private:
+		static const unsigned int FLAGS = 6;
 	public:
+		static const unsigned int WEAPON_FIRE = 1 << 5;
+		static const unsigned int ITEM = 1 << 4;
+		static const unsigned int MAP = 1 << 3;
+		static const unsigned int TURRET = 1 << 2;
+		static const unsigned int MINION = 1 << 1;
+		static const unsigned int MENU = 1;
+
+		const unsigned int BASE = MENU;
+
 		// adds texture from image file to the manager
-		void add(const std::string& name, const std::string& path);
-		// adds texture from image file to the manager
-		void add_base(const std::string& name, const std::string& path);
+		unsigned int add(const unsigned int flag, const unsigned int objId, const std::string& path);
 		// removes all textures from manager except base
 		void clear();
 		// returns texture with given name
 		// with base at lower priority
-		const sf::Texture& get(const std::string& name) const;
+		const sf::Texture& get(const unsigned int id) const;
+		const sf::Texture& get(const unsigned int flag, const unsigned int objId) const;
+
+		TextureManager();
 		~TextureManager();
 	private:
-		std::map<std::string, sf::Texture*> textures_base;
-		std::map<std::string, sf::Texture*> textures;
+		int flagsShift;
+
+		std::map<unsigned int, sf::Texture*> baseTextures;
+		std::map<unsigned int, sf::Texture*> textures;
 	};
 }
 

@@ -1,7 +1,7 @@
 #include "Map.h"
 
-tower_defense::Map::Map(const int width, const int height, Game &g):game(g) {
-    this->grid = new Grid(width, height, *this);
+tower_defense::Map::Map(const int width, const int height) {
+	this->grid = new Grid(width, height);
 }
 
 tower_defense::Map::~Map() {
@@ -17,11 +17,7 @@ tower_defense::Map::~Map() {
 	}
 }
 
-tower_defense::Grid& tower_defense::Map::getGrid() const {
-	return this->*grid;
-}
-
-void tower_defense::Map::refresh(Player &p, Game& game) {
+void tower_defense::Map::refresh(Player &p) {
 	// TODO: EVERYTHING
 }
 
@@ -37,16 +33,8 @@ void tower_defense::Map::addMinion(Minion* m) {
 	// TODO (Grid)
 }
 
-void tower_defense::Map::addItem(Item *i) {
-    // TODO (Grid)
-}
-
 void tower_defense::Map::addTurret(Turret* t, Point p) {
 	// TODO (Grid)
-}
-
-std::set<tower_defense::Item*>& tower_defense::Map::getItems() {
-	return this->items;
 }
 
 std::set<tower_defense::Minion*>& tower_defense::Map::getMinions() {

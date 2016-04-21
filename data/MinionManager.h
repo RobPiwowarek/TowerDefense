@@ -12,7 +12,7 @@ namespace data {
 namespace data {
 	class MinionManager {
 	public:
-		const std::string MINION_LOCATION = "minions/";
+		const std::string MINION_LOCATION = "minions\\";
 
 		~MinionManager();
 
@@ -21,9 +21,8 @@ namespace data {
 
 		// adds minion to the manager form file in (GAME_FILE_LOCATION)(MINION_LOCATION)name.xml
 		// if wasn't already added to the manager
-		// returns minionClass given to it
-		// or -1 if operation has failed
-		int addMinion(const std::string& name);
+		// returns nullptr on failiure
+		tower_defense::Minion* addMinion(const std::string& path, const std::string& name);
 
 		// returns minion added with the given name
 		const tower_defense::Minion& getMinion(const std::string& name) const;
@@ -38,7 +37,7 @@ namespace data {
 		std::map<int, std::string> textures;
 		int nextClass = 0;
 
-		tower_defense::Minion* load(std::string source);
+		tower_defense::Minion* load(const std::string& mDirectory, const std::string& name);
 	};
 }
 

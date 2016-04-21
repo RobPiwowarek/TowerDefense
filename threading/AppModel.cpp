@@ -5,6 +5,7 @@
 #include "..\graphics\TextureManager.h"
 #include "..\data\MinionManager.h"
 #include "..\data\GameManager.h"
+#include "..\data\MinionWaveManager.h"
 
 AppModel& AppModel::getInstance() {
 	static std::mutex instanceLocker;
@@ -35,6 +36,9 @@ ResourceManager<graphics::TextureManager>& AppModel::getTextures() {
 ResourceManager<data::MinionManager>& AppModel::getMinionManager() {
 	return *this->minionManager;
 }
+ResourceManager<data::MinionWaveManager>& AppModel::getMinionWaveManager() {
+	return *this->minionWaveManager;
+}
 
 ResourceManager<data::GameManager>& AppModel::getGameManager() {
 	return *this->gameManager;
@@ -54,4 +58,5 @@ AppModel::AppModel() {
 	this->textureManager = new ResourceManager<graphics::TextureManager>(new graphics::TextureManager);
 	this->minionManager = new ResourceManager<data::MinionManager>(new data::MinionManager);
 	this->gameManager = new ResourceManager<data::GameManager>(new data::GameManager);
+	this->minionWaveManager = new ResourceManager<data::MinionWaveManager>(new data::MinionWaveManager);
 }

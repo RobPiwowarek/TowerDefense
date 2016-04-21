@@ -36,4 +36,8 @@
  <player>
   <startingMoney>100</startingMoney>
  </player>
+ 
+ <waves>
+  <wave>test</wave>
+ </waves>
 </game>

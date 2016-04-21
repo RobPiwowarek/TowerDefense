@@ -13,14 +13,12 @@ namespace tower_defense {
 #include "Minion.h"
 #include "WeaponFire.h"
 #include "Player.h"
-#include "Game.h"
-#include "Item.h"
 
 namespace tower_defense {
 	class Map {
 	public:
 		/// creates a new map with given size
-		Map(const int width, const int height, Game& g);
+		Map(const int width, const int height);
 		~Map();
 		/// returns map's width
 		double getWidth() const;
@@ -31,9 +29,6 @@ namespace tower_defense {
 		void addMinion(Minion* m);
 		/// adds a turret to map
 		void addTurret(Turret* t, Point p);
-        /// adds an item to map
-        void addItem(Item* i);
-
 
 		/// returns set of minions
 		std::set<Minion*>& getMinions();
@@ -41,22 +36,15 @@ namespace tower_defense {
 		std::set<Turret*>& getTurrets();
 		/// returns set of weaponfires
 		std::set<WeaponFire*>& getWeaponFires();
-        // returns set of items
-        std::set<Item*>& getItems();
-
-		/// returns grid
-		Grid& getGrid() const;
 
 		/// refreshes all elements contained by the map
-		void refresh(Player& p, Game& game);
+		void refresh(Player& p);
 
 	private:
 		Grid* grid;
-        Game& game;
 		std::set<Minion*> minions;
 		std::set<WeaponFire*> weaponFires;
 		std::set<Turret*> turrets;
-        std::set<Item*> items;
 	};
 }
 

@@ -13,7 +13,7 @@ namespace tower_defense {
 
 	public:
 		/// creates grid with given size
-		Grid(int x, int y, Map& m);
+		Grid(int x, int y);
 		~Grid();
 
 		/// returns grid's width
@@ -23,15 +23,10 @@ namespace tower_defense {
 
 		/// returns element
 		GridElement& getElement(const Point& p);
-
-		/// calculate distances
-		void calculateDistance();
-
 	private:
 		int height;
 		int width;
 		GridElement*** elements;
-        Map& map;
 	};
 }
 

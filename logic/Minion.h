@@ -6,9 +6,6 @@ namespace tower_defense {
 }
 #include "Entity.h"
 #include "Grid.h"
-#include "../threading/AppModel.h"
-#include "../logic/Game.h"
-#include "Game.h"
 
 namespace tower_defense
 {
@@ -16,7 +13,7 @@ namespace tower_defense
 	class Minion : public Entity
 	{
 	public:
-		enum TargetPriority {
+		enum MinionPriority {
 			Turret,
 			Item,
 			Closer
@@ -24,14 +21,11 @@ namespace tower_defense
 
 		/// creates a minion prototype with given values
 		Minion(const double velocity, const double size, const int minionClass, const int reward,
-			const int health, const int damage, const TargetPriority priority);
+			const int health, const int damage, const MinionPriority priority);
 		/// creates a minion using given
 		/// that will follow given Path
 		Minion(const Minion& base, const Point& x0);
-
-		/// kills the minion
-		void death(Game &game);
-
+		
 		/// returns reward gained for destroying this minion
 		int getReward() const;
 
@@ -42,34 +36,29 @@ namespace tower_defense
 		void setHealth(int value);
 		
 		/// returns damage dealt by minion attack
-		int getDamage() const;
+		int getDamage();
 
 		/// returns velocity of a minion
-		double getVelocity() const;
-
-        /// checks if minion is alive
-        bool isDead() const;
+		double getVelocity();
 
 		/// refreshes minion
-		void refresh(Grid& g, Game& game);
+		bool refresh(Grid& g);
 
 		/// chooses next destination
-		void chooseDestination(Grid& g, Game &game);
+		void chooseDestination(Grid& g);
 
 	private:
 		int health;
 		int reward;
 		int damage;
 
-        int attackSpeed;
+		int attackSpeed;
 		int attackRefreshing;
 		double velocity;
 
-        bool dead = false;
-
 		GridElement* next;
 
-		TargetPriority target;
+		MinionPriority priority;
 	};
 }
 
