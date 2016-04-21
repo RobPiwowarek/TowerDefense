@@ -18,7 +18,7 @@ tower_defense::Player &tower_defense::Game::getPlayer() {
 }
 
 void tower_defense::Game::refresh() {
-    this->map->refresh(*this->player);
+    this->map->refresh(*this);
     // TODO this->wave.refresh();
 }
 

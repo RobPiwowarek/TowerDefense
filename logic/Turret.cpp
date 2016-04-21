@@ -34,7 +34,7 @@ bool tower_defense::Turret::receiveDamage(const int damage, Grid &g) {
 
 //TODO: implement
 void tower_defense::Turret::destroy(Grid &g) {
-    g.getElement(this->location).setTurret(nullptr);
+    g.getElement(this->location)->setTurret(nullptr);
 }
 
 void tower_defense::Turret::setCurrentHealth(int currentHealth) {

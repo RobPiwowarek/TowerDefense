@@ -20,7 +20,7 @@ namespace tower_defense {
     class Map {
     public:
         /// creates a new map with given size
-        Map(const int width, const int height, Game &g);
+        Map(const int width, const int height);
 
         ~Map();
 
@@ -53,14 +53,13 @@ namespace tower_defense {
         std::set<Item *> &getItems();
 
         /// returns grid
-        Grid &getGrid() const;
+        Grid &getGrid();
 
         /// refreshes all elements contained by the map
-        void refresh(Player &p, Game &game);
+        void refresh(Game &game);
 
     private:
         Grid *grid;
-        Game &game;
         std::set<Minion *> minions;
         std::set<WeaponFire *> weaponFires;
         std::set<Turret *> turrets;

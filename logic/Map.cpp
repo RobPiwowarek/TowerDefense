@@ -1,6 +1,6 @@
 #include "Map.h"
 
-tower_defense::Map::Map(const int width, const int height, Game &g) : game(g) {
+tower_defense::Map::Map(const int width, const int height) {
     this->grid = new Grid(width, height, *this);
 }
 
@@ -17,11 +17,7 @@ tower_defense::Map::~Map() {
     }
 }
 
-tower_defense::Grid &tower_defense::Map::getGrid() const {
-    return this->*grid;
-}
-
-void tower_defense::Map::refresh(Player &p, Game &game) {
+void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 }
 
@@ -59,4 +55,8 @@ std::set<tower_defense::Turret *> &tower_defense::Map::getTurrets() {
 
 std::set<tower_defense::WeaponFire *> &tower_defense::Map::getWeaponFires() {
     return this->weaponFires;
+}
+
+tower_defense::Grid& tower_defense::Map::getGrid() {
+	return *this->grid;
 }

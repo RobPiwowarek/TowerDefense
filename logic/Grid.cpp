@@ -9,7 +9,7 @@ tower_defense::Grid::Grid(int width, int height, Map &m) : map(m) {
     for (int i = 0; i < width; i++) {
         this->elements[i] = new GridElement *[height];
         for (int j = 0; j < height; j++) {
-            this->elements[i][j] = new GridElement(Point(i, j));
+            this->elements[i][j] = new GridElement(Point(i, j), *this);
         }
     }
 
@@ -49,39 +49,40 @@ void tower_defense::Grid::calculateDistance() {
 
     for (Item *item: this->map.getItems()) {
         initialNodes.push(std::make_pair(0, this->getElement(item->getLocation())));
-        this->getElement(item->getLocation()).setDistToTarget(0);
+        this->getElement(item->getLocation())->setDistToTarget(0);
     }
     //for (std::iterator i = this->map.getItems().begin(); i < this->map.getItems().end());
 
     /// 3. start checking nodes
     while (!initialNodes.empty()) {
-        std::pair<int, GridElement *> node = initialNodes.pop();
+        std::pair<int, GridElement *> node = initialNodes.top();
+		initialNodes.pop();
 
-        GridElement &up = node.second->getUpNeighbour();
-        GridElement &down = node.second->getDownNeighbour();
-        GridElement &left = node.second->getLeftNeighbour();
-        GridElement &right = node.second->getRightNeighbour();
+        GridElement* up = node.second->getUpNeighbour();
+        GridElement* down = node.second->getDownNeighbour();
+        GridElement* left = node.second->getLeftNeighbour();
+        GridElement* right = node.second->getRightNeighbour();
 
         if (up != nullptr) {
-            if (up.getDistToTarget() == -1 && !(up.hasTurret())) {
+            if (up->getDistToTarget() == -1 && !(up->hasTurret())) {
 
             }
         }
 
         if (down != nullptr) {
-            if (down.getDistToTarget() == -1 && !(down.hasTurret())) {
+            if (down->getDistToTarget() == -1 && !(down->hasTurret())) {
 
             }
         }
 
         if (left != nullptr) {
-            if (left.getDistToTarget() == -1 && !(left.hasTurret())) {
+            if (left->getDistToTarget() == -1 && !(left->hasTurret())) {
 
             }
         }
 
         if (right != nullptr) {
-            if (right.getDistToTarget() == -1 && !(right.hasTurret())) {
+            if (right->getDistToTarget() == -1 && !(right->hasTurret())) {
 
             }
         }
@@ -91,12 +92,12 @@ void tower_defense::Grid::calculateDistance() {
 
 }
 
-tower_defense::GridElement &tower_defense::Grid::getElement(const Point &p) {
+tower_defense::GridElement *tower_defense::Grid::getElement(const Point &p) const {
     int x = p.getX() == this->width ? this->width - 1 : (int) floor(p.getX());
     int y = p.getY() == this->height ? this->height - 1 : (int) floor(p.getY());
-    tis->elements[x][y];
+    this->elements[x][y];
 
     if (x >= this->width || y >= this->height) return nullptr;
 
-    return *this->elements[x][y];
+    return this->elements[x][y];
 }

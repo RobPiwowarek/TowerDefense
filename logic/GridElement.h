@@ -43,13 +43,13 @@ namespace tower_defense {
         Point getLocation() const;
 
         /// these methods return grid elements next to this one
-        GridElement &getLeftNeighbour() const;
+        GridElement *getLeftNeighbour() const;
 
-        GridElement &getRightNeighbour() const;
+        GridElement *getRightNeighbour() const;
 
-        GridElement &getUpNeighbour() const;
+        GridElement *getUpNeighbour() const;
 
-        GridElement &getDownNeighbour() const;
+        GridElement *getDownNeighbour() const;
 
         /// returns false if turret isn't present
         bool hasTurret() const;

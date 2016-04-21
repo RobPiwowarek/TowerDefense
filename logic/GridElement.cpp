@@ -20,40 +20,40 @@ bool tower_defense::GridElement::setTurret(Turret *t) {
     return true;
 }
 
-tower_defense::GridElement &tower_defense::GridElement::getUpNeighbour() const {
+tower_defense::GridElement *tower_defense::GridElement::getUpNeighbour() const {
     int y = this->location.getY() - 1;
 
-    GridElement &temp = grid.getElement(new Point(this->x, y));
+    GridElement* temp = grid.getElement(Point(this->location.getX(), y));
 
     if (temp == nullptr) return nullptr;
 
     return temp;
 }
 
-tower_defense::GridElement &tower_defense::GridElement::getDownNeighbour() const {
+tower_defense::GridElement *tower_defense::GridElement::getDownNeighbour() const {
     int y = this->location.getY() + 1;
 
-    GridElement &temp = grid.getElement(new Point(this->x, y));
+    GridElement* temp = grid.getElement(Point(this->location.getX(), y));
 
     if (temp == nullptr) return nullptr;
 
     return temp;
 }
 
-tower_defense::GridElement &tower_defense::GridElement::getLeftNeighbour() const {
+tower_defense::GridElement *tower_defense::GridElement::getLeftNeighbour() const {
     int x = this->location.getY() - 1;
 
-    GridElement &temp = grid.getElement(new Point(x, this->y));
+    GridElement* temp = grid.getElement(Point(x, this->location.getY()));
 
     if (temp == nullptr) return nullptr;
 
     return temp;
 }
 
-tower_defense::GridElement &tower_defense::GridElement::getRightNeighbour() const {
+tower_defense::GridElement *tower_defense::GridElement::getRightNeighbour() const {
     int x = this->location.getY() + 1;
 
-    GridElement &temp = grid.getElement(new Point(x, this->y));
+    GridElement* temp = grid.getElement(Point(x, this->location.getY()));
 
     if (temp == nullptr) return nullptr;
 

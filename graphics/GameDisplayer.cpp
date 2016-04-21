@@ -89,11 +89,11 @@ void GameDisplayer::checkCurPosition() {
 	if (this->curPosition.getX() < 0)
 		this->curPosition.setX(0);
 	else if (this->curPosition.getX() > this->gameMapSize.getX())
-		this->curPosition.setX(0);
+		this->curPosition.setX(this->gameMapSize.getX());
 	if (this->curPosition.getY() < 0)
 		this->curPosition.setY(0);
 	else if (this->curPosition.getY() > this->gameMapSize.getY())
-		this->curPosition.setX(0);
+		this->curPosition.setY(this->gameMapSize.getY());
 }
 
 

@@ -3,6 +3,7 @@
 
 #include "Map.h"
 #include "MinionWave.h"
+#include "Player.h"
 
 namespace tower_defense {
     class Game {

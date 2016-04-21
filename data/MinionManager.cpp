@@ -90,7 +90,7 @@ Minion *MinionManager::load(const string &mDirectory, const string &name) {
     int attackSpeed = atoi(root.child_value("attackSpeed"));
     int health = atoi(root.child_value("health"));
 
-    Minion::MinionPriority priority;
+    Minion::TargetPriority priority;
 
     switch (root.child_value("priority")[0]) {
         case 'C': //Closer

@@ -6,6 +6,7 @@ namespace tower_defense {
 }
 
 #include "GridElement.h"
+#include "Map.h"
 
 namespace tower_defense {
 
@@ -24,7 +25,7 @@ namespace tower_defense {
         int getHeight() const;
 
         /// returns element
-        GridElement &getElement(const Point &p);
+        GridElement *getElement(const Point &p) const;
 
         /// calculate distances
         void calculateDistance();
@@ -33,7 +34,7 @@ namespace tower_defense {
         int height;
         int width;
         GridElement ***elements;
-        Map &map;
+        tower_defense::Map &map;
     };
 }
 

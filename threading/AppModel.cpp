@@ -65,6 +65,8 @@ AppModel::AppModel() {
 	this->minionWaveManager = new ResourceManager<data::MinionWaveManager>(new data::MinionWaveManager);
 }
 
+#include <iostream>
+
 bool AppModel::createGame(const std::string& xmlURI) {
 	bool r = false;
 	try {
@@ -73,6 +75,7 @@ bool AppModel::createGame(const std::string& xmlURI) {
 		this->gameManager->release();
 	}
 	catch (std::exception e) {
+		std::cout << e.what();
 		if (!r)
 			this->gameManager->release();
 		this->closeGame();
