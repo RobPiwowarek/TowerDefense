@@ -13,6 +13,12 @@ tower_defense::MinionWave::MinionWave(const MinionWave& wave) {
 tower_defense::MinionWave::~MinionWave() {
 }
 
+std::queue<Minion*> tower_defense::MinionWave::getMinions() const { return this->minions; }
+
+int tower_defense::MinionWave::getTimeBetweenMinions() const {return this->timeBetweenMinions; }
+
+int tower_defense::MinionWave::getTimeToNextMinion() const {return this->timeToNext; }
+
 bool tower_defense::MinionWave::finished() const {
 	return this->minions.empty();
 }

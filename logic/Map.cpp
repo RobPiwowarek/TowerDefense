@@ -19,6 +19,9 @@ tower_defense::Map::~Map() {
 
 void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
+
+    // przeiteruj po minionsach i odpal refreshe
+
 }
 
 double tower_defense::Map::getWidth() const {

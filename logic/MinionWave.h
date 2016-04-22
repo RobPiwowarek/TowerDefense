@@ -23,6 +23,15 @@ namespace tower_defense {
 		/// returns if the last minion was already returned
 		bool finished() const;
 
+		/// returns minions in wave
+		std::queue<Minion*> getMinions() const;
+
+        /// returns time to next minion
+        int getTimeToNextMinion() const;
+
+        /// returns time between minions
+		int getTimeBetweenMinions() const;
+
 		/// refreshes wave
 		/// returns pointer to BASE of minion that is to be spawned
 		/// or nullptr if none

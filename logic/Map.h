@@ -15,6 +15,7 @@ namespace tower_defense {
 #include "Player.h"
 #include "Game.h"
 #include "Item.h"
+#include <queue>
 
 namespace tower_defense {
     class Map {
