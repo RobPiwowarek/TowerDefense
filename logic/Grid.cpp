@@ -96,7 +96,6 @@ void tower_defense::Grid::calculateDistance() {
 tower_defense::GridElement *tower_defense::Grid::getElement(const Point &p) const {
     int x = p.getX() == this->width ? this->width - 1 : (int) floor(p.getX());
     int y = p.getY() == this->height ? this->height - 1 : (int) floor(p.getY());
-    this->elements[x][y];
 
     if (x >= this->width || y >= this->height) return nullptr;
 

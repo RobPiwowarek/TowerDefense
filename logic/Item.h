@@ -13,8 +13,11 @@ namespace tower_defense {
     public:
         Item(const tower_defense::Point &location, const double angle, const double size, const int itemClass);
 
+        int getLife() const;
 
     private:
+        const int playerLife = 25; // how much life it will take from player
+
     };
 }
 

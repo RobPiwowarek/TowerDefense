@@ -29,7 +29,6 @@ bool tower_defense::Minion::hasItem(tower_defense::Item* item) const { return th
 
 bool tower_defense::Minion::setItem(tower_defense::Item* item) { this->item = item; }
 
-
 bool tower_defense::Minion::isDead() const {
     return this->dead;
 }
@@ -43,28 +42,53 @@ void tower_defense::Minion::death(Game &game) {
     // todo: remove from collision manager
 }
 
-// TODO: implement
 void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
+    const GridElement* currentLocation = g.getElement(this->location);
+    const GridElement* left = currentLocation->getLeftNeighbour(),
+    *right = currentLocation->getRightNeighbour(), *up = currentLocation->getUpNeighbour(), *down = currentLocation->getDownNeighbour();
 
-    // podejdz do przedmiotu jak najblizej sie da
-    // jesli droga nie jest przyblokowana to podnies przedmiot i zacznij zawracac
-    // w przeciwnym wypadku idz do najblizszego turreta
+    this->next = nullptr;
+
+    if (left != nullptr && left->getDistToTarget() != -1) {
+        this->next = left;
+        this->angle = 270.0f;
+    }
+
+    if (right != nullptr && right->getDistToTarget() != -1) if(right.getDistToTarget() < this->next->getDistToTarget()){} {
+        this->next = right;
+        this->angle = 90.0f;
+    }
+
+    if (up != nullptr && up->getDistToTarget() != -1) if (up.getDistToTarget() < this->next->getDistToTarget()) {
+        this->next = up;
+        this->angle = 0.0f;
+    }
+
+    if (down != nullptr && down->getDistToTarget() != -1) if (down.getDistToTarget() < this->next->getDistToTarget()) {
+        this->next = down;
+        this->angle = 180.0f;
+    }
 }
 
 void tower_defense::Minion::refresh(Grid &g, Game &game) {
-
     if (this->health <= 0) {
         this->death(game);
     }
 
-    // TODO: choose next target/location
-    chooseDestination(g, game);
-    // attack turret/pickup item?
+    if (g.getElement(this->location) == this->next)
+        chooseDestination(g, game);
 
+    // TODO:
+    // if road is blocked attack nearest tower
+    if (this->next == nullptr) {
 
+    }
 
+    // TODO: check if correct
     // Update location
-    this->getLocation().setPoint(this->next->getLocation());
+    Point p = new Point(this->location.getX() + this->velocity*sin(this->angle), this->location.getY() - this->velocity*cos(this->angle));
+    delete this->location;
+    this->location = p;
 }
 
 int tower_defense::Minion::getDamage() const {

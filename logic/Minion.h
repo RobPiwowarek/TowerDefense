@@ -11,6 +11,7 @@ namespace tower_defense {
 #include "../logic/Game.h"
 #include "Game.h"
 #include "Item.h"
+#include <cmath>
 
 namespace tower_defense {
     /// class for minion objects
