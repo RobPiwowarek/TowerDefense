@@ -10,6 +10,7 @@ namespace tower_defense {
 #include "../threading/AppModel.h"
 #include "../logic/Game.h"
 #include "Game.h"
+#include "Item.h"
 
 namespace tower_defense {
     /// class for minion objects
@@ -56,6 +57,18 @@ namespace tower_defense {
         /// chooses next destination
         void chooseDestination(Grid &g, Game &game);
 
+        /// returns true if has item
+        bool hasItem() const;
+
+        /// returns true if has specific item
+        bool hasItem(tower_defense::Item* item) const;
+
+        /// returns item
+        tower_defense::Item * getItem() const;
+
+        /// sets held item, returns false if failed to set
+        bool setItem(tower_defense::Item* item);
+
     private:
         int health;
         int reward;
@@ -68,7 +81,7 @@ namespace tower_defense {
         bool dead = false;
 
         GridElement *next;
-
+        tower_defense::Item *item = nullptr;
         TargetPriority target;
     };
 }

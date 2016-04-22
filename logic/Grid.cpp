@@ -65,31 +65,32 @@ void tower_defense::Grid::calculateDistance() {
 
         if (up != nullptr) {
             if (up->getDistToTarget() == -1 && !(up->hasTurret())) {
-
+                up->setDistToTarget(node.first+1);
+                initialNodes.push(std::make_pair(node.first+1, up));
             }
         }
 
         if (down != nullptr) {
             if (down->getDistToTarget() == -1 && !(down->hasTurret())) {
-
+                down->setDistToTarget(node.first+1);
+                initialNodes.push(std::make_pair(node.first+1, down));
             }
         }
 
         if (left != nullptr) {
             if (left->getDistToTarget() == -1 && !(left->hasTurret())) {
-
+                left->setDistToTarget(node.first+1);
+                initialNodes.push(std::make_pair(node.first+1, left));
             }
         }
 
         if (right != nullptr) {
             if (right->getDistToTarget() == -1 && !(right->hasTurret())) {
-
+                right->setDistToTarget(node.first+1);
+                initialNodes.push(std::make_pair(node.first+1, right));
             }
         }
-
     }
-
-
 }
 
 tower_defense::GridElement *tower_defense::Grid::getElement(const Point &p) const {

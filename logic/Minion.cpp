@@ -21,6 +21,15 @@ tower_defense::Minion::Minion(const Minion &base, const Point &x0)
     this->next = nullptr;
 }
 
+tower_defense::Item* tower_defense::Minion::getItem() const { return this->item; }
+
+bool tower_defense::Minion::hasItem() const { return this->item != nullptr; }
+
+bool tower_defense::Minion::hasItem(tower_defense::Item* item) const { return this->item != item; }
+
+bool tower_defense::Minion::setItem(tower_defense::Item* item) { this->item = item; }
+
+
 bool tower_defense::Minion::isDead() const {
     return this->dead;
 }
@@ -36,7 +45,6 @@ void tower_defense::Minion::death(Game &game) {
 
 // TODO: implement
 void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
-
 
     // podejdz do przedmiotu jak najblizej sie da
     // jesli droga nie jest przyblokowana to podnies przedmiot i zacznij zawracac

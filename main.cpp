@@ -8,14 +8,14 @@
 
 #if defined LOAD_TEST || defined DISPLAY_TEST
 
-#include "threading\AppModel.h"
-#include "logic\Game.h"
-#include "data\GameManager.h"
-#include "data\MinionManager.h"
-#include "graphics\TextureManager.h"
+#include "threading/AppModel.h"
+#include "logic/Game.h"
+#include "data/GameManager.h"
+#include "data/MinionManager.h"
+#include "graphics/TextureManager.h"
 
 #ifdef DISPLAY_TEST
-#include "graphics\GameDisplayer.h"
+#include "graphics/GameDisplayer.h"
 #include <thread>
 #endif
 
