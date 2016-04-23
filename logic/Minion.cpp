@@ -43,8 +43,8 @@ void tower_defense::Minion::death(Game &game) {
 }
 
 void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
-    const GridElement* currentLocation = g.getElement(this->location);
-    const GridElement* left = currentLocation->getLeftNeighbour(),
+    GridElement* currentLocation = g.getElement(this->location);
+    GridElement* left = currentLocation->getLeftNeighbour(),
     *right = currentLocation->getRightNeighbour(), *up = currentLocation->getUpNeighbour(), *down = currentLocation->getDownNeighbour();
 
     this->next = nullptr;
@@ -54,17 +54,17 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
         this->angle = 270.0f;
     }
 
-    if (right != nullptr && right->getDistToTarget() != -1) if(right.getDistToTarget() < this->next->getDistToTarget()){} {
+    if (right != nullptr && right->getDistToTarget() != -1) if(right->getDistToTarget() < this->next->getDistToTarget()){} {
         this->next = right;
         this->angle = 90.0f;
     }
 
-    if (up != nullptr && up->getDistToTarget() != -1) if (up.getDistToTarget() < this->next->getDistToTarget()) {
+    if (up != nullptr && up->getDistToTarget() != -1) if (up->getDistToTarget() < this->next->getDistToTarget()) {
         this->next = up;
         this->angle = 0.0f;
     }
 
-    if (down != nullptr && down->getDistToTarget() != -1) if (down.getDistToTarget() < this->next->getDistToTarget()) {
+    if (down != nullptr && down->getDistToTarget() != -1) if (down->getDistToTarget() < this->next->getDistToTarget()) {
         this->next = down;
         this->angle = 180.0f;
     }
@@ -86,9 +86,8 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
 
     // TODO: check if correct
     // Update location
-    Point p = new Point(this->location.getX() + this->velocity*sin(this->angle), this->location.getY() - this->velocity*cos(this->angle));
-    delete this->location;
-    this->location = p;
+    this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
+    this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 }
 
 int tower_defense::Minion::getDamage() const {

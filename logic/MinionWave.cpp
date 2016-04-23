@@ -13,7 +13,7 @@ tower_defense::MinionWave::MinionWave(const MinionWave& wave) {
 tower_defense::MinionWave::~MinionWave() {
 }
 
-std::queue<Minion*> tower_defense::MinionWave::getMinions() const { return this->minions; }
+std::queue<tower_defense::Minion*> tower_defense::MinionWave::getMinions() const { return this->minions; }
 
 int tower_defense::MinionWave::getTimeBetweenMinions() const {return this->timeBetweenMinions; }
 

@@ -5,6 +5,10 @@
 #include "MinionWave.h"
 #include "Player.h"
 
+namespace tower_defense{
+    class Game;
+}
+
 namespace tower_defense {
     class Game {
     public:
@@ -21,10 +25,10 @@ namespace tower_defense {
         void refresh();
 
     private:
-        Map *map;
+        tower_defense::Map *map;
         int curWave;
-        MinionWave *wave;
-        Player *player;
+        tower_defense::MinionWave *wave;
+        tower_defense::Player *player;
     };
 
 }
