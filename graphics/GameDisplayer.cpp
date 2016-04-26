@@ -3,9 +3,11 @@
 #include "../logic/Map.h"
 #include "../threading/AppModel.h"
 #include "../data/GameManager.h"
+#include "../data/MinionManager.h"
 
 #include <cmath>
 
+using namespace std;
 using namespace sf;
 using namespace graphics;
 using namespace tower_defense;
@@ -15,7 +17,14 @@ void GameDisplayer::refresh(RenderWindow& window) {
 	Game* g = AppModel::getInstance().getGame().get();
 	window.draw(this->baseBackground);
 
-	this->drawMap(window, g);
+	this->drawMapAndMinions(window, g);
+	
+	//TurretManager* tm = AppModel::getInstance().
+
+	for (set<Turret*>::const_iterator it = g->getMap().getTurrets().cbegin(); it != g->getMap().getTurrets().cend(); it++)
+		if (onScreen(window, **it));
+			//display TODO
+
 
 	AppModel::getInstance().getGame().release();
 }
@@ -40,8 +49,9 @@ void GameDisplayer::setScreenPos(const tower_defense::Point& p) {
 	checkCurPosition();
 }
 
-void GameDisplayer::drawMap(RenderWindow& window, Game* g) {
+void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 	GameManager* gm = AppModel::getInstance().getGameManager().get();
+	MinionManager* mm = AppModel::getInstance().getMinionManager().get();
 
 	int x_beginFrom, y_beginFrom, x_goTo, y_goTo;
 
@@ -62,12 +72,27 @@ void GameDisplayer::drawMap(RenderWindow& window, Game* g) {
 	for (int i = x_beginFrom; i < x_goTo; i++)
 		for (int j = y_beginFrom; j < y_goTo; j++) {
 			this->display(window, gm->getMapTexture(i, j), Point(1, 1), Point(i + 0.5, j + 0.5));
+			this->drawMinions(window, g->getMap().getGrid().getElement({ (double)i, (double)j }), mm);
 		}
 
+	AppModel::getInstance().getMinionManager().release();
 	AppModel::getInstance().getGameManager().release();
 }
 
-bool GameDisplayer::display(RenderWindow& window, Entity e) {
+void GameDisplayer::drawTurrets(sf::RenderWindow& window, tower_defense::Game* g) {
+	//TODO
+}
+void GameDisplayer::drawMinions(sf::RenderWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager) {
+	for (set<Minion*>::const_iterator it = g->getMinions().cbegin(); it != g->getMinions().cend(); it++)
+		display(
+		window, 
+		mManager->getTexture((*it)->getObjClass()),
+		{ (*it)->getSize(), (*it)->getSize() },
+		(*it)->getLocation());
+
+}
+
+bool GameDisplayer::onScreen(RenderWindow& window, const Entity &e) {
 	return (e.getLocation().getX() + e.getSize() > this->curPosition.getX() - window.getSize().x / this->pointsPerUnit / 2 &&
 		e.getLocation().getX() - e.getSize() < this->curPosition.getX() + window.getSize().x / this->pointsPerUnit / 2) ||
 		(e.getLocation().getY() + e.getSize() > this->curPosition.getY() + window.getSize().y / this->pointsPerUnit / 2 &&

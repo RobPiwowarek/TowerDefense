@@ -12,7 +12,7 @@ tower_defense::Turret *tower_defense::GridElement::getTurret() {
 }
 
 bool tower_defense::GridElement::setTurret(Turret *t) {
-    if (this->minions != nullptr || this->turret != nullptr)
+    if (this->minions.empty() || this->turret != nullptr)
         return false;
 
     this->occupied = true;
@@ -81,7 +81,7 @@ void tower_defense::GridElement::setDistToTurret(const int dist) {
 }
 
 std::set<tower_defense::Minion *> &tower_defense::GridElement::getMinions() {
-    return *this->minions;
+    return this->minions;
 }
 
 tower_defense::Point tower_defense::GridElement::getLocation() const {

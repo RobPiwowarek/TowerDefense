@@ -30,8 +30,11 @@ namespace graphics {
 
 		GameDisplayer(const tower_defense::Point& startingLocation);
 	private:
-		void drawMap(sf::RenderWindow& window, tower_defense::Game* g);
-		bool display(sf::RenderWindow& window, tower_defense::Entity e);
+		void drawTurrets(sf::RenderWindow& window, tower_defense::Game* g);
+		void drawMinions(sf::RenderWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager);
+		void drawMapAndMinions(sf::RenderWindow& window, tower_defense::Game* g);
+
+		bool onScreen(sf::RenderWindow& window, const tower_defense::Entity &e);
 		void checkCurPosition();
 
 		sf::RectangleShape baseBackground;

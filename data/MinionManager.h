@@ -36,7 +36,7 @@ namespace data {
     private:
         std::map<std::string, int> minionClasses;
         std::map<int, tower_defense::Minion *> minions;
-        std::map<int, std::string> textures;
+        //std::map<int, std::string> textures;
         int nextClass = 0;
 
         tower_defense::Minion *load(const std::string &mDirectory, const std::string &name);

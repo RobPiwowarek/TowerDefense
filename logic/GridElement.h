@@ -61,8 +61,8 @@ namespace tower_defense {
         bool occupied = false; // has turret?
 
         const Grid &grid;
-        Turret *turret = nullptr; //TODO: is it really neccessary?
-        std::set<Minion *> *minions;
+        Turret *turret = nullptr;
+        std::set<Minion *> minions;
     };
 }
 #endif

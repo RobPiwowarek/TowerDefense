@@ -23,7 +23,6 @@ void MinionManager::clear() {
     }
     this->minions.clear();
     this->minionClasses.clear();
-    this->textures.clear();
     this->nextClass = 0;
 }
 
