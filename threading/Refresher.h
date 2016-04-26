@@ -3,7 +3,7 @@
 
 #include <mutex>
 #include <thread>
-#include "logic\Game.h"
+#include "..\logic\Game.h"
 
 class Refresher {
 public:

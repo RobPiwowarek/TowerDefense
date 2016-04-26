@@ -2,11 +2,12 @@
 #define MINION_WAVE_H
 
 #include <queue>
-#include "../logic/Minion.h"
 
 namespace tower_defense {
     class MinionWave;
 }
+
+#include "../logic/Minion.h"
 
 namespace tower_defense {
 	/// class for wave of minions
