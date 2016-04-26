@@ -1,7 +1,8 @@
 #include "Bullet.h"
 
+
 tower_defense::Bullet::Bullet(const int damage, const double size, const bool hitOnlyFirst, const double splash,
-                              const int velocity, const int lifeTime, const int fireClass)
+                              const double velocity, const int lifeTime, const int fireClass)
         : WeaponFire(damage, size, lifeTime, bullet, fireClass) {
     this->hitOnlyFirst = hitOnlyFirst;
     this->splash = splash;
@@ -33,4 +34,12 @@ double tower_defense::Bullet::getSplash() const {
 
 double tower_defense::Bullet::getVelocity() const {
     return this->velocity;
+}
+
+bool tower_defense::Bullet::refresh(Grid& g) {
+	return false; //TODO
+}
+
+bool tower_defense::Bullet::hits(Minion* m) {
+	return false; //TODO
 }

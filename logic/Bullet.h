@@ -6,6 +6,8 @@ namespace tower_defense {
 }
 
 #include "WeaponFire.h"
+#include "Minion.h"
+#include "Grid.h"
 
 namespace tower_defense {
     class Bullet : public WeaponFire {
@@ -13,7 +15,7 @@ namespace tower_defense {
         /// creates new instance of Beam object
         /// using given values
         Bullet(const int damage, const double size, const bool hitOnlyFirst, const double splash,
-               const int velocity, const int lifeTime, const int fireClass);
+               const double velocity, const int lifeTime, const int fireClass);
 
         /// creates an instance of Beam object
         /// that is a copy of base
@@ -35,14 +37,14 @@ namespace tower_defense {
         double getVelocity() const;
 
         /// refreshes object
-        //bool refresh(Grid& grid);
+        bool refresh(Grid& grid);
 
     private:
         bool hitOnlyFirst;
         double splash;
         double velocity;
 
-        //bool hits(Minion* m);
+        bool hits(Minion* m);
     };
 }
 

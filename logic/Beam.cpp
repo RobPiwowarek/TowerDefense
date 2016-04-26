@@ -1,6 +1,6 @@
 #include "Beam.h"
 
-tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass)
+tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFirst)
         : WeaponFire(damage, maxSize, 1, beam, fireClass) {
     this->hitOnlyFirst = hitOnlyFirst;
 }
@@ -15,7 +15,14 @@ tower_defense::Beam::Beam(const Beam &base, const Point &location, const double 
     this->hitOnlyFirst = base.hitOnlyFirst;
 }
 
-/// returns if beam hits only first target in line
 bool tower_defense::Beam::isHitOnlyFirst() const {
     return this->hitOnlyFirst;
+}
+
+bool tower_defense::Beam::refresh(Grid& g) {
+	return false; //TODO
+}
+
+bool tower_defense::Beam::hits(Minion* m) {
+	return false; //TODO
 }

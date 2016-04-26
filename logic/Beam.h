@@ -12,7 +12,7 @@ namespace tower_defense {
     public:
         /// creates new instance of Beam object
         /// using given values
-        Beam(const int damage, const double maxSize, const int fireClass);
+        Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFrst);
 
         /// creates an instance of Beam object
         /// that is a copy of base
@@ -28,11 +28,11 @@ namespace tower_defense {
         bool isHitOnlyFirst() const;
 
         /// refreshes the beam
-        //bool refresh(Grid& grid);
+        bool refresh(Grid& grid);
     private:
         bool hitOnlyFirst;
 
-        //bool hits(Minion* m);
+        bool hits(Minion* m);
     };
 }
 

@@ -23,7 +23,7 @@ namespace tower_defense {
         /// weaponFireList is list of weapon fires,
         /// sorted by fire time in weapon cycle
         /// highest time must be lower than fireRate
-        Weapon(const double range, const int fireRate, const int objClass,
+        Weapon(const double range, const int fireRate,
                const WeaponFireList *const weaponFireList);
 
         /// creates an exact copy of base
@@ -55,7 +55,6 @@ namespace tower_defense {
         double range;
         int fireRate;
         int reloading;
-        int objClass;
         const Turret *parent;
     };
 

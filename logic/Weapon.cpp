@@ -2,12 +2,11 @@
 
 
 tower_defense::Weapon::Weapon(
-        const double range, const int fireRate, const int objClass, const WeaponFireList *const weaponFireList) {
+        const double range, const int fireRate, const WeaponFireList *const weaponFireList) {
     this->fireRate = fireRate;
     this->range = range;
     this->parent = nullptr;
     this->reloading = 0;
-    this->objClass = objClass;
     this->fireList = weaponFireList;
 }
 
@@ -16,7 +15,6 @@ tower_defense::Weapon::Weapon(const Weapon &base, const Turret *const parent) {
     this->range = base.range;
     this->parent = parent;
     this->reloading = 0;
-    this->objClass = base.objClass;
     this->fireList = base.fireList;
     this->cur = fireList->begin();
 }
@@ -36,8 +34,4 @@ int tower_defense::Weapon::getFireRate() const {
 
 int tower_defense::Weapon::getReloading() const {
     return this->reloading;
-}
-
-int tower_defense::Weapon::getClass() const {
-    return this->objClass;
 }

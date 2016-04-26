@@ -29,11 +29,11 @@ namespace tower_defense {
         double getVelocity() const;
 
         /// refreshes the ring
-        //bool refresh(Grid* grid);
+        bool refresh(Grid& grid);
     private:
         double velocity;
 
-        //bool hits(Minion* m);
+        bool hits(Minion* m);
     };
 }
 

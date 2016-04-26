@@ -42,14 +42,6 @@ Minion *MinionManager::addMinion(const string &directory, const string &name) {
     return minion;
 }
 
-const Minion &MinionManager::getMinion(const string &name) const {
-    map<string, int>::const_iterator it = this->minionClasses.find(name);
-
-    if (it == this->minionClasses.cend())
-        NO_MINION_EXCEPTION
-
-    return *this->minions.find(it->second)->second;
-}
 
 const Minion &MinionManager::getMinion(int minionClass) const {
     map<int, Minion *>::const_iterator it = this->minions.find(minionClass);

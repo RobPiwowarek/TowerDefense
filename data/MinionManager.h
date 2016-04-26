@@ -24,9 +24,6 @@ namespace data {
         // returns nullptr on failiure
         tower_defense::Minion *addMinion(const std::string &path, const std::string &name);
 
-        // returns minion added with the given name
-        const tower_defense::Minion &getMinion(const std::string &name) const;
-
         // returns minion added with the given class
         const tower_defense::Minion &getMinion(int minionClass) const;
 

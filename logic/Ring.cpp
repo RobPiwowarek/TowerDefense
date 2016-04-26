@@ -19,3 +19,11 @@ tower_defense::Ring::Ring(const Ring &base, const Point &location, const double 
 double tower_defense::Ring::getVelocity() const {
     return this->velocity;
 }
+
+bool tower_defense::Ring::refresh(Grid& g) {
+	return false; //TODO
+}
+
+bool tower_defense::Ring::hits(Minion* m) {
+	return false; //TODO
+}
