@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+
+<weaponFire>
+ <type>Ring</type>
+ <imgsrc>firering.png</imgsrc>
+ <velocity>0.0625</velocity>
+ <size>1</size>
+ <lifeTime>16</lifeTime>
+ <damage>2</damage>
+</weaponFire>

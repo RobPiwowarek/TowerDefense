@@ -2,7 +2,7 @@
 #include "MinionManager.h"
 
 #include "../threading/AppModel.h"
-
+#include "../exceptions.h"
 
 #include "../include/pugixml/pugixml.hpp"
 
@@ -12,7 +12,6 @@ using namespace tower_defense;
 using namespace std;
 using namespace pugi;
 
-#define WAVE_DOES_NOT_EXIST throw std::exception("Exception: no such wave exists");
 
 void MinionWaveManager::clear() {
     for (int i = 0; i < this->waves.size(); i++)

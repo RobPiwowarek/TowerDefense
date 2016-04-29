@@ -8,7 +8,7 @@
 
 #include "../include/pugixml/pugixml.hpp"
 
-#define NO_MINION_EXCEPTION throw exception("Exception: No such minion");
+#include "../exceptions.h"
 
 using namespace std;
 using namespace data;
@@ -100,4 +100,8 @@ Minion *MinionManager::load(const string &mDirectory, const string &name) {
     AppModel::getInstance().getTextures().release();
 
     return new Minion(velocity, size, nextClass++, reward, health, damage, priority);
+}
+
+MinionManager::~MinionManager() {
+	this->clear();
 }

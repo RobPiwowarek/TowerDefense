@@ -25,12 +25,11 @@ namespace data {
         // returns the number of waves
         const int count() const;
 
+		~MinionWaveManager();
     private:
         std::vector<tower_defense::MinionWave *> waves;
 
         tower_defense::MinionWave *loadWave(const std::string &directory, const std::string &path);
-
-        ~MinionWaveManager();
     };
 }
 

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>flamethrower.png</imgsrc>
+ <name>Flamethrower</name>
+ <size>1</size>
+ <rotationSpeed>7</rotationSpeed>
+ <health>200</health>
+ <cost>60</cost>
+ <weapon>
+  <reloadTime>40</reloadTime>
+  <range>1</range>
+  <weaponFire time='0'>firering</weaponFire>
+ </weapon>
+</turret>

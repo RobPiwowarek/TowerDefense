@@ -1,13 +1,10 @@
 #include "TextureManager.h"
 
+#define LOAD_TEST
+
 #include <limits>
-#include <exception>
 
-#define OBJ_ID_OVERFLOW(x) throw std::exception(("Exception: Object identificator overflow: " + std::to_string(x)).c_str());
-#define UNSIGNED_INTEGER_TO_SMALL throw std::exception("Exception: Unsigned integer is too small for textures");
-#define TEXTURE_LOADING_FAILIURE(x) throw std::exception(("Exception: Failed to load texture:\n\t" + std::string(x)).c_str());
-#define TEXTURE_DOES_NOT_EXISIT throw std::exception("Exception: Failed to get a texture");
-
+#include "../exceptions.h"
 #ifdef LOAD_TEST
 #include <iostream> 
 #include <bitset>
@@ -19,12 +16,16 @@ unsigned int graphics::TextureManager::add(const unsigned int flag, const unsign
 
 	const unsigned int id = this->id(flag, objId);
 
+#ifdef LOAD_TEST
+	std::cout << "loading texture: " << path << std::endl;
+#endif
+
 	if (this->textures.find(id) == this->textures.end()) {
 		sf::Texture* t = new sf::Texture();
 		if (t->loadFromFile(path)) {
 			((id & BASE) ? this->baseTextures[id] : this->textures[id]) = t;
 #ifdef LOAD_TEST
-			std::cout << std::bitset<sizeof id * 8>(id) << std::endl;
+			std::cout << "Texture loaded as " << std::bitset<sizeof id * 8>(id) << std::endl;
 #endif
 		}
 		else {

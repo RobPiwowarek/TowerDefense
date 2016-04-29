@@ -35,6 +35,11 @@
 
     <player>
         <startingMoney>100</startingMoney>
+		<turrets>
+		<turret>gun</turret>
+		<turret>flamethrower</turret>
+		<turret>ion</turret>
+		</turrets>
     </player>
 
     <waves>

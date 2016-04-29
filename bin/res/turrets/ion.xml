@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>ion.png</imgsrc>
+ <name>Ion beam tower</name>
+ <size>2</size>
+ <rotationSpeed>0.15</rotationSpeed>
+ <health>75</health>
+ <cost>80</cost>
+ <weapon>
+  <reloadTime>100</reloadTime>
+  <range>10</range>
+  <weaponFire time='0'>ionbeam</weaponFire>
+  <weaponFire time='1'>ionbeam</weaponFire>
+  <weaponFire time='2'>ionbeam</weaponFire>
+  <weaponFire time='3'>ionbeam</weaponFire>
+  <weaponFire time='4'>ionbeam</weaponFire>
+  <weaponFire time='5'>ionbeam</weaponFire>
+  <weaponFire time='6'>ionbeam</weaponFire>
+  <weaponFire time='7'>ionbeam</weaponFire>
+  <weaponFire time='8'>ionbeam</weaponFire>
+  <weaponFire time='9'>ionbeam</weaponFire>
+  <weaponFire time='10'>ionbeam</weaponFire>
+  <weaponFire time='11'>ionbeam</weaponFire>
+  <weaponFire time='12'>ionbeam</weaponFire>
+  <weaponFire time='13'>ionbeam</weaponFire>
+  <weaponFire time='14'>ionbeam</weaponFire>
+  <weaponFire time='15'>ionbeam</weaponFire>
+  <weaponFire time='16'>ionbeam</weaponFire>
+  <weaponFire time='17'>ionbeam</weaponFire>
+  <weaponFire time='18'>ionbeam</weaponFire>
+  <weaponFire time='19'>ionbeam</weaponFire>
+  <weaponFire time='20'>ionbeam</weaponFire>
+  <weaponFire time='21'>ionbeam</weaponFire>
+  <weaponFire time='22'>ionbeam</weaponFire>
+  <weaponFire time='23'>ionbeam</weaponFire>
+  <weaponFire time='24'>ionbeam</weaponFire>
+ </weapon>
+</turret>

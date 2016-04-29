@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "MinionWaveManager.h"
 #include "MinionManager.h"
+#include "TurretManager.h"
 
 #include "../threading/AppModel.h"
 #include "../threading/ResourceManager.h"
@@ -10,7 +11,7 @@
 
 #include <cstdlib>
 
-#include <exception>
+#include "../exceptions.h"
 
 
 using namespace data;
@@ -18,19 +19,8 @@ using namespace tower_defense;
 using namespace std;
 using namespace sf;
 
-#define POINT_OUT_OF_MAP(x, y) throw exception((string("Exception: Given point is out of map: ") + to_string(x) + "," + to_string(y)).c_str());
-
-#define FAILED_TO_LOAD_GAME throw exception("Exception: Failed to load game");
-
 void GameManager::clear() {
 	this->mapTextures.clear();
-
-	AppModel::getInstance().getMinionManager().get()->clear();
-	AppModel::getInstance().getMinionManager().release();
-	AppModel::getInstance().getMinionWaveManager().get()->clear();
-	AppModel::getInstance().getMinionWaveManager().release();
-	AppModel::getInstance().getTextures().get()->clear();
-	AppModel::getInstance().getTextures().release();
 }
 
 Game *GameManager::load(const string &path) {
@@ -60,10 +50,11 @@ Game *GameManager::load(const string &path) {
 
     loadWaves(directory, game.child("waves"));
 
-    //TODO load items, turrets;
+    //TODO load items
 
     return new Game(map, player);
 }
+
 
 const Texture& GameManager::getMapTexture(int x, int y) const {
 	if (x >= this->mapSize || y >= this->mapSize || x < 0 || y < 0)
@@ -106,7 +97,18 @@ Map *GameManager::loadMap(const string &directory, const pugi::xml_node &map) {
 }
 
 Player *GameManager::loadPlayer(const std::string &directory, const pugi::xml_node &player) {
+	loadTurrets(directory, player.child("turrets"));
     return new Player(atoi(player.child("startingMoney").child_value()));
+}
+
+void GameManager::loadTurrets(const std::string &directory, const pugi::xml_node &turrets) {
+	TurretManager* tm = AppModel::getInstance().getTurretManager().get();
+	pugi::xml_object_range<pugi::xml_named_node_iterator> turretNodes = turrets.children("turret");
+	for (pugi::xml_named_node_iterator it = turretNodes.begin();
+		it != turretNodes.end(); it++)
+		tm->addTurret(directory, it->child_value());
+
+	AppModel::getInstance().getTurretManager().release();
 }
 
 void GameManager::loadWaves(const std::string &directory, const pugi::xml_node &waves) {

@@ -12,10 +12,12 @@
 #include "logic/Game.h"
 #include "data/GameManager.h"
 #include "data/MinionManager.h"
+#include "data/TurretManager.h"
 #include "graphics/TextureManager.h"
 
 #ifdef DISPLAY_TEST
 #include "graphics/GameDisplayer.h"
+#include "graphics/GameContent.h"
 #include <thread>
 #endif
 
@@ -48,6 +50,15 @@ int main(int argn, char** argv){
 		std::cout << "\tReward:" << m.getReward() << std::endl;
 		std::cout << "\tSize:" << m.getSize() << std::endl;
 		AppModel::getInstance().getGame().release();
+
+		std::vector<std::pair<int, std::pair<std::string, int> > > turrets;
+		AppModel::getInstance().getTurretManager().get()->getTurrets(turrets);
+		AppModel::getInstance().getTurretManager().release();
+
+		std::cout << "Turrets:" << std::endl;
+		for (int i = 0; i < turrets.size(); i++) {
+			std::cout << "\t" << turrets[i].first << ": " << turrets[i].second.first << ", $:" << turrets[i].second.second << std::endl;
+		}
 	}
 	catch (std::exception e) {
 		std::cout << e.what();
@@ -69,7 +80,20 @@ int main(int argn, char** argv){
     sf::RenderWindow window(sf::VideoMode(600, 600), "TowerDefense");
 
 #if defined DISPLAY_TEST
-	graphics::GameDisplayer d(tower_defense::Point(0, 0));
+	graphics::GameContent* c = nullptr;
+
+	try {
+		c = new graphics::GameContent;
+	}
+	catch (std::exception e) {
+		std::cout << e.what() << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+	catch (...) {
+		std::cout << "WTH?" << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
 
 	while (window.isOpen()) {
 		try {
@@ -78,50 +102,31 @@ int main(int argn, char** argv){
 			static sf::Event event;
 
 			while (window.pollEvent(event)) {
-				switch (event.type) {
-				case sf::Event::Closed:
+				if (event.type == sf::Event::Closed)
 					window.close();
-					break;
-				case sf::Event::KeyPressed:
-					switch (event.key.code) {
-					case sf::Keyboard::PageUp:
-						d.setPointsPerUnit(d.getPointsPerUnit() * 3 / 2);
-						break;
-					case sf::Keyboard::PageDown:
-						d.setPointsPerUnit(d.getPointsPerUnit() * 2 / 3);
-						break;
-					case sf::Keyboard::Up:
-						d.moveScreen(tower_defense::Point(0, -10.0 / d.getPointsPerUnit()));
-						break;
-					case sf::Keyboard::Down:
-						d.moveScreen(tower_defense::Point(0, 10.0 / d.getPointsPerUnit()));
-						break;
-					case sf::Keyboard::Left:
-						d.moveScreen(tower_defense::Point(-10.0 / d.getPointsPerUnit(), 0));
-						break;
-					case sf::Keyboard::Right:
-						d.moveScreen(tower_defense::Point(10.0 / d.getPointsPerUnit(), 0));
-						break;
-					}
-					break;
-				}
+				c->manageEvent(event, window);
+
+				std::this_thread::sleep_for(std::chrono::milliseconds(20));
 			}
 
-			d.refresh(window);
+			c->display(window);
 
 			window.display();
 		}
 		catch (std::exception e) {
 			std::cout << e.what() << std::endl;
-			static std::string buff;
-			std::this_thread::sleep_for(std::chrono::seconds(1));
+			std::string b;
+			std::getline(std::cin, b);
+			return 0;
 		}
 		catch (...) {
 			std::cout << "WTH?" << std::endl;
-			static std::string buff;
-			std::this_thread::sleep_for(std::chrono::seconds(1));
+			std::string b;
+			std::getline(std::cin, b);
+			return 0;
 		}
 	}
+	delete c;
 #else
 \
     Menu menu(window.getSize().x, window.getSize().y);

@@ -13,7 +13,7 @@ namespace data {
 namespace data {
     class GameManager {
     public:
-        // clear all data (also from other managers)
+        // clear all data
         void clear();
 
         // load game (also other managers) from xml at given path
@@ -32,7 +32,8 @@ namespace data {
 
         tower_defense::Player *loadPlayer(const std::string &directory, const pugi::xml_node &player);
 
-        void loadWaves(const std::string &directory, const pugi::xml_node &waves);
+		void loadWaves(const std::string &directory, const pugi::xml_node &waves);
+		void loadTurrets(const std::string &directory, const pugi::xml_node &turrets);
 
         int mapSize;
         int playerAreaSize;

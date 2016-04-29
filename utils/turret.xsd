@@ -11,6 +11,7 @@
                 <xs:element name="size" type="xs:double"/>
                 <xs:element name="rotationSpeed" type="xs:double"/>
                 <xs:element name="health" type="xs:integer"/>
+                <xs:element name="cost" type="xs:positiveInteger"/>
 
                 <xs:element name="weapon">
                     <xs:complexType>
@@ -20,32 +21,12 @@
                           <xs:element name="range" type="xs:double"/>
 
                             <xs:element name="weaponFire" maxOccurs="unbounded">
-                                <xs:complexType>
-                                    <xs:sequence>
-
-                                        <xs:element name="fireTime" type="xs:nonNegativeInteger"/>
-
-                                        <xs:element name="type">
-                                            <xs:simpleType>
-                                                <xs:restriction base="xs:string">
-                                                    <xs:enumeration value="Bullet|Beam|Ring"/>
-                                                </xs:restriction>
-                                            </xs:simpleType>
-                                        </xs:element>
-
-                                        <xs:element name="imgsrc" type="xs:anyURI"/>
-                                        <xs:element name="velocity" type="xs:double"
-                                                    minOccurs="0"/> <!--Bullet & Ring ONLY-->
-                                        <xs:element name="size" type="xs:double"/>
-                                        <xs:element name="lifeTime" type="xs:positiveInteger"
-                                                    minOccurs="0"/> <!--Bullet & Ring ONLY-->
-                                        <xs:element name="damage" type="xs:positiveInteger"/>
-                                        <xs:element name="splash" type="xs:double"
-                                                    minOccurs="0"/> <!--Bullet ONLY-->
-                                        <xs:element name="hitOnlyFirst" type="xs:positiveInteger" 
-                                                    minOccurs="0"/> <!--Bullet & Beam ONLY-->
-
-                                    </xs:sequence>
+                              <xs:complexType>
+                                <xs:simpleContent>
+                                  <xs:extension base="xs:nonNegativeInteger">
+                                    <xs:attribute name="time" type="xs:nonNegativeInteger" />
+                                  </xs:extension>
+                                </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
 

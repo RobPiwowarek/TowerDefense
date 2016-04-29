@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+
+<weaponFire>
+ <type>Beam</type>
+ <imgsrc>beam.png</imgsrc>
+ <size>12</size>
+ <damage>1</damage>
+ <hitOnlyFirst>0</hitOnlyFirst>
+</weaponFire>

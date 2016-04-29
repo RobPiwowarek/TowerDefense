@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>gun.png</imgsrc>
+ <name>Gun tower</name>
+ <size>1</size>
+ <rotationSpeed>0.25</rotationSpeed>
+ <health>150</health>
+ <cost>50</cost>
+ <weapon>
+  <reloadTime>20</reloadTime>
+  <range>4</range>
+  <weaponFire time='0'>bullet</weaponFire>
+ </weapon>
+</turret>
