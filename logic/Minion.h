@@ -32,6 +32,8 @@ namespace tower_defense {
         /// that will follow given Path
         Minion(const Minion &base, const Point &x0);
 
+        void attack(tower_defense::Turret &turret) const;
+
         /// kills the minion
         void death(Game &game);
 

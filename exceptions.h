@@ -4,7 +4,7 @@
 #include <exception>
 
 #define NO_FONT_LOADED throw std::exception("Failed to load font");
-#define NO_SUCH_TURRET throw ("Exception: turret does not exist");
+#define NO_SUCH_TURRET throw exception("Exception: turret does not exist");
 #define FIRE_DOES_NOT_EXIST throw exception("WeaponFire does not exist");
 #define POINT_OUT_OF_MAP(x, y) throw exception((string("Exception: Given point is out of map: ") + to_string(x) + "," + to_string(y)).c_str());
 #define FAILED_TO_LOAD_GAME throw exception("Exception: Failed to load game");

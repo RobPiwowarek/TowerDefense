@@ -13,6 +13,12 @@ namespace tower_defense {
     class Grid {
 
     public:
+        /// helper enum in calculateDistance()
+        enum Target {
+            Turret,
+            Item
+        };
+
         /// creates grid with given size
         Grid(int x, int y, Map &m);
 
@@ -28,13 +34,22 @@ namespace tower_defense {
         GridElement *getElement(const Point &p) const;
 
         /// calculate distances
-        void calculateDistance();
+        void calculateDistance(const Target target);
+
+        /// helper function for function pointers in calculateDistance()
+        void calcDistItems(std::priority_queue<std::pair<int, GridElement*>> &initialNodes);
+
+        /// helper function for function pointers in calculateDistnace()
+        void calcDistTurrets(std::priority_queue<std::pair<int, GridElement*>> &initialNodes);
+
 
     private:
         int height;
         int width;
         GridElement ***elements;
         tower_defense::Map &map;
+
+
     };
 }
 

@@ -10,6 +10,7 @@ namespace tower_defense {
 #include "Minion.h"
 #include "Point.h"
 #include "Turret.h"
+#include "Item.h"
 
 namespace tower_defense {
     class GridElement {
@@ -54,6 +55,18 @@ namespace tower_defense {
         /// returns false if turret isn't present
         bool hasTurret() const;
 
+        /// returns item
+        Item& getItem() const;
+
+        /// checks if element has item.
+        bool hasItem() const;
+
+        /// checks if element has specific item
+        bool hasItem(Item * item) const;
+
+        /// sets item
+        void setItem(Item * item);
+
     private:
         Point location;
         int distToTarget;
@@ -61,6 +74,7 @@ namespace tower_defense {
         bool occupied = false; // has turret?
 
         const Grid &grid;
+        Item *item = nullptr;
         Turret *turret = nullptr;
         std::set<Minion *> minions;
     };

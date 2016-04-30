@@ -2,11 +2,12 @@
 
 
 tower_defense::Turret::Turret(const int size, const int turretClass, const double rotationSpeed, const int level,
-                              const Weapon &wBase)
+                              const Weapon &wBase, int armor = 0)
         : Entity(Point(), 0, size, turretClass) {
     this->weapon = new Weapon(wBase, this);
     this->rotationSpeed = rotationSpeed;
     this->level = level;
+    this->armor = armor;
 }
 
 tower_defense::Turret::Turret(const Turret &base, const Point &location)
@@ -15,7 +16,12 @@ tower_defense::Turret::Turret(const Turret &base, const Point &location)
     this->location = location;
     this->level = base.level;
     this->rotationSpeed = base.rotationSpeed;
+    this->armor = base.armor;
 }
+
+int tower_defense::Turret::getArmor() const { return this->armor; }
+
+void tower_defense::Turret::setArmor(int armor) { this->armor = armor; }
 
 int tower_defense::Turret::getCurrentHealth() const { return this->currentHealth; }
 

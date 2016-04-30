@@ -20,7 +20,7 @@ namespace tower_defense {
 
         /// creates a new instance of turret
         /// using given values
-        Turret(const int size, const int turretClass, const double rotationSpeed, const int level, const Weapon &wBase);
+        Turret(const int size, const int turretClass, const double rotationSpeed, const int level, const Weapon &wBase, int armor = 0);
 
         /// creates a new instance of turret
         /// that is a copy of base located in
@@ -56,6 +56,12 @@ namespace tower_defense {
         /// destroys turret
         void destroy(Grid &g);
 
+        /// returns armor;
+        int getArmor() const;
+
+        /// sets armor;
+        void setArmor(int armor);
+
 /// refreshes turret (and it's weapon)
         bool refresh(std::list<Minion *> enemies);
 
@@ -67,6 +73,7 @@ namespace tower_defense {
         int level;
         int currentHealth;
         int maxHealth;
+        int armor;
         double rotationSpeed;
     };
 }

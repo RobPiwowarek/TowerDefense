@@ -60,6 +60,18 @@ tower_defense::GridElement *tower_defense::GridElement::getRightNeighbour() cons
     return temp;
 }
 
+bool tower_defense::GridElement::hasItem() const{
+    return this->distToTarget == 0 && this->item != nullptr;
+}
+
+bool tower_defense::GridElement::hasItem(tower_defense::Item *item) const{
+    return this->item == item;
+}
+
+tower_defense::Item& tower_defense::GridElement::getItem() const { return *this->item; }
+
+void tower_defense::GridElement::setItem(tower_defense::Item *item) { this->item = item; }
+
 bool tower_defense::GridElement::hasTurret() const {
     return occupied;
 }

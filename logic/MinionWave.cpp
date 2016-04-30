@@ -1,6 +1,5 @@
 #include "MinionWave.h"
 
-
 tower_defense::MinionWave::MinionWave(const std::queue<Minion*>& minions, const int timeBetweenMinions) {
 	this->minions = minions;
 	this->timeToNext = this->timeBetweenMinions = timeBetweenMinions;
