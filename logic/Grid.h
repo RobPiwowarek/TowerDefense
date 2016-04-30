@@ -7,6 +7,7 @@ namespace tower_defense {
 
 #include "GridElement.h"
 #include "Map.h"
+#include <queue>
 
 namespace tower_defense {
 

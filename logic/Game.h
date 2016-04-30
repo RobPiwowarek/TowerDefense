@@ -1,13 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
+namespace tower_defense {
+	class Game;
+}
 
 #include "Map.h"
 #include "MinionWave.h"
 #include "Player.h"
 
-namespace tower_defense{
-    class Game;
-}
 
 namespace tower_defense {
     class Game {
