@@ -20,8 +20,13 @@ tower_defense::Map::~Map() {
 void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 
-    // przeiteruj po minionsach i odpal refreshe
+    for (tower_defense::Minion minion: game.getCurrentWave().getMinions()){
+        minion.refresh(this->grid, game);
+    }
 
+    for (tower_defense::WeaponFire bullet: this->weaponFires){
+        bullet.refresh(this->grid);
+    }
 }
 
 double tower_defense::Map::getWidth() const {
