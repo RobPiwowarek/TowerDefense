@@ -40,7 +40,6 @@ namespace tower_defense {
         /// adds an item to map
         void addItem(Item *i);
 
-
         /// returns set of minions
         std::set<Minion *> &getMinions();
 

@@ -11,6 +11,15 @@ tower_defense::Turret *tower_defense::GridElement::getTurret() {
     return this->turret;
 }
 
+void tower_defense::GridElement::addMinion(Minion *m) {
+    this->minions.insert(m);
+    this->grid.addMinion(m);
+}
+
+void tower_defense::GridElement::removeMinion(Minion *m) {
+    this->minions.erase(m);
+}
+
 bool tower_defense::GridElement::setTurret(Turret *t) {
     if (this->minions.empty() || this->turret != nullptr)
         return false;

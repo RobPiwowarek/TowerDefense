@@ -67,13 +67,19 @@ namespace tower_defense {
         /// sets item
         void setItem(Item * item);
 
+        /// adds minion to grid element
+        void addMinion(Minion* m);
+
+        /// removes minion from grid element
+        void removeMinion(Minion* m);
+
     private:
         Point location;
         int distToTarget;
         int distToTurret;
         bool occupied = false; // has turret?
 
-        const Grid &grid;
+        Grid &grid;
         Item *item = nullptr;
         Turret *turret = nullptr;
         std::set<Minion *> minions;

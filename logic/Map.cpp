@@ -20,12 +20,21 @@ tower_defense::Map::~Map() {
 void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 
+<<<<<<< HEAD
+    for (std::set<tower_defense::Minion*>::iterator it = this->grid->getMinions().begin(); it != this->grid->getMinions().end(); ++it){
+        it->refresh(this->grid, game);
+    }
+
+    for (std::set<tower_defense::WeaponFire*>::iterator it = this->weaponFires.begin(); it != this->weaponFires.end(); ++it){
+        it->refresh(this->grid);
+=======
     for (tower_defense::Minion minion: game.getCurrentWave().getMinions()){
         minion.refresh(*this->grid, game);
     }
 
     for (tower_defense::WeaponFire bullet: this->weaponFires){
         bullet.refresh(*this->grid);
+>>>>>>> origin/master
     }
 }
 

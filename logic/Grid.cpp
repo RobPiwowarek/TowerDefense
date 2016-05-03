@@ -26,6 +26,10 @@ tower_defense::Grid::~Grid() {
     delete[] this->elements;
 }
 
+void tower_defense::Grid::getMinions() { return this->minions; }
+
+void tower_defense::Grid::addMinion(Minion *m) { this->minions.insert(m); }
+
 int tower_defense::Grid::getWidth() const {
     return this->width;
 }
