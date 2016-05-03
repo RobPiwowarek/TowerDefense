@@ -21,11 +21,11 @@ void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 
     for (tower_defense::Minion minion: game.getCurrentWave().getMinions()){
-        minion.refresh(this->grid, game);
+        minion.refresh(*this->grid, game);
     }
 
     for (tower_defense::WeaponFire bullet: this->weaponFires){
-        bullet.refresh(this->grid);
+        bullet.refresh(*this->grid);
     }
 }
 
