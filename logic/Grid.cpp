@@ -28,7 +28,7 @@ tower_defense::Grid::~Grid() {
 
 void tower_defense::Grid::removeMinion(Minion *m) { this->minions.erase(m); }
 
-void tower_defense::Grid::getMinions() { return this->minions; }
+std::set<tower_defense::Minion*>& tower_defense::Grid::getMinions() { return this->minions; }
 
 void tower_defense::Grid::addMinion(Minion *m) { this->minions.insert(m); }
 

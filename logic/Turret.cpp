@@ -2,7 +2,7 @@
 
 
 tower_defense::Turret::Turret(const int size, const int turretClass, const double rotationSpeed, const int level,
-                              const Weapon &wBase, int armor = 0)
+                              const Weapon &wBase, int armor)
         : Entity(Point(), 0, size, turretClass) {
     this->weapon = new Weapon(wBase, this);
     this->rotationSpeed = rotationSpeed;

@@ -56,9 +56,11 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 		directory + WEAPON_FIRES_LOCATION + fireNode.child_value("imgsrc"));
 	AppModel::getInstance().getTextures().release();
 
+	WeaponFire* toRet = nullptr;
+
 	switch (fireNode.child_value("type")[1]) {
 	case 'u':
-		return new Bullet(
+		toRet = new Bullet(
 			atoi(fireNode.child_value("damage")),
 			atof(fireNode.child_value("size")),
 			atoi(fireNode.child_value("hitOnlyFirst")),
@@ -67,20 +69,25 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 			atoi(fireNode.child_value("lifeTime")),
 			nextClass++);
 	case 'e':
-		return new Beam(
+		toRet = new Beam(
 			atoi(fireNode.child_value("damage")),
 			atof(fireNode.child_value("size")),
 			nextClass++,
 			atoi(fireNode.child_value("hitOnlyFirst")));
 	case 'i':
-		return new Ring(
+		toRet = new Ring(
 			atoi(fireNode.child_value("damage")),
 			atoi(fireNode.child_value("velocity")),
 			atoi(fireNode.child_value("lifeTime")),
 			nextClass++);
 	}
 
-	return nullptr;
+	if (toRet != nullptr) {
+		this->fireIds[name] = toRet->getObjClass();
+		this->fires[toRet->getObjClass()] = toRet;
+	}
+
+	return toRet;
 }
 
 void WeaponFireManager::clear() {

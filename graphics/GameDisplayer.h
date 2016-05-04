@@ -13,8 +13,8 @@ namespace graphics {
 namespace graphics {
 	class GameDisplayer {
 	public:
-		static const int MIN_PPU = 10;
-		static const int MAX_PPU = 800;
+		static const int MIN_PPU = 4;
+		static const int MAX_PPU = 600;
 
 		// refreshes given window
 		void refresh(sf::RenderWindow& window);
@@ -38,7 +38,7 @@ namespace graphics {
 		void checkCurPosition();
 
 		sf::RectangleShape baseBackground;
-		int pointsPerUnit = 50;
+		int pointsPerUnit = 80;
 		tower_defense::Point curPosition; //in game's units
 		tower_defense::Point gameMapSize;
 

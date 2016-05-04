@@ -11,8 +11,6 @@
 #endif
 
 unsigned int graphics::TextureManager::add(const unsigned int flag, const unsigned int objId, const std::string& path) {
-	if (objId >> objIdShift)
-		OBJ_ID_OVERFLOW(objId)
 
 	const unsigned int id = this->id(flag, objId);
 
@@ -46,8 +44,6 @@ void graphics::TextureManager::clear() {
 }
 
 const sf::Texture& graphics::TextureManager::get(const unsigned int flag, const unsigned int objId) const {
-	if (objId << -objIdShift)
-		OBJ_ID_OVERFLOW(objId)
 
 	return this->get(id(flag, objId));
 }
@@ -73,7 +69,7 @@ graphics::TextureManager::TextureManager() {
 	if (sizeof(unsigned int) * 8 <= FLAGS)
 		UNSIGNED_INTEGER_TO_SMALL
 
-	this->objIdShift = sizeof(unsigned int) * 8 - FLAGS;
+	this->objIdShift = FLAGS;
 }
 
 unsigned int graphics::TextureManager::id(unsigned int flag, unsigned int objId) const {
