@@ -7,12 +7,15 @@ tower_defense::Item::Item(const tower_defense::Point &location, const double ang
 
 }
 
-bool tower_defense::Item::drop(tower_defense::Point &location) {
+bool tower_defense::Item::drop(tower_defense::Point &location, tower_defense::Grid& grid) {
+
+	if (grid.getElement(location)->hasItem()) return false; // cannot drop on another item.
 
     this->setLocation(location);
     this->holdingMinion = nullptr;
 
     this->held = false;
+	return true;
 }
 
 bool tower_defense::Item::isHeld() const {

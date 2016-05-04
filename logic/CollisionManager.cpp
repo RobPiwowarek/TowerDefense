@@ -22,4 +22,5 @@ bool tower_defense::CollisionManager::CheckCollision() {
         }
     }
 
+	return false;
 }

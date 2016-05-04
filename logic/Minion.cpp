@@ -35,7 +35,13 @@ bool tower_defense::Minion::hasItem() const { return this->item != nullptr; }
 
 bool tower_defense::Minion::hasItem(tower_defense::Item* item) const { return this->item != item; }
 
-bool tower_defense::Minion::setItem(tower_defense::Item* item) { this->item = item; }
+bool tower_defense::Minion::setItem(tower_defense::Item* item) { 
+	
+	if (this->item != nullptr) return false;
+
+	this->item = item; 
+	return true;
+}
 
 bool tower_defense::Minion::isDead() const {
     return this->dead;
