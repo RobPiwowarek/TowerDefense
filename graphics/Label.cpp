@@ -60,10 +60,10 @@ void Label::display(sf::RenderWindow& window, std::string text) {
 		iconShape.setScale(iconScale, iconScale);
 		iconShape.setPosition(this->location);
 		window.draw(iconShape);
-		label.setPosition(iconShape.getSize().x + this->location.x, this->location.y);
+		label.setPosition(Vector2f(iconShape.getSize().x + this->location.x, this->location.y) + this->margin);
 	}
 	else 
-		label.setPosition(this->location);
+		label.setPosition(this->location + this->margin);
 
 	label.setColor(this->foreColor);
 
@@ -76,4 +76,11 @@ void Label::setFontSize(int size) {
 }
 int Label::getFontSize() {
 	return this->fontSize;
+}
+
+const Vector2f& Label::getMargin() const {
+	return this->margin;
+}
+void Label::setMargin(const Vector2f& margin) {
+	this->margin = margin;
 }

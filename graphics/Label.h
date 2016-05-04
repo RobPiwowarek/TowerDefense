@@ -36,6 +36,11 @@ namespace graphics {
 		int getFontSize();
 
 		void display(sf::RenderWindow& window, std::string text);
+
+		//returns margins
+		const sf::Vector2f& getMargin() const;
+		//sets margins
+		void setMargin(const sf::Vector2f& margin);
 	private:
 		sf::RectangleShape background;
 		const sf::Texture* icon = nullptr;
@@ -44,6 +49,7 @@ namespace graphics {
 
 		sf::Vector2f size;
 		sf::Vector2f location;
+		sf::Vector2f margin = {2.0, 0};
 
 		std::string descr;
 

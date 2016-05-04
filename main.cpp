@@ -83,7 +83,7 @@ int main(int argn, char** argv){
 	graphics::GameContent* c = nullptr;
 
 	try {
-		c = new graphics::GameContent;
+		c = new graphics::GameContent(window);
 	}
 	catch (std::exception e) {
 		std::cout << e.what() << std::endl;
