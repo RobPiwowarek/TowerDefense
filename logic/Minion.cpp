@@ -45,8 +45,9 @@ void tower_defense::Minion::death(Game &game) {
     this->dead = true;
 
     game.getPlayer().setMoney(this->reward);
-    game.getMap().getGrid().getElement(this->location)->getMinions().erase(this);
+    game.getMap().getGrid().getElement(this->location)->removeMinion(this);
 
+    game.getMap().getGrid().removeMinion(this);
     // todo: remove from collision manager
 }
 
@@ -113,8 +114,12 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
         this->death(game);
     }
 
-    if (g.getElement(this->location) == this->next)
+    if (g.getElement(this->location) == this->next){
+        // TODO: remove minion from previous location
+        this->next->addMinion(this);
         chooseDestination(g, game);
+
+    }
 
     // TODO:
     // if road is blocked attack nearest tower

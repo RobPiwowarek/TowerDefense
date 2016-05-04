@@ -46,6 +46,9 @@ namespace tower_defense {
         /// adds a minion to grid
         void addMinion(Minion *m);
 
+        /// removes a minion from grid
+        void removeMinion(Minion *m);
+
         /// returns set of minions
         std::set<Minion *> &getMinions();
 
