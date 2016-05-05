@@ -40,7 +40,6 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
 	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 
-
 	return false; //TODO
 }
 

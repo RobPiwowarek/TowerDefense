@@ -56,22 +56,7 @@ namespace tower_defense {
         Grid &getGrid();
 
 		/// returns if you can place a tower on given point
-		bool canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret){
-			for (int i = 0; i < turret.getSize(); i++){
-				for (int j = 0; j < turret.getSize(); j++){
-					tower_defense::Point temp = new Point(turret.getLocation.getX() + j, turret.getLocation.getY() + i);
-					tower_defense::GridElement tempElement = this->grid->getElement(temp);
-
-					delete temp;
-
-					if (tempElement.hasItem || tempElement.hasTurret || !tempElement.getMinions.empty()){
-						return false;
-					}					
-				}
-			}
-
-			return true;
-		}
+		bool canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret);
 
         /// refreshes all elements contained by the map
         void refresh(Game &game);

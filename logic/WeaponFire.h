@@ -33,6 +33,9 @@ namespace tower_defense {
         /// returns type of this object
         FireType getType() const;
 
+		/// checks collision with minion
+		virtual bool checkCollision(tower_defense::Minion minion);
+
     protected:
 
         /// creates new instance of WeaponFire object
