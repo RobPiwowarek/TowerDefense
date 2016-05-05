@@ -27,3 +27,7 @@ bool tower_defense::Ring::refresh(Grid& g) {
 bool tower_defense::Ring::hits(Minion* m) {
 	return false; //TODO
 }
+
+bool checkCollision(tower_defense::Minion * minion){
+	return false; //TODO
+}

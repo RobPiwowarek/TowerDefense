@@ -40,7 +40,29 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
 	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 
+	/// detect collision
+	tower_defense::GridElement * temp = g.getElement(this->location);
+
+	if (!temp->getMinions().empty()){
+		for (tower_defense::Minion* minion : temp->getMinions()){
+			if (this->checkCollision(minion)){
+				/// mamy kolizje
+				/// mozna trafione miniony gdzies zachowac i dalej z nimi cos zrobic
+			}
+		}
+	}
+
 	return false; //TODO
+}
+
+bool tower_defense::Bullet::checkCollision(tower_defense::Minion * minion){
+	if (!minion) return false;
+
+	if (pow((this->size + minion->getSize()), 2.0f) >= minion->getSqDistance(this)){
+		return true;
+	}
+
+	return false;
 }
 
 bool tower_defense::Bullet::hits(Minion* m) {
