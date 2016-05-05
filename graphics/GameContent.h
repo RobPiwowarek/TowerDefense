@@ -26,13 +26,12 @@ namespace graphics {
 	public:
 		GameContent(sf::RenderWindow& w);
 		~GameContent();
-		void display(sf::RenderWindow& w);
+		void refresh(sf::RenderWindow& w);
 
-		void manageEvent(sf::Event& e, sf::RenderWindow& w);
 	private:
 		void createTurretList();
 
-		void manageEvent_KeyPressed(sf::Event& e, sf::RenderWindow& w);
+		void checkKeys(sf::RenderWindow& w);
 
 		GameDisplayer* displayer;
 		Label* money;
@@ -40,6 +39,16 @@ namespace graphics {
 		Label** turretLabels;
 		int turretN = 0;
 
+		bool keys[sf::Keyboard::KeyCount];
+
+		void manageEvent(sf::Event& e, sf::RenderWindow& w);
+		void manageEvent_mousePress(sf::Event& e, sf::RenderWindow& w);
+
+		int selectedTurret = -1;
+
+
+		//DEBUG:
+		Label* debugL;
 	};
 }
 

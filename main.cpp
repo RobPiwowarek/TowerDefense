@@ -77,7 +77,7 @@ int main(int argn, char** argv){
 #endif
 
 
-    sf::RenderWindow window(sf::VideoMode(600, 600), "TowerDefense");
+    sf::RenderWindow window(sf::VideoMode(600, 600), "TowerDefense", sf::Style::None);
 
 #if defined DISPLAY_TEST
 	graphics::GameContent* c = nullptr;
@@ -99,19 +99,11 @@ int main(int argn, char** argv){
 		try {
 			window.clear();
 
-			static sf::Event event;
-
-			while (window.pollEvent(event)) {
-				if (event.type == sf::Event::Closed)
-					window.close();
-				c->manageEvent(event, window);
-
-				std::this_thread::sleep_for(std::chrono::milliseconds(20));
-			}
-
-			c->display(window);
+			c->refresh(window);
 
 			window.display();
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(20));
 		}
 		catch (std::exception e) {
 			std::cout << e.what() << std::endl;

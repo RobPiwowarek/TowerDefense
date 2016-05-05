@@ -13,7 +13,14 @@ GameContent::GameContent(RenderWindow& w) {
 		Vector2f(MONEY_LABEL_X, MONEY_LABEL_Y), AppModel::getInstance().getLabelBackground(), "$:");
 	this->money->setFontSize(MONEY_LABEL_FONT_SIZE);
 	this->createTurretList();
+
+	for (bool b : this->keys)
+		b = false;
+
+	this->debugL = new Label({ 150, 20 }, { 0, 580 }, AppModel::getInstance().getLabelBackground(), "selected turret: ");
+	this->debugL->setFontSize(15);
 }
+
 #include <iostream>
 void GameContent::createTurretList() {
 	AppModel::getInstance().getTurretManager().get()->getTurrets(this->turretList);
@@ -30,8 +37,15 @@ void GameContent::createTurretList() {
 	}
 }
 
-void GameContent::display(RenderWindow& w) {
+void GameContent::refresh(RenderWindow& w) {
+	Event e;
+	while (w.pollEvent(e))
+		this->manageEvent(e, w);
+
+	this->checkKeys(w);
+
 	this->displayer->refresh(w);
+
 	Game* g = AppModel::getInstance().getGame().get();
 	this->money->display(w, to_string(g->getPlayer().getMoney()));
 	AppModel::getInstance().getGame().release();
@@ -39,6 +53,8 @@ void GameContent::display(RenderWindow& w) {
 	for (int i = 0; i < turretN; i++) {
 		this->turretLabels[i]->display(w, "");
 	}
+
+	this->debugL->display(w, to_string(this->selectedTurret));
 }
 
 GameContent::~GameContent() {
@@ -52,31 +68,45 @@ GameContent::~GameContent() {
 
 void GameContent::manageEvent(sf::Event& e, sf::RenderWindow& w) {
 	switch (e.type) {
+	case sf::Event::Closed:
+		w.close();
+		break;
 	case sf::Event::KeyPressed:
-		this->manageEvent_KeyPressed(e, w);
+		keys[e.key.code] = true;
+		break;
+	case sf::Event::KeyReleased:
+		keys[e.key.code] = false;
+		break;
+	case sf::Event::MouseButtonPressed:
+		this->manageEvent_mousePress(e, w);
 		break;
 	}
 }
 
-void GameContent::manageEvent_KeyPressed(sf::Event& e, sf::RenderWindow& w) {
-	switch (e.key.code) {
-	case sf::Keyboard::PageUp:
+void GameContent::checkKeys(sf::RenderWindow& w) {
+	if (keys[sf::Keyboard::PageUp])
 		this->displayer->setPointsPerUnit(this->displayer->getPointsPerUnit() * 3 / 2);
-		break;
-	case sf::Keyboard::PageDown:
+	if (keys[sf::Keyboard::PageDown])
 		this->displayer->setPointsPerUnit(this->displayer->getPointsPerUnit() * 2 / 3);
-		break;
-	case sf::Keyboard::Up:
+	if (keys[sf::Keyboard::Up])
 		this->displayer->moveScreen(tower_defense::Point(0, -10.0 / this->displayer->getPointsPerUnit()));
-		break;
-	case sf::Keyboard::Down:
+	if (keys[sf::Keyboard::Down])
 		this->displayer->moveScreen(tower_defense::Point(0, 10.0 / this->displayer->getPointsPerUnit()));
-		break;
-	case sf::Keyboard::Left:
+	if (keys[sf::Keyboard::Left])
 		this->displayer->moveScreen(tower_defense::Point(-10.0 / this->displayer->getPointsPerUnit(), 0));
-		break;
-	case sf::Keyboard::Right:
+	if (keys[sf::Keyboard::Right])
 		this->displayer->moveScreen(tower_defense::Point(10.0 / this->displayer->getPointsPerUnit(), 0));
-		break;
+}
+
+void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
+	int mouseX = sf::Mouse::getPosition().x - w.getPosition().x;
+	int mouseY = sf::Mouse::getPosition().y - w.getPosition().y;
+
+	cout << "Mouse: (" << mouseX << ", " << mouseY << ")\n";
+
+	if (mouseX >= TURRET_LABELS_X && mouseX <= TURRET_LABELS_X + TURRET_LABEL_WIDTH) {
+		int label = floor(((double)mouseY - TURRET_LABELS_Y) / TURRET_LABELS_Y_DIFF);
+		if (label >= 0 && label < turretN)
+			this->selectedTurret = label != this->selectedTurret ? label : -1;
 	}
 }
