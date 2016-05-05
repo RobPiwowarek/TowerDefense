@@ -17,6 +17,15 @@ tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const double angle
     this->angle += angleModifier;
 }
 
+bool tower_defense::WeaponFire::checkCollision(tower_defense::Minion minion){
+
+	if (pow((this->size + minion.getSize()), 2.0f) >= minion.getSqDistance(this)){
+		return true;
+	}
+
+	return false;
+}
+
 tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const Point &location, const double angle)
         : WeaponFire(base, angle) {
     this->location = location;
