@@ -27,6 +27,6 @@ bool tower_defense::Beam::hits(Minion* m) {
 	return false; //TODO
 }
 
-bool checkCollision(tower_defense::Minion * minion){
+bool tower_defense::Beam::checkCollision(tower_defense::Minion * minion){
 	return false; //TODO
 }

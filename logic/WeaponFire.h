@@ -34,7 +34,7 @@ namespace tower_defense {
         FireType getType() const;
 
 		/// checks collision with minion
-		virtual bool checkCollision(tower_defense::Minion * minion);
+		virtual bool checkCollision(tower_defense::Minion * minion) = 0;
 
     protected:
 
