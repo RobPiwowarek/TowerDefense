@@ -1,39 +1,25 @@
 #ifndef TOWERDEFENSE_COLLISIONMANAGER_H
 #define TOWERDEFENSE_COLLISIONMANAGER_H
 
+namespace tower_defense {
+	class CollisionManager;
+}
+
 #include <vector>
 #include "Entity.h"
+#include "Map.h"
 
 namespace tower_defense {
     class CollisionManager {
-        // singleton
-        static CollisionManager *instance;
+        
+	public:
+		CollisionManager(tower_defense::Map map);
+		bool checkCollision(tower_defense::Minion minion, tower_defense::Entity missile);
+		
 
-        std::vector<Entity> bullets;
-        std::vector<Entity> minions;
-
-    public:
-        bool CheckCollision();
-
-        virtual ~CollisionManager() { }
-
-        CollisionManager() { }
-
-        static CollisionManager *getInstance() {
-            if (!instance)
-                instance = new CollisionManager();
-            return instance;
-        }
-
-        const std::vector<Entity> &getBullets() const {
-            return bullets;
-        }
-
-
-        const std::vector<Entity> &getMinions() const {
-            return minions;
-        }
-
+	private:
+		tower_defense::Grid & grid;
+		tower_defense::Map & map;
     };
 }
 
