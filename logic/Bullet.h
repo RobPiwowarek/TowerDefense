@@ -39,6 +39,9 @@ namespace tower_defense {
         /// refreshes object
         bool refresh(Grid& grid);
 
+		/// checks if collision occured with a minion
+		bool checkCollision(tower_defense::Minion * minion);
+
     private:
         bool hitOnlyFirst;
         double splash;

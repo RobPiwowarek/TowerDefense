@@ -6,6 +6,7 @@ namespace tower_defense {
 }
 
 #include "WeaponFire.h"
+#include "Minion.h"
 
 namespace tower_defense {
     class Beam : public WeaponFire {
@@ -29,6 +30,10 @@ namespace tower_defense {
 
         /// refreshes the beam
         bool refresh(Grid& grid);
+
+		/// check collision
+		bool checkCollision(tower_defense::Minion * minion);
+
     private:
         bool hitOnlyFirst;
 

@@ -55,6 +55,9 @@ namespace tower_defense {
         /// returns grid
         Grid &getGrid();
 
+		/// returns if you can place a tower on given point
+		bool canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret);
+
         /// refreshes all elements contained by the map
         void refresh(Game &game);
 

@@ -30,6 +30,10 @@ namespace tower_defense {
 
         /// refreshes the ring
         bool refresh(Grid& grid);
+
+		/// check collision
+		bool checkCollision(tower_defense::Minion * minion);
+
     private:
         double velocity;
 

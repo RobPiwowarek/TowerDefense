@@ -146,7 +146,8 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
     }
 
     // Update location
-    this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
+    
+	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
     this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 }
 

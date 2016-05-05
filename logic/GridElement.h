@@ -11,6 +11,7 @@ namespace tower_defense {
 #include "Point.h"
 #include "Turret.h"
 #include "Item.h"
+#include "WeaponFire.h"
 
 namespace tower_defense {
     class GridElement {
@@ -73,6 +74,16 @@ namespace tower_defense {
         /// removes minion from grid element
         void removeMinion(Minion* m);
 
+		/// adds missile to grid
+		void addMissile(WeaponFire* missile);
+
+		/// removes missile from grid
+		void removeMissile(WeaponFire* missile);
+
+		/// returns missiles
+		std::set<WeaponFire*> getMissiles() const;
+
+
     private:
         Point location;
         int distToTarget;
@@ -82,6 +93,7 @@ namespace tower_defense {
         Grid &grid;
         Item *item = nullptr;
         Turret *turret = nullptr;
+		std::set<WeaponFire*> missiles;
         std::set<Minion *> minions;
     };
 }

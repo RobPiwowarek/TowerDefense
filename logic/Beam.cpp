@@ -26,3 +26,7 @@ bool tower_defense::Beam::refresh(Grid& g) {
 bool tower_defense::Beam::hits(Minion* m) {
 	return false; //TODO
 }
+
+bool checkCollision(tower_defense::Minion * minion){
+	return false; //TODO
+}
