@@ -21,14 +21,14 @@ AppModel &AppModel::getInstance() {
 
 ResourceManager<tower_defense::Game> &AppModel::getGame() {
     if (this->game == nullptr)
-        throw std::exception("Game was not initialized!");
+		GAME_NOT_INITIALIZED
 
     return *this->game;
 }
 
 ResourceManager<Refresher> &AppModel::getRefresher() {
     if (this->refresher == nullptr)
-        throw std::exception("Game was not initialized!");
+		GAME_NOT_INITIALIZED
 
     return *this->refresher;
 }
@@ -68,6 +68,8 @@ AppModel::~AppModel() {
 }
 
 AppModel::AppModel() {
+	srand(time(NULL));
+
     this->game = nullptr;
     this->refresher = nullptr;
 
@@ -81,10 +83,13 @@ AppModel::AppModel() {
 	this->loadResources();
 }
 
+#include <iostream>
+
 bool AppModel::createGame(const std::string& xmlURI) {
 	bool r = false;
 	try {
 		this->game = new ResourceManager<tower_defense::Game>(this->gameManager->get()->load(xmlURI));
+		std::cout << "ctrlpt\n";
 		r = true;
 		this->gameManager->release();
 	}
@@ -92,6 +97,8 @@ bool AppModel::createGame(const std::string& xmlURI) {
 		if (!r)
 			this->gameManager->release();
 		this->closeGame();
+
+		std::cout << "Failed to load game" << e.what() << std::endl;
 		return false;
 	}
 

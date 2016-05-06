@@ -24,8 +24,14 @@ void GameDisplayer::refresh(RenderWindow& window) {
 	for (set<Turret*>::const_iterator it = g->getMap().getTurrets().cbegin(); it != g->getMap().getTurrets().cend(); it++)
 		if (onScreen(window, **it));
 			//display TODO
+	
+	GameManager* gm = AppModel::getInstance().getGameManager().get();
 
+	for (set<Item*>::const_iterator it = g->getMap().getItems().cbegin(); it != g->getMap().getItems().cend(); it++)
+		if (onScreen(window, **it))
+			display(window, gm->getItemTexture((*it)->getObjClass()), { (*it)->getSize(), (*it)->getSize() }, (*it)->getLocation());
 
+	AppModel::getInstance().getGameManager().release();
 	AppModel::getInstance().getGame().release();
 }
 
@@ -89,7 +95,6 @@ void GameDisplayer::drawMinions(sf::RenderWindow& window, tower_defense::GridEle
 		mManager->getTexture((*it)->getObjClass()),
 		{ (*it)->getSize(), (*it)->getSize() },
 		(*it)->getLocation());
-
 }
 
 bool GameDisplayer::onScreen(RenderWindow& window, const Entity &e) {

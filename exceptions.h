@@ -14,6 +14,7 @@
 #define UNSIGNED_INTEGER_TO_SMALL throw std::exception("Exception: Unsigned integer is too small for textures");
 #define TEXTURE_LOADING_FAILIURE(x) throw std::exception(("Exception: Failed to load texture:\n\t" + std::string(x)).c_str());
 #define TEXTURE_DOES_NOT_EXISIT throw std::exception("Exception: Failed to get a texture");
+#define GAME_NOT_INITIALIZED throw std::exception("Game was not initialized!");
 
 
 #endif

@@ -34,8 +34,19 @@
            <xs:sequence>
              
             <xs:element name="startingMoney" type="xs:positiveInteger" />
-            <xs:element name="toProtect" type="xs:positiveInteger" />
-               
+            <xs:element name="items" >
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="item">
+                    <xs:complexType>
+                      <xs:attribute name="img" type="xs:anyURI" />
+                      <xs:attribute name="size" type="xs:double"/>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+             
             <xs:element name="turrets">
               <xs:complexType>
                 <xs:sequence>

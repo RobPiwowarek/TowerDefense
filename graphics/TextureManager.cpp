@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-#define LOAD_TEST
+//#define LOAD_TEST
 
 #include <limits>
 

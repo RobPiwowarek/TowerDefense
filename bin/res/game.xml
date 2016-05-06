@@ -10006,6 +10006,12 @@
   </map>
   <player>
     <startingMoney>100</startingMoney>
+	<items>
+	 <item img="item.png" size="0.2"/>
+	 <item img="item.png" size="0.2"/>
+	 <item img="item.png" size="0.2"/>
+	 <item img="item.png" size="0.2"/>
+	</items>
     <turrets>
       <turret>gun</turret>
       <turret>flamethrower</turret>

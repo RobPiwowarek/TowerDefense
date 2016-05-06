@@ -21,15 +21,15 @@ void MinionWaveManager::clear() {
 }
 
 void MinionWaveManager::load(const string &directory, const vector<string> &waves) {
-    MinionWave *cur;
+	MinionWave *cur;
     for (int i = 0; i < waves.size(); i++)
-        if (cur = this->loadWave(directory, waves[i]))
+		if (cur = this->loadWave(directory, waves[i]))
             this->waves.push_back(cur);
 }
 
 const MinionWave &MinionWaveManager::get(int i) const {
-    if (this->waves.size() >= i || i < 0)
-        WAVE_DOES_NOT_EXIST
+	if (this->waves.size() <= i || i < 0)
+		WAVE_DOES_NOT_EXIST
 
     return *this->waves[i];
 }

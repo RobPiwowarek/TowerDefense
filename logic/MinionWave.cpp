@@ -4,6 +4,7 @@ tower_defense::MinionWave::MinionWave(const std::queue<Minion*>& minions, const 
 	this->minions = minions;
 	this->timeToNext = this->timeBetweenMinions = timeBetweenMinions;
 }
+
 tower_defense::MinionWave::MinionWave(const MinionWave& wave) {
 	this->minions = wave.minions;
 	this->timeToNext = wave.timeToNext;

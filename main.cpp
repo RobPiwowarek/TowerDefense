@@ -37,6 +37,9 @@ int main(int argn, char** argv){
 
 
 		AppModel::getInstance().createGame(path);
+
+		std::cout << "Game created\n";
+
 		g = AppModel::getInstance().getGame().get();
 		gLocekd = true;
 
@@ -49,6 +52,11 @@ int main(int argn, char** argv){
 		std::cout << "\tHealth: " << m.getHealth() << std::endl;
 		std::cout << "\tReward:" << m.getReward() << std::endl;
 		std::cout << "\tSize:" << m.getSize() << std::endl;
+
+		std::cout << "Items:" << std::endl;
+		for (auto i = g->getMap().getItems().begin(); i != g->getMap().getItems().end(); i++)
+			std::cout << "[" << (*i)->getLocation().getX() << ", " << (*i)->getLocation().getY() << "]" << std::endl;
+
 		AppModel::getInstance().getGame().release();
 
 		std::vector<std::pair<int, std::pair<std::string, int> > > turrets;
@@ -59,6 +67,8 @@ int main(int argn, char** argv){
 		for (int i = 0; i < turrets.size(); i++) {
 			std::cout << "\t" << turrets[i].first << ": " << turrets[i].second.first << ", $:" << turrets[i].second.second << std::endl;
 		}
+
+
 	}
 	catch (std::exception e) {
 		std::cout << e.what();
