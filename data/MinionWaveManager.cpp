@@ -26,8 +26,9 @@ void MinionWaveManager::load(const string &directory, const vector<string> &wave
 		if (cur = this->loadWave(directory, waves[i]))
             this->waves.push_back(cur);
 }
-
+#include<iostream>
 const MinionWave &MinionWaveManager::get(int i) const {
+	std::cout << "Getting wave " << i << std::endl;
 	if (this->waves.size() <= i || i < 0)
 		WAVE_DOES_NOT_EXIST
 

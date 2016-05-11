@@ -42,22 +42,11 @@ namespace tower_defense {
 
         /// helper function for function pointers in calculateDistnace()
         void calcDistTurrets(std::priority_queue<std::pair<int, GridElement*>> &initialNodes);
-
-        /// adds a minion to grid
-        void addMinion(Minion *m);
-
-        /// removes a minion from grid
-        void removeMinion(Minion *m);
-
-        /// returns set of minions
-        std::set<Minion *> &getMinions();
-
     private:
         int height;
         int width;
         GridElement ***elements;
         tower_defense::Map &map;
-        std::set<Minion *> minions;
 
     };
 }

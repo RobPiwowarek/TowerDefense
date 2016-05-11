@@ -141,8 +141,8 @@ void GameDisplayer::display(sf::RenderWindow& window, const sf::Texture& texture
 	const tower_defense::Point& position) {
 	Sprite s(texture);
 	s.setPosition(gameToScreen(window, position - size / 2));
-	s.setScale((double)this->pointsPerUnit / size.getX() / texture.getSize().x,
-		(double)this->pointsPerUnit / size.getY() / texture.getSize().y);
+	s.setScale(((double)this->pointsPerUnit * size.getX()) / texture.getSize().x,
+		((double)this->pointsPerUnit * size.getY()) / texture.getSize().y);
 
 	window.draw(s);
 }

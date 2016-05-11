@@ -68,8 +68,6 @@ AppModel::~AppModel() {
 }
 
 AppModel::AppModel() {
-	srand(time(NULL));
-
     this->game = nullptr;
     this->refresher = nullptr;
 
@@ -86,15 +84,17 @@ AppModel::AppModel() {
 #include <iostream>
 
 bool AppModel::createGame(const std::string& xmlURI) {
-	bool r = false;
+	srand(time(NULL));
+	bool g = false;
 	try {
 		this->game = new ResourceManager<tower_defense::Game>(this->gameManager->get()->load(xmlURI));
 		std::cout << "ctrlpt\n";
-		r = true;
+		g = true;
 		this->gameManager->release();
+		this->refresher = new ResourceManager<Refresher>(new Refresher());
 	}
 	catch (std::exception e) {
-		if (!r)
+		if (!g)
 			this->gameManager->release();
 		this->closeGame();
 
@@ -106,22 +106,41 @@ bool AppModel::createGame(const std::string& xmlURI) {
 }
 
 void AppModel::closeGame() {
-	delete this->refresher;
-	this->refresher = nullptr;
+	if (this->refresher != nullptr) {
+		std::cout << "Stopping refresher...";
+		this->refresher->get()->stop();
+		this->refresher->release();
+		std::cout << "Done!";
+		delete this->refresher;
+		this->refresher = nullptr;
+	}
+
 	delete this->game;
 	this->game = nullptr;
+
+	std::cout << "Clearing manager: Game...";
 
 	this->gameManager->get()->clear();
 	this->gameManager->release();
 
+	std::cout << "Done!\n";
+	std::cout << "Clearing manager: Minion...";
+
 	this->minionManager->get()->clear();
 	this->minionManager->release();
+	std::cout << "Done!\n";
+	std::cout << "Clearing manager: MinionWave...";
 	this->minionWaveManager->get()->clear();
 	this->minionWaveManager->release();
+	std::cout << "Done!\n";
+	std::cout << "Clearing manager: Texture...";
 	this->textureManager->get()->clear();
 	this->textureManager->release();
+	std::cout << "Done!\n";
+	std::cout << "Clearing manager: Turret...";
 	this->turretManager->get()->clear();
 	this->turretManager->release();
+	std::cout << "Done!\n";
 }
 
 

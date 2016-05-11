@@ -1,12 +1,17 @@
 #define LOAD_TEST
 // test of game loading
 #define DISPLAY_TEST
+#define RUN_TEST
 
 #include <iostream>
 #include "graphics/menu/Menu.h"
 
 
 #if defined LOAD_TEST || defined DISPLAY_TEST
+
+#ifdef RUN_TEST
+#include "threading\Refresher.h"
+#endif
 
 #include "threading/AppModel.h"
 #include "logic/Game.h"
@@ -78,6 +83,10 @@ int main(int argn, char** argv){
 		std::getline(std::cin, b);
 		return 0;
 	}
+	catch (int i) {
+		std::cout << "Error:" << i;
+		return 0;
+	}
 
 #ifndef DISPLAY_TEST
 	std::string b;
@@ -103,7 +112,20 @@ int main(int argn, char** argv){
 		std::cout << "WTH?" << std::endl;
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
-
+#ifdef RUN_TEST
+	try {
+		AppModel::getInstance().getRefresher().get()->start();
+		AppModel::getInstance().getRefresher().release();
+	}
+	catch (std::exception e) {
+		std::cout << e.what() << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+	catch (...) {
+		std::cout << "WTH?" << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+#endif
 
 	while (window.isOpen()) {
 		try {
@@ -187,7 +209,21 @@ int main(int argn, char** argv){
 
 #endif
 #if defined LOAD_TEST || defined DISPLAY_TEST
-	AppModel::getInstance().closeGame();
+	try {
+		AppModel::getInstance().closeGame();
+	}
+	catch (std::exception e) {
+		std::cout << e.what() << std::endl;
+		std::string b;
+		std::getline(std::cin, b);
+		return 0;
+	}
+	catch (...) {
+		std::cout << "WTH?" << std::endl;
+		std::string b;
+		std::getline(std::cin, b);
+		return 0;
+	}
 #endif
     return 0;
 }

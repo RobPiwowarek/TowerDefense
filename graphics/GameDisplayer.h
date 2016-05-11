@@ -28,6 +28,9 @@ namespace graphics {
 		// sets screen's position as p (in game's units)
 		void setScreenPos(const tower_defense::Point& p);
 
+		sf::Vector2f gameToScreen(const sf::RenderWindow& window, const tower_defense::Point& inGame) const;
+		tower_defense::Point screenToGame(const sf::RenderWindow& window, const sf::Vector2f& onScreen) const;
+
 		GameDisplayer(const tower_defense::Point& startingLocation);
 	private:
 		void drawTurrets(sf::RenderWindow& window, tower_defense::Game* g);
@@ -42,8 +45,6 @@ namespace graphics {
 		tower_defense::Point curPosition; //in game's units
 		tower_defense::Point gameMapSize;
 
-		sf::Vector2f gameToScreen(const sf::RenderWindow& window, const tower_defense::Point& inGame) const;
-		tower_defense::Point screenToGame(const sf::RenderWindow& window, const sf::Vector2f& onScreen) const;
 
 		void display(sf::RenderWindow& window, const sf::Texture& texture,
 			const tower_defense::Point& size, const tower_defense::Point& position);

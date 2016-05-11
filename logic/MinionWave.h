@@ -17,7 +17,6 @@ namespace tower_defense {
 		/// minion objects must be allocated with new keyword
 		MinionWave(const std::queue<Minion*>& minions, const int timeBetweenMinions);
 		MinionWave(const MinionWave& wave);
-		//TODO copying constructor
 		~MinionWave();
 
 		/// returns if the last minion was already returned

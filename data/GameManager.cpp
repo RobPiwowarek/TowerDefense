@@ -160,8 +160,9 @@ void GameManager::loadItems(const string& directory, const pugi::xml_node& game,
 			itemTextures[textureName] = objClass;
 		}
 		else objClass = itemTextures[textureName];
-
+		cout << "adding to map: ";
 		map->addItem(new Item(randPoint(), 0, it->attribute("size").as_double(), objClass));
+		cout << "done!\n";
 	}
 	cout << "finished with items";
 
@@ -171,6 +172,6 @@ void GameManager::loadItems(const string& directory, const pugi::xml_node& game,
 }
 
 inline tower_defense::Point GameManager::randPoint() const {
-	return{ mapSize + ((1000 * rand()) % (1000 * playerAreaSize)) * 0.001,
-		mapSize + ((1000 * rand()) % (1000 * playerAreaSize)) * 0.001 };
+	return{ (mapSize - playerAreaSize) * 0.5 + ((1000 * rand()) % (1000 * playerAreaSize)) * 0.001,
+		(mapSize - playerAreaSize) * 0.5 + ((1000 * rand()) % (1000 * playerAreaSize)) * 0.001 };
 }

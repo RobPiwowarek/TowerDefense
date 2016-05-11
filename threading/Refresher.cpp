@@ -3,19 +3,21 @@
 
 Refresher::Refresher() {
     this->going = false;
-    this->interval = 50;
+    this->interval = 100;
 
     this->thread = nullptr;
 }
 
+#include <iostream>
 Refresher::~Refresher() {
+	if (this->thread != nullptr)
+		this->stop();
+	std::cout << "[~GM]\n";
     this->goingMutex.lock();
-    this->goingMutex.unlock();
+	this->goingMutex.unlock();
+	std::cout << "[~IM]\n";
     this->intervalMutex.lock();
     this->intervalMutex.unlock();
-
-    if (this->thread != nullptr)
-        this->stop();
 }
 
 void Refresher::start() {
@@ -32,19 +34,23 @@ void Refresher::start() {
 }
 
 void Refresher::stop() {
+	std::cout << "[sSM]\n";
     this->startStopMutex.lock();
 
+	std::cout << "[sGM]\n";
     this->goingMutex.lock();
     if (this->going) {
-        this->going = false;
-        this->goingMutex.unlock();
+		this->going = false;
+		this->goingMutex.unlock();
         this->thread->join();
         delete this->thread;
-        this->thread = nullptr;
+		this->thread = nullptr;
     }
-    else this->goingMutex.unlock();
+	else this->goingMutex.unlock();
+	std::cout << "[\\GM]\n";
 
-    this->startStopMutex.unlock();
+	this->startStopMutex.unlock();
+	std::cout << "[\\SM]\n";
 }
 
 int Refresher::getInterval() const {
@@ -64,9 +70,13 @@ bool Refresher::isGoing() const {
 }
 
 void Refresher::refresh() {
+	srand(time(NULL));
     while (true) {
         this->goingMutex.lock();
-        if (!going) break;
+		if (!going) {
+			this->goingMutex.unlock();
+			break;
+		}
         this->goingMutex.unlock();
 
         this->intervalMutex.lock();
@@ -74,11 +84,17 @@ void Refresher::refresh() {
         this->intervalMutex.unlock();
 
         //refresh game in new thread
-        std::thread gameRefresh/*(&Game::refresh)*/;
+        std::thread gameRefresh(&Refresher::refreshGame, this, rand());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));
 
         //wait for game refreshing thread if not finished yet
         gameRefresh.join();
     }
+}
+
+void Refresher::refreshGame(int rSeed) {
+	srand(rSeed);
+	AppModel::getInstance().getGame().get()->refresh();
+	AppModel::getInstance().getGame().release();
 }

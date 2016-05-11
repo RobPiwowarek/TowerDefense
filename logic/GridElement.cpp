@@ -13,7 +13,6 @@ tower_defense::Turret *tower_defense::GridElement::getTurret() {
 
 void tower_defense::GridElement::addMinion(Minion *m) {
     this->minions.insert(m);
-    this->grid.addMinion(m);
 }
 
 void tower_defense::GridElement::removeMinion(Minion *m) {

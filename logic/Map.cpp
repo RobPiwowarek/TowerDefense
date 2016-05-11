@@ -20,7 +20,7 @@ tower_defense::Map::~Map() {
 void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 
-    for (std::set<tower_defense::Minion*>::iterator it = this->grid->getMinions().begin(); it != this->grid->getMinions().end(); ++it){
+    for (std::set<tower_defense::Minion*>::iterator it = this->minions.begin(); it != this->minions.end(); ++it){
         (*it)->refresh(*this->grid, game);
     }
 
@@ -55,11 +55,21 @@ double tower_defense::Map::getHeight() const {
 }
 
 void tower_defense::Map::addMinion(Minion *m) {
-    // TODO (Grid)
+	this->minions.insert(m);
+	this->grid->getElement(m->getLocation())->addMinion(m);
 }
 
+void tower_defense::Map::removeMinion(Minion* m) {
+	this->minions.erase(m);
+	this->grid->getElement(m->getLocation())->removeMinion(m);
+}
+#include <iostream>
 void tower_defense::Map::addItem(Item *i) {
-    // TODO (Grid)
+	std::cout << "c";
+	this->items.insert(i);
+	std::cout << "d";
+	this->grid->getElement(i->getLocation())->setItem(i);
+	std::cout << "e";
 }
 
 void tower_defense::Map::addTurret(Turret *t, Point p) {

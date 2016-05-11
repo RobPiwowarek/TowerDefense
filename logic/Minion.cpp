@@ -51,9 +51,8 @@ void tower_defense::Minion::death(Game &game) {
     this->dead = true;
 
     game.getPlayer().setMoney(this->reward);
-    game.getMap().getGrid().getElement(this->location)->removeMinion(this);
 
-    game.getMap().getGrid().removeMinion(this);
+    game.getMap().removeMinion(this);
     // todo: remove from collision manager
 }
 

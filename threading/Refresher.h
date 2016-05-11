@@ -39,7 +39,7 @@ private:
     std::thread *thread;
 
     void refresh();
-
+	void refreshGame(int rSeed);
 };
 
 #endif

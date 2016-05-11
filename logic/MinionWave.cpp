@@ -7,7 +7,8 @@ tower_defense::MinionWave::MinionWave(const std::queue<Minion*>& minions, const 
 
 tower_defense::MinionWave::MinionWave(const MinionWave& wave) {
 	this->minions = wave.minions;
-	this->timeToNext = wave.timeToNext;
+
+	this->timeToNext = this->timeBetweenMinions = wave.timeBetweenMinions;
 }
 
 tower_defense::MinionWave::~MinionWave() {
@@ -22,8 +23,9 @@ int tower_defense::MinionWave::getTimeToNextMinion() const {return this->timeToN
 bool tower_defense::MinionWave::finished() const {
 	return this->minions.empty();
 }
-
+#include <iostream>
 tower_defense::Minion* tower_defense::MinionWave::refresh() {
+	std::cout << "MinionWave: finished: " << finished() << " time to next: " << timeToNext << std::endl;
 	if (this->timeToNext > 0 || this->finished()) {
 		this->timeToNext--;
 		return nullptr;

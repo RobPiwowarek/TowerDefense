@@ -27,22 +27,12 @@ tower_defense::Player &tower_defense::Game::getPlayer() {
 void tower_defense::Game::refresh() {
 	if (this->wave != nullptr)
 	{
-		if (this->wave->finished()) {
-			delete this->wave;
-			data::MinionWaveManager* manager = AppModel::getInstance().getMinionWaveManager().get();
-			
-			if (++this->curWave == manager->count())
-				this->wave = nullptr;
-
-			this->wave = new MinionWave(manager->get(this->curWave));
-
-			AppModel::getInstance().getMinionWaveManager().release();
-		}
 
 		Minion* newMinion = this->wave->refresh();
 
 		if (newMinion != nullptr) {
 			Point location;
+
 			switch (rand() % 4) {
 			case 1: //E
 				location.setX(this->map->getWidth() - 0.001);
@@ -55,11 +45,27 @@ void tower_defense::Game::refresh() {
 				location.setX(((rand() * 1000) % ((int)this->map->getWidth() * 1000)) * 0.001);
 				break;
 			}
+			std::cout << "adding minion: (" << location.getX() << ", " << location.getY() << ")" << std::endl;
+			this->map->addMinion(new Minion(*newMinion, location));
+		}
+
+		if (this->wave->finished()) {
+			std::cout << "Wave";
+			delete this->wave;
+			data::MinionWaveManager* manager = AppModel::getInstance().getMinionWaveManager().get();
+
+			if (++this->curWave == manager->count())
+				this->wave = nullptr;
+			else
+				this->wave = new MinionWave(manager->get(this->curWave));
+
+			AppModel::getInstance().getMinionWaveManager().release();
+			std::cout << " finished\n";
 		}
 	}
 
 
-    this->map->refresh(*this);
+    //this->map->refresh(*this);
 }
 
 tower_defense::Game::~Game() {
