@@ -2,18 +2,24 @@
 #define MENU_H
 
 #include "SFML/Graphics.hpp"
+#include "../graphics/Label.h"
+#include <set>
 
 #define MAX_NUMBER_OF_ITEMS 3
 
-namespace tower_defense {
+namespace graphics {
     class Menu;
 }
 
 class Menu {
 public:
-    Menu(float width, float height);
+	Menu(int n, ...); // assuming: graphics::Label* 
+    Menu(std::vector<graphics::Label*> labels);
+	Menu();
 
     ~Menu();
+
+	bool addMenuItem(graphics::Label* label);
 
     void draw(sf::RenderWindow &window);
 
@@ -21,12 +27,13 @@ public:
 
     void moveDown();
 
-    int getPressedItem();
+	std::set<graphics::Label *>& getMenuItems() const;
+
+	graphics::Label* getCurrentItem() const;
 
 private:
-    int selectedItemIndex;
-    sf::Font font;
-    sf::Text menu[MAX_NUMBER_OF_ITEMS];
+	int selectedItemIndex = 0;
+	std::vector<graphics::Label*> menu;
 };
 
 

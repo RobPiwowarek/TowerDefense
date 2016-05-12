@@ -13,7 +13,7 @@ namespace tower_defense {
         /// creates new instance of Ring object
         /// using given values
         Ring(const int damage, const double velocity,
-             const int lifeTime, const int fireClass);
+			const int lifeTime, const int fireClass);
 
         /// creates an instance of Ring object
         /// that is a copy of base

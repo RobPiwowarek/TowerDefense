@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include <iostream>
 
 
 tower_defense::Bullet::Bullet(const int damage, const double size, const bool hitOnlyFirst, const double splash,
@@ -46,7 +47,14 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 	if (!temp->getMinions().empty()){
 		for (tower_defense::Minion* minion : temp->getMinions()){
 			if (this->checkCollision(minion)){
-				/// mamy kolizje
+
+				if (this->hitOnlyFirst){
+
+					/// TODO: usun po kolizji
+				}
+
+				std::cout << "KOLIZJA" << std::endl;
+				
 				/// mozna trafione miniony gdzies zachowac i dalej z nimi cos zrobic
 			}
 		}

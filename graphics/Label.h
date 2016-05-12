@@ -15,7 +15,6 @@ namespace graphics {
 		Label(const sf::Vector2f &size, const sf::Vector2f &location, const sf::Texture* background,
 			const sf::Texture* icon, const std::string& descr);
 
-
 		// returns item size
 		sf::Vector2f& getSize();
 		// sets item size
@@ -25,8 +24,15 @@ namespace graphics {
 		// sets item location
 		void setLocation(const sf::Vector2f& location);
 
-		// returns color of the displayed text
+		// sets color of the displayed text
 		void setForeColor(const sf::Color &c);
+
+		// returns original color
+		sf::Color& getOriginalColor();
+
+		// sets original color
+		void setOriginalColor(const sf::Color &c);
+
 		// returns color of the displayed text
 		sf::Color& getForeColor();
 
@@ -46,6 +52,7 @@ namespace graphics {
 		const sf::Texture* icon = nullptr;
 
 		sf::Color foreColor = sf::Color::Black;
+		sf::Color originalColor = sf::Color::Black;
 
 		sf::Vector2f size;
 		sf::Vector2f location;

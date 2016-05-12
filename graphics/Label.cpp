@@ -78,6 +78,14 @@ int Label::getFontSize() {
 	return this->fontSize;
 }
 
+sf::Color& Label::getOriginalColor(){
+	return this->originalColor;
+}
+
+void Label::setOriginalColor(const sf::Color &c){
+	this->originalColor = c;
+}
+
 const Vector2f& Label::getMargin() const {
 	return this->margin;
 }
