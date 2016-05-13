@@ -34,6 +34,9 @@ namespace tower_defense {
 
         void attack(tower_defense::Turret &turret) const;
 
+		/// returns true if minion got damaged in the process
+		bool takeDamage(const double damage);
+
         /// kills the minion
         void death(Game &game);
 

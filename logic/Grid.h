@@ -42,6 +42,13 @@ namespace tower_defense {
 
         /// helper function for function pointers in calculateDistnace()
         void calcDistTurrets(std::priority_queue<std::pair<int, GridElement*>> &initialNodes);
+
+		/// returns grid elements in a radius from a Point
+		std::set<GridElement*>& getElementsInRadius(const Point & p, double radius);
+
+		/// returns grid elements in a radius from a Minion
+		std::set<GridElement*>& getElementsInRadius(Minion * minion, double radius);
+
     private:
         int height;
         int width;

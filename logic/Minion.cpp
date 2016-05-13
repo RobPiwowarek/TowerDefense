@@ -43,6 +43,18 @@ bool tower_defense::Minion::setItem(tower_defense::Item* item) {
 	return true;
 }
 
+bool tower_defense::Minion::takeDamage(const double damage){
+	if (this->health <= 0 || this->dead) return false; //check if already dead
+
+	this->health -= damage;
+	
+	if (this->health <= 0){
+		//this->death(); TODO: singleton pass argument or something
+	}
+
+	return true;
+}
+
 bool tower_defense::Minion::isDead() const {
     return this->dead;
 }
@@ -53,7 +65,6 @@ void tower_defense::Minion::death(Game &game) {
     game.getPlayer().setMoney(this->reward);
 
     game.getMap().removeMinion(this);
-    // todo: remove from collision manager
 }
 
 void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
