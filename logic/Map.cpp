@@ -28,14 +28,18 @@ void tower_defense::Map::refresh(Game &game) {
         (*it)->refresh(*this->grid);
     }
 }
-
-bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret){
+#include <iostream>
+bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret) {
+	std::cout << "cPT";
 	for (int i = 0; i < turret.getSize(); i++){
 		for (int j = 0; j < turret.getSize(); j++){
-			tower_defense::Point *temp = new Point(turret.getLocation().getX() + j, turret.getLocation().getY() + i);
-			tower_defense::GridElement *tempElement = this->grid->getElement(*temp);
+			std::cout << "(" << i << "," << j <<")";
+			tower_defense::Point temp = point - (Point(turret.getSize(), turret.getSize()) / 2) + Point(i, j);
+			std::cout << "=(" << temp.getX() << "," << temp.getY() << ")\n";
+			tower_defense::GridElement *tempElement = this->grid->getElement(temp);
 
-			delete temp;
+
+			if (tempElement == nullptr) return false;
 
 			if (tempElement->hasItem() || tempElement->hasTurret() || !tempElement->getMinions().empty()){
 				return false;

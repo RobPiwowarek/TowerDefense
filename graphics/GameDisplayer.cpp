@@ -85,6 +85,15 @@ void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 	AppModel::getInstance().getGameManager().release();
 }
 
+void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game& g) {
+	if (this->selectedTurretBase != nullptr) {
+
+		Point location = getSelecetedTurretsLocation(window);
+
+
+		//if (g.getMap().canPlaceTurret())
+	}
+}
 void GameDisplayer::drawTurrets(sf::RenderWindow& window, tower_defense::Game* g) {
 	//TODO
 }
@@ -145,4 +154,26 @@ void GameDisplayer::display(sf::RenderWindow& window, const sf::Texture& texture
 		((double)this->pointsPerUnit * size.getY()) / texture.getSize().y);
 
 	window.draw(s);
+}
+
+void GameDisplayer::setBuildingTurret(const Turret* t) {
+	this->selectedTurretBase = t;
+}
+
+#include <iostream>
+
+#define P(P) cout << "(" << P.getX() << ", "<< P.getY() << ")" << endl
+
+Point GameDisplayer::getSelecetedTurretsLocation(RenderWindow& w) {
+	Point location = screenToGame(w, Vector2f(Mouse::getPosition() - w.getPosition()));
+	P(location);
+	if ((int)this->selectedTurretBase->getSize() % 2 == 0) location += Point(0.5, 0.5);
+	P(location);
+	location.setX(floor(location.getX()));
+	location.setY(floor(location.getY()));
+	P(location);
+	if ((int)this->selectedTurretBase->getSize() % 2 == 1) location += Point(0.5, 0.5);
+	P(location);
+
+	return location;
 }

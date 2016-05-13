@@ -103,11 +103,23 @@ void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
 	int mouseY = sf::Mouse::getPosition().y - w.getPosition().y;
 
 	Point inGame = displayer->screenToGame(w, Vector2f(mouseX, mouseY ));
-	cout << "Mouse: (" << mouseX << ", " << mouseY << ") -> ( " << inGame.getX() << ", " << inGame.getY() <<  "\n";
+	cout << "Mouse: (" << mouseX << ", " << mouseY << ") -> ( " << inGame.getX() << ", " << inGame.getY() <<  ")\n";
 
-	if (mouseX >= TURRET_LABELS_X && mouseX <= TURRET_LABELS_X + TURRET_LABEL_WIDTH) {
-		int label = floor(((double)mouseY - TURRET_LABELS_Y) / TURRET_LABELS_Y_DIFF);
-		if (label >= 0 && label < turretN)
+	int label = floor(((double)mouseY - TURRET_LABELS_Y) / TURRET_LABELS_Y_DIFF);
+	if (mouseX >= TURRET_LABELS_X && mouseX <= TURRET_LABELS_X + TURRET_LABEL_WIDTH && label >= 0 && label < turretN) {
 			this->selectedTurret = label != this->selectedTurret ? label : -1;
+			this->displayer->setBuildingTurret(&AppModel::getInstance().getTurretManager().get()->getTurret(selectedTurret));
+			AppModel::getInstance().getTurretManager().release();
+	}
+	else if (selectedTurret != -1) {
+		Point turLocation = this->displayer->getSelecetedTurretsLocation(w);
+		std::cout << "Placing turret at (" << turLocation.getX() << ", " << turLocation.getY() << "): ";
+
+		std::cout <<
+			AppModel::getInstance().getGame().get()->getMap().canPlaceTurret(turLocation,
+			AppModel::getInstance().getTurretManager().get()->getTurret(this->selectedTurret)) << endl;
+
+		AppModel::getInstance().getTurretManager().release();
+		AppModel::getInstance().getGame().release();
 	}
 }

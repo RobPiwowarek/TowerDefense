@@ -140,10 +140,10 @@ void tower_defense::Grid::calculateDistance(const Target target) {
 }
 
 tower_defense::GridElement *tower_defense::Grid::getElement(const Point &p) const {
-    int x = p.getX() == this->width ? this->width - 1 : (int) floor(p.getX());
-    int y = p.getY() == this->height ? this->height - 1 : (int) floor(p.getY());
+    int x = floor(p.getX());
+    int y = floor(p.getY());
 
-    if (x >= this->width || y >= this->height) return nullptr;
+    if (x >= this->width || y >= this->height || x < 0 || y < 0) return nullptr;
 
     return this->elements[x][y];
 }

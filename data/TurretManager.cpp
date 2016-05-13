@@ -88,6 +88,7 @@ pair<Turret*, pair<string, int> > TurretManager::load(const string &directory, c
 	string name = turretNode.child_value("name");
 	int cost = atoi(turretNode.child_value("cost"));
 	double size = atof(turretNode.child_value("size"));
+
 	double rotationSpeed = atof(turretNode.child_value("rotationSpeed"));
 	int health = atoi(turretNode.child_value("health"));
 
