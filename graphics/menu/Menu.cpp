@@ -1,56 +1,59 @@
 #include "Menu.h"
 #include  <iostream>
+#include <cstdio>
+#include <cstdarg>
 
-Menu::Menu(float width, float height) {
-    if (!font.loadFromFile("arial.ttf")) {
-        std::cout << "Error loading font";
-        return;
-        // todo: handle error
-    }
+Menu::Menu(){}
 
-    // Set basic menu items
+Menu::Menu(int n, ...){
+	va_list args;
+	va_start(args, n);
 
-    menu[0].setFont(font);
-    menu[0].setColor(sf::Color::Red);
-    menu[0].setString("Play");
-    menu[0].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
+	while (n-- > 0){
+		this->menu.push_back(va_arg(args, graphics::Label*));
+	}
 
-    menu[1].setFont(font);
-    menu[1].setColor(sf::Color::White);
-    menu[1].setString("Options");
-    menu[1].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 2));
-
-    menu[2].setFont(font);
-    menu[2].setColor(sf::Color::White);
-    menu[2].setString("Exit");
-    menu[2].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
-
-    selectedItemIndex = 0;
+	va_end(args);
 }
 
+Menu::Menu(std::vector<graphics::Label*> labels) {
+	this->menu = labels;
+}
 
 Menu::~Menu() { }
 
-int Menu::getPressedItem() { return selectedItemIndex; }
+bool Menu::addMenuItem(graphics::Label * label){
+
+	for (graphics::Label* l : this->menu){
+		if (l == label) {
+			std::cout << "Failed to add item to menu, it already exists" << std::endl;
+			return false;
+		}
+	}
+
+	menu.push_back(label);
+
+	return true;
+}
 
 void Menu::draw(sf::RenderWindow &window) {
-    for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) {
-        window.draw(menu[i]);
-    }
+	for (graphics::Label* label : this->menu){
+		label->display(window, "");
+	}
 }
 
 void Menu::moveUp() {
     if (selectedItemIndex >= 1) {
-        menu[selectedItemIndex].setColor(sf::Color::White);
+		this->menu[selectedItemIndex]->setForeColor(this->menu[selectedItemIndex]->getOriginalColor());
         selectedItemIndex--;
-        menu[selectedItemIndex].setColor(sf::Color::Red);
+        menu[selectedItemIndex]->setForeColor(sf::Color::Red);
     }
 }
 
 void Menu::moveDown() {
     if (selectedItemIndex < MAX_NUMBER_OF_ITEMS - 1) {
-        menu[selectedItemIndex].setColor(sf::Color::White);
+        menu[selectedItemIndex]->setForeColor(this->menu[selectedItemIndex]->getOriginalColor());
         selectedItemIndex++;
-        menu[selectedItemIndex].setColor(sf::Color::Red);
+        menu[selectedItemIndex]->setForeColor(sf::Color::Red);
     }
 }

@@ -15,7 +15,7 @@ namespace tower_defense {
         /// creates new instance of Beam object
         /// using given values
         Bullet(const int damage, const double size, const bool hitOnlyFirst, const double splash,
-               const double velocity, const int lifeTime, const int fireClass);
+               const double velocity, const int lifeTime, const int fireClass, const double splashRadius);
 
         /// creates an instance of Beam object
         /// that is a copy of base
@@ -45,6 +45,7 @@ namespace tower_defense {
     private:
         bool hitOnlyFirst;
         double splash;
+		double splashRadius;
         double velocity;
 
         bool hits(Minion* m);

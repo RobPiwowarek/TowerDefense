@@ -1,4 +1,5 @@
 #include "Point.h"
+#include <cmath>
 
 tower_defense::Point::Point() : Point(0.0, 0.0) {
 }
@@ -32,6 +33,9 @@ void tower_defense::Point::setPoint(const Point &p) {
     this->y = p.getY();
 }
 
+double tower_defense::Point::getSquareDistance(const tower_defense::Point &p){
+	return pow(this->x - p.getX(), 2.0f) + pow(this->y - p.getY(), 2.0f);
+}
 
 tower_defense::Point tower_defense::Point::operator-(const Point &p) const {
 	return Point(x - p.x, y - p.y);

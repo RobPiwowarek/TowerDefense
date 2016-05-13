@@ -30,6 +30,9 @@ namespace tower_defense {
         /// sets y coordinate
         void setY(double y);
 
+		/// returns square distance between 2 points
+		double getSquareDistance(const tower_defense::Point &p);
+
         /// sets xy
         void setPoint(const Point &p);
 

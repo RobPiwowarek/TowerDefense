@@ -12,7 +12,27 @@ tower_defense::Grid::Grid(int width, int height, Map &m) : map(m) {
             this->elements[i][j] = new GridElement(Point(i, j), *this);
         }
     }
+}
 
+std::set<tower_defense::GridElement*> &tower_defense::Grid::getElementsInRadius(const Point & p, double radius) {
+	std::set<tower_defense::GridElement*> elements;
+
+	for (int i = p.getY() - radius; i < p.getY() + radius; i++){
+		for (int j = p.getX() - radius; i < p.getX() + radius; i++){
+			int x = j == this->width ? this->width - 1 : (int)floor(j);
+			int y = i == this->height ? this->height - 1 : (int)floor(i);
+
+			if (x >= this->width || y >= this->height) continue;
+
+			elements.insert(this->elements[x][y]);
+		}
+	}
+	
+	return elements;
+}
+
+std::set<tower_defense::GridElement*> &tower_defense::Grid::getElementsInRadius(Minion * minion, double radius){
+	return this->getElementsInRadius(minion->getLocation(), radius); 
 }
 
 tower_defense::Grid::~Grid() {

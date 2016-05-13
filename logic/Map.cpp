@@ -17,6 +17,29 @@ tower_defense::Map::~Map() {
     }
 }
 
+std::set<tower_defense::Minion *>& tower_defense::Map::getMinionsNearMinion(tower_defense::Minion * minion, double radius){
+	std::set<tower_defense::Minion*> minionsNearMinion;
+
+	for (tower_defense::Minion* m : this->minions){
+		if (m == minion) continue; // exclude targeted minion
+
+		if (m->getSqDistance(minion) <= radius*radius) minionsNearMinion.insert(m);
+	}
+
+	return minionsNearMinion;
+}
+
+
+std::set<tower_defense::Minion *>& tower_defense::Map::getMinionsNearPoint(const tower_defense::Point & point, double radius){
+	std::set<tower_defense::Minion*> minionsNearPoint;
+
+	for (tower_defense::Minion* m : this->minions){
+		if (m->getLocation().getSquareDistance(point) <= radius*radius) minionsNearPoint.insert(m);
+	}
+
+	return minionsNearPoint;
+}
+
 void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 
