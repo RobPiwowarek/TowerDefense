@@ -17,7 +17,7 @@ tower_defense::Map::~Map() {
     }
 }
 
-std::set<tower_defense::Minion *>& tower_defense::Map::getMinionsNearMinion(tower_defense::Minion * minion, double radius){
+std::set<tower_defense::Minion *> tower_defense::Map::getMinionsNearMinion(tower_defense::Minion * minion, double radius){
 	std::set<tower_defense::Minion*> minionsNearMinion;
 
 	for (tower_defense::Minion* m : this->minions){
@@ -30,7 +30,7 @@ std::set<tower_defense::Minion *>& tower_defense::Map::getMinionsNearMinion(towe
 }
 
 
-std::set<tower_defense::Minion *>& tower_defense::Map::getMinionsNearPoint(const tower_defense::Point & point, double radius){
+std::set<tower_defense::Minion *> tower_defense::Map::getMinionsNearPoint(const tower_defense::Point & point, double radius){
 	std::set<tower_defense::Minion*> minionsNearPoint;
 
 	for (tower_defense::Minion* m : this->minions){
@@ -97,10 +97,13 @@ void tower_defense::Map::addItem(Item *i) {
 	std::cout << "d";
 	this->grid->getElement(i->getLocation())->setItem(i);
 	std::cout << "e";
+	this->grid->calculateDistance(Grid::Item);
 }
 
 void tower_defense::Map::addTurret(Turret *t, Point p) {
     // TODO (Grid)
+	this->grid->calculateDistance(Grid::Turret);
+	this->grid->calculateDistance(Grid::Item);
 }
 
 std::set<tower_defense::Item *> &tower_defense::Map::getItems() {

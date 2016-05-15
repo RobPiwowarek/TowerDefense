@@ -33,8 +33,6 @@ tower_defense::GridElement *tower_defense::GridElement::getUpNeighbour() const {
 
     GridElement* temp = grid.getElement(Point(this->location.getX(), y));
 
-    if (temp == nullptr) return nullptr;
-
     return temp;
 }
 
@@ -43,27 +41,21 @@ tower_defense::GridElement *tower_defense::GridElement::getDownNeighbour() const
 
     GridElement* temp = grid.getElement(Point(this->location.getX(), y));
 
-    if (temp == nullptr) return nullptr;
-
     return temp;
 }
 
 tower_defense::GridElement *tower_defense::GridElement::getLeftNeighbour() const {
-    int x = this->location.getY() - 1;
+    int x = this->location.getX() - 1;
 
     GridElement* temp = grid.getElement(Point(x, this->location.getY()));
-
-    if (temp == nullptr) return nullptr;
 
     return temp;
 }
 
 tower_defense::GridElement *tower_defense::GridElement::getRightNeighbour() const {
-    int x = this->location.getY() + 1;
+    int x = this->location.getX() + 1;
 
     GridElement* temp = grid.getElement(Point(x, this->location.getY()));
-
-    if (temp == nullptr) return nullptr;
 
     return temp;
 }

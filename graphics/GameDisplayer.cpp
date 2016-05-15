@@ -7,11 +7,36 @@
 
 #include <cmath>
 
+
 using namespace std;
 using namespace sf;
 using namespace graphics;
 using namespace tower_defense;
 using namespace data;
+
+#include <iostream>
+
+RenderTexture* getMapTexture(int i, int j, Game* g) {
+#define DIST getDistToTarget
+	static sf::RenderTexture** t = nullptr;
+	if (t == nullptr) {
+		t = new RenderTexture*[256];
+		for (int k = 0; k < 256; k++) {
+			cout << "k" << k << endl;
+			t[k] = new RenderTexture();
+			t[k]->create(1, 1);
+			sf::RectangleShape r({ 1, 1 });
+			r.setFillColor(Color(0, 0, k));
+			t[k]->draw(r);
+		}
+
+	}
+
+	int blue = g->getMap().getGrid().getElement(Point(i, j))->DIST();
+	if (blue < 0) blue = 0;
+	if (blue > 255) blue = 255;
+	return t[blue];
+}
 
 void GameDisplayer::refresh(RenderWindow& window) {
 	Game* g = AppModel::getInstance().getGame().get();
@@ -77,7 +102,7 @@ void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 
 	for (int i = x_beginFrom; i < x_goTo; i++)
 		for (int j = y_beginFrom; j < y_goTo; j++) {
-			this->display(window, gm->getMapTexture(i, j), Point(1, 1), Point(i + 0.5, j + 0.5));
+			this->display(window, /*gm->getMapTexture(i, j)*/ getMapTexture(i, j, g)->getTexture(), Point(1, 1), Point(i + 0.5, j + 0.5));
 			this->drawMinions(window, g->getMap().getGrid().getElement({ (double)i, (double)j }), mm);
 		}
 

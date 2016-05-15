@@ -56,10 +56,10 @@ namespace tower_defense {
         std::set<Item *> &getItems();
 
 		/// returns minions in an area near the point
-		std::set<Minion *> &getMinionsNearPoint(const tower_defense::Point & point, double radius);
+		std::set<Minion *> getMinionsNearPoint(const tower_defense::Point & point, double radius);
 
 		/// returns minions in an area near other minion
-		std::set<Minion *> &getMinionsNearMinion(tower_defense::Minion * minion, double radius);
+		std::set<Minion *> getMinionsNearMinion(tower_defense::Minion * minion, double radius);
 
         /// returns grid
         Grid &getGrid();

@@ -8,10 +8,13 @@ namespace tower_defense {
 #include "GridElement.h"
 #include "Map.h"
 #include <queue>
+#include <xfunctional>
 
 namespace tower_defense {
+	#define _calcDistNode std::pair<int, GridElement*>
+	#define _calcDistNodeQueue std::priority_queue <_calcDistNode, std::vector<_calcDistNode>, std::greater<_calcDistNode>>
 
-    class Grid {
+	class Grid {
 
     public:
         /// helper enum in calculateDistance()
@@ -38,16 +41,16 @@ namespace tower_defense {
         void calculateDistance(const Target target);
 
         /// helper function for function pointers in calculateDistance()
-        void calcDistItems(std::priority_queue<std::pair<int, GridElement*>> &initialNodes);
+		void calcDistItems(_calcDistNodeQueue &initialNodes);
 
         /// helper function for function pointers in calculateDistnace()
-        void calcDistTurrets(std::priority_queue<std::pair<int, GridElement*>> &initialNodes);
+		void calcDistTurrets(_calcDistNodeQueue &initialNodes);
 
 		/// returns grid elements in a radius from a Point
-		std::set<GridElement*>& getElementsInRadius(const Point & p, double radius);
+		std::set<GridElement*> getElementsInRadius(const Point & p, double radius);
 
 		/// returns grid elements in a radius from a Minion
-		std::set<GridElement*>& getElementsInRadius(Minion * minion, double radius);
+		std::set<GridElement*> getElementsInRadius(Minion * minion, double radius);
 
     private:
         int height;
@@ -55,6 +58,10 @@ namespace tower_defense {
         GridElement ***elements;
         tower_defense::Map &map;
 
+		inline void tower_defense::Grid::calculateDistance_checkNeighbour(const tower_defense::Grid::Target target,
+			tower_defense::GridElement* neighbour,
+			_calcDistNode& node,
+			_calcDistNodeQueue& nodes);
     };
 }
 

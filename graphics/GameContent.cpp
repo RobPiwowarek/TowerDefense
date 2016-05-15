@@ -103,7 +103,7 @@ void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
 	int mouseY = sf::Mouse::getPosition().y - w.getPosition().y;
 
 	Point inGame = displayer->screenToGame(w, Vector2f(mouseX, mouseY ));
-	cout << "Mouse: (" << mouseX << ", " << mouseY << ") -> ( " << inGame.getX() << ", " << inGame.getY() <<  ")\n";
+	cout << "Mouse: (" << mouseX << ", " << mouseY << ") -> ( " << inGame.getX() << ", " << inGame.getY() << ")\n";
 
 	int label = floor(((double)mouseY - TURRET_LABELS_Y) / TURRET_LABELS_Y_DIFF);
 	if (mouseX >= TURRET_LABELS_X && mouseX <= TURRET_LABELS_X + TURRET_LABEL_WIDTH && label >= 0 && label < turretN) {

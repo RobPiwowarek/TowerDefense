@@ -93,8 +93,25 @@ void Refresher::refresh() {
     }
 }
 
+#define DEBUG
+
 void Refresher::refreshGame(int rSeed) {
-	srand(rSeed);
-	AppModel::getInstance().getGame().get()->refresh();
-	AppModel::getInstance().getGame().release();
+#ifndef DEBUG
+	try {
+#endif
+		srand(rSeed);
+		AppModel::getInstance().getGame().get()->refresh();
+		AppModel::getInstance().getGame().release();
+#ifndef DEBUG
+	}
+	catch (std::exception e) {
+		std::cout << "Refr ecx: " << e.what() << std::endl;
+	}
+	catch (int i) {
+		std::cout << "Refr ecx: " << i;
+	}
+	catch (...) {
+		std::cout << "Refr ecx\n";
+	}
+#endif
 }

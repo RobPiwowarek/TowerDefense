@@ -14,7 +14,7 @@ tower_defense::Grid::Grid(int width, int height, Map &m) : map(m) {
     }
 }
 
-std::set<tower_defense::GridElement*> &tower_defense::Grid::getElementsInRadius(const Point & p, double radius) {
+std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(const Point & p, double radius) {
 	std::set<tower_defense::GridElement*> elements;
 
 	for (int i = p.getY() - radius; i < p.getY() + radius; i++){
@@ -31,7 +31,7 @@ std::set<tower_defense::GridElement*> &tower_defense::Grid::getElementsInRadius(
 	return elements;
 }
 
-std::set<tower_defense::GridElement*> &tower_defense::Grid::getElementsInRadius(Minion * minion, double radius){
+std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(Minion * minion, double radius){
 	return this->getElementsInRadius(minion->getLocation(), radius); 
 }
 
@@ -54,31 +54,54 @@ int tower_defense::Grid::getHeight() const {
     return this->height;
 }
 
-void tower_defense::Grid::calcDistItems(std::priority_queue<std::pair<int, GridElement *>> &initialNodes) {
+void tower_defense::Grid::calcDistItems(_calcDistNodeQueue &initialNodes) {
     for (tower_defense::Item *item: this->map.getItems()) {
         initialNodes.push(std::make_pair(0, this->getElement(item->getLocation())));
         this->getElement(item->getLocation())->setDistToTarget(0);
     }
 }
 
-void tower_defense::Grid::calcDistTurrets(std::priority_queue<std::pair<int, GridElement *>> &initialNodes) {
+void tower_defense::Grid::calcDistTurrets(_calcDistNodeQueue &initialNodes) {
     for (tower_defense::Turret *turret: this->map.getTurrets()) {
         initialNodes.push(std::make_pair(0, this->getElement(turret->getLocation())));
         this->getElement(turret->getLocation())->setDistToTurret(0);
     }
 }
 
+inline void tower_defense::Grid::calculateDistance_checkNeighbour(const tower_defense::Grid::Target target,
+	tower_defense::GridElement* neighbour,
+	_calcDistNode& node,
+	_calcDistNodeQueue& nodes) {
+	if (neighbour != nullptr) {
+		if (target == Turret) { /// todo: necessary check?
+			if (neighbour->getDistToTurret() == -1 && !(neighbour->hasTurret())) {
+				neighbour->setDistToTurret(node.first + 1);
+				nodes.push(std::make_pair(node.first + 1, neighbour));
+			}
+		}
+		else {
+			if (neighbour->getDistToTarget() == -1 && !(neighbour->hasTurret())) {
+				neighbour->setDistToTarget(node.first + 1);
+				nodes.push(std::make_pair(node.first + 1, neighbour));
+			}
+		}
+	}
+
+}
+#include <iostream>
 void tower_defense::Grid::calculateDistance(const Target target) {
 /// 1. set values to -1 (can't access)
     for (int i = 0; i < this->width; i++) {
         for (int j = 0; j < this->height; j++) {
-            this->elements[i][j]->setDistToTarget(-1);
-            this->elements[i][j]->setDistToTurret(-1);
+			if (target == Item)
+				this->elements[i][j]->setDistToTarget(-1);
+			else
+				this->elements[i][j]->setDistToTurret(-1);
         }
     }
 
     /// 2. setting initial node for items
-    std::priority_queue<std::pair<int, GridElement *>> initialNodes;
+	_calcDistNodeQueue initialNodes;
 
     if (target == Turret) {
         this->calcDistTurrets(initialNodes);
@@ -88,74 +111,19 @@ void tower_defense::Grid::calculateDistance(const Target target) {
 
     /// 3. start checking nodes
     while (!initialNodes.empty()) {
-        std::pair<int, GridElement *> node = initialNodes.top();
-        initialNodes.pop();
+        _calcDistNode node = initialNodes.top();
+		initialNodes.pop();
+		//std::cout << "n" << node.first;
 
         GridElement *up = node.second->getUpNeighbour();
         GridElement *down = node.second->getDownNeighbour();
         GridElement *left = node.second->getLeftNeighbour();
         GridElement *right = node.second->getRightNeighbour();
 
-        if (up != nullptr) {
-            if (target == Turret) { /// todo: necessary check?
-                if (up->getDistToTurret() == -1 && !(up->hasTurret())) {
-                    up->setDistToTurret(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, up));
-                }
-            }
-            else {
-                if (up->getDistToTarget() == -1 && !(up->hasTurret())) {
-                    up->setDistToTarget(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, up));
-                }
-            }
-        }
-
-        if (down != nullptr) {
-            if (target == Turret) {
-                if (down->getDistToTurret() == -1 && !(down->hasTurret())) {
-                    down->setDistToTurret(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, down));
-                }
-            }
-            else {
-                if (down->getDistToTarget() == -1 && !(down->hasTurret())) {
-                    down->setDistToTarget(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, down));
-                }
-            }
-        }
-
-        if (left != nullptr) {
-            if (target == Turret) {
-                if (left->getDistToTurret() == -1 && !(left->hasTurret())) {
-                    left->setDistToTurret(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, left));
-                }
-            }
-            else {
-                if (left->getDistToTarget() == -1 && !(left->hasTurret())) {
-                    left->setDistToTarget(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, left));
-                }
-            }
-        }
-
-        if (right != nullptr) {
-
-            if (target == Turret) {
-                if (right->getDistToTurret() == -1 && !(right->hasTurret())) {
-                    right->setDistToTurret(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, right));
-                }
-            }
-            else {
-                if (right->getDistToTarget() == -1 && !(right->hasTurret())) {
-                    right->setDistToTarget(node.first + 1);
-                    initialNodes.push(std::make_pair(node.first + 1, right));
-                }
-            }
-        }
+		calculateDistance_checkNeighbour(target, up, node, initialNodes);
+		calculateDistance_checkNeighbour(target, down, node, initialNodes);
+		calculateDistance_checkNeighbour(target, left, node, initialNodes);
+		calculateDistance_checkNeighbour(target, right, node, initialNodes);
     }
 }
 

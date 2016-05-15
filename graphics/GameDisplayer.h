@@ -46,7 +46,7 @@ namespace graphics {
 		void checkCurPosition();
 
 		sf::RectangleShape baseBackground;
-		int pointsPerUnit = 80;
+		int pointsPerUnit = 10;
 		tower_defense::Point curPosition; //in game's units
 		tower_defense::Point gameMapSize;
 		const tower_defense::Turret* selectedTurretBase = nullptr;
