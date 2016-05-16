@@ -47,10 +47,13 @@ namespace tower_defense {
 		void calcDistTurrets(_calcDistNodeQueue &initialNodes);
 
 		/// returns grid elements in a radius from a Point
-		std::set<GridElement*> getElementsInRadius(const Point & p, double radius);
+		std::set<GridElement*> getElementsInRadius(const Point & p, double radius) const;
 
 		/// returns grid elements in a radius from a Minion
-		std::set<GridElement*> getElementsInRadius(Minion * minion, double radius);
+		std::set<GridElement*> getElementsInRadius(Minion * minion, double radius) const;
+
+		/// returns grid elements in a line given by starting point and ending point
+		std::set<GridElement*> getElementsInLine(const Point & startingPoint, const Point & endingPoint) const;
 
     private:
         int height;

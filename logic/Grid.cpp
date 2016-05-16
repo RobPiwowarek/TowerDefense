@@ -14,7 +14,31 @@ tower_defense::Grid::Grid(int width, int height, Map &m) : map(m) {
     }
 }
 
-std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(const Point & p, double radius) {
+
+std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInLine(const Point & startingPoint, const Point & endingPoint) const{
+	if (startingPoint.getX() > endingPoint.getX()) return this->getElementsInLine(endingPoint, startingPoint);
+	
+	std::set<tower_defense::GridElement*> elements;
+
+	/// calculate coefficients for y = ax + b
+	const double a = (endingPoint.getY() - startingPoint.getY()) / (endingPoint.getX() - startingPoint.getX());
+	const double b = a*(-startingPoint.getX()) + startingPoint.getY();
+
+	/// todo: check if gets grid elements correctly.
+	for (int i = startingPoint.getX(); i <= endingPoint.getX(); ++i){
+		if (i > this->width || i < 0) return elements; // edge case;
+	
+		int y = a*i + b;
+	
+		if (y < 0 || y > this->height) return elements; // second edge case
+
+		elements.insert(this->elements[i][y]);
+	}
+
+	return elements;
+}
+
+std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(const Point & p, double radius) const{
 	std::set<tower_defense::GridElement*> elements;
 
 	for (int i = p.getY() - radius; i < p.getY() + radius; i++){
@@ -31,7 +55,7 @@ std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(c
 	return elements;
 }
 
-std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(Minion * minion, double radius){
+std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(Minion * minion, double radius) const{
 	return this->getElementsInRadius(minion->getLocation(), radius); 
 }
 

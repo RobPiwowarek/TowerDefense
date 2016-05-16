@@ -83,7 +83,6 @@ namespace tower_defense {
 		/// returns missiles
 		std::set<WeaponFire*> getMissiles() const;
 
-
     private:
         Point location;
         int distToTarget;

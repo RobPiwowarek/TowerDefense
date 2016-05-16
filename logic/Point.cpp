@@ -44,6 +44,14 @@ tower_defense::Point tower_defense::Point::operator+(const Point &p) const {
 	return Point(x + p.x, y + p.y);
 }
 
+tower_defense::Point tower_defense::Point::operator+(const double val) const{
+	return Point(this->x + val, this->y + val);
+}
+
+tower_defense::Point tower_defense::Point::operator-(const double val) const{
+	return Point(this->x - val, this->y - val);
+}
+
 tower_defense::Point& tower_defense::Point::operator+=(const Point &p) {
 	this->x += p.x;
 	this->y += p.y;

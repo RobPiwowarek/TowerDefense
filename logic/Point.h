@@ -38,6 +38,8 @@ namespace tower_defense {
 
 		Point operator-(const Point &p) const;
 		Point operator+(const Point &p) const;
+		Point operator+(const double val) const;
+		Point operator-(const double val) const;
 		Point& operator+=(const Point &p);
 		Point& operator-=(const Point &p);
 		Point operator*(double i) const;

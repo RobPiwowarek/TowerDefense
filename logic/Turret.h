@@ -62,7 +62,7 @@ namespace tower_defense {
         /// sets armor;
         void setArmor(int armor);
 
-/// refreshes turret (and it's weapon)
+        /// refreshes turret (and it's weapon)
         bool refresh(std::list<Minion *> enemies);
 
         /// returns turret current weapon
