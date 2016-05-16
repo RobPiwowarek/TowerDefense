@@ -53,7 +53,7 @@ namespace graphics {
 
 
 		void display(sf::RenderWindow& window, const sf::Texture& texture,
-			const tower_defense::Point& size, const tower_defense::Point& position);
+			const tower_defense::Point& size, const tower_defense::Point& position, double angle = 0);
 	};
 }
 

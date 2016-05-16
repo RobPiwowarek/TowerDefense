@@ -85,8 +85,8 @@ namespace tower_defense {
 
     private:
         Point location;
-        int distToTarget;
-        int distToTurret;
+        int distToTarget = -1;
+        int distToTurret = -1;
         bool occupied = false; // has turret?
 
         Grid &grid;

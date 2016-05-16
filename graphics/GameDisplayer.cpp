@@ -7,6 +7,7 @@
 
 #include <cmath>
 
+#define PI 3.1415
 
 using namespace std;
 using namespace sf;
@@ -15,6 +16,9 @@ using namespace tower_defense;
 using namespace data;
 
 #include <iostream>
+
+#define DIST_TEST
+#ifdef DIST_TEST
 
 RenderTexture* getMapTexture(int i, int j, Game* g) {
 #define DIST getDistToTarget
@@ -35,8 +39,10 @@ RenderTexture* getMapTexture(int i, int j, Game* g) {
 	int blue = g->getMap().getGrid().getElement(Point(i, j))->DIST();
 	if (blue < 0) blue = 0;
 	if (blue > 255) blue = 255;
-	return t[blue];
+	return t[255-blue];
 }
+
+#endif
 
 void GameDisplayer::refresh(RenderWindow& window) {
 	Game* g = AppModel::getInstance().getGame().get();
@@ -101,10 +107,17 @@ void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 
 
 	for (int i = x_beginFrom; i < x_goTo; i++)
-		for (int j = y_beginFrom; j < y_goTo; j++) {
-			this->display(window, /*gm->getMapTexture(i, j)*/ getMapTexture(i, j, g)->getTexture(), Point(1, 1), Point(i + 0.5, j + 0.5));
+		for (int j = y_beginFrom; j < y_goTo; j++)
+			this->display(window,
+#ifndef DISP_TEST
+			gm->getMapTexture(i, j)
+#else
+			getMapTexture(i, j, g)->getTexture()
+#endif		
+			, Point(1, 1), Point(i + 0.5, j + 0.5));
+	for (int i = x_beginFrom; i < x_goTo; i++)
+		for (int j = y_beginFrom; j < y_goTo; j++)
 			this->drawMinions(window, g->getMap().getGrid().getElement({ (double)i, (double)j }), mm);
-		}
 
 	AppModel::getInstance().getMinionManager().release();
 	AppModel::getInstance().getGameManager().release();
@@ -124,17 +137,16 @@ void GameDisplayer::drawTurrets(sf::RenderWindow& window, tower_defense::Game* g
 }
 void GameDisplayer::drawMinions(sf::RenderWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager) {
 	for (set<Minion*>::const_iterator it = g->getMinions().cbegin(); it != g->getMinions().cend(); it++)
-		display(
-		window, 
+		display( window, 
 		mManager->getTexture((*it)->getObjClass()),
 		{ (*it)->getSize(), (*it)->getSize() },
-		(*it)->getLocation());
+		(*it)->getLocation(), (*it)->getAngle());
 }
 
 bool GameDisplayer::onScreen(RenderWindow& window, const Entity &e) {
 	return (e.getLocation().getX() + e.getSize() > this->curPosition.getX() - window.getSize().x / this->pointsPerUnit / 2 &&
-		e.getLocation().getX() - e.getSize() < this->curPosition.getX() + window.getSize().x / this->pointsPerUnit / 2) ||
-		(e.getLocation().getY() + e.getSize() > this->curPosition.getY() + window.getSize().y / this->pointsPerUnit / 2 &&
+		e.getLocation().getX() - e.getSize() < this->curPosition.getX() + window.getSize().x / this->pointsPerUnit / 2) &&
+		(e.getLocation().getY() + e.getSize() > this->curPosition.getY() - window.getSize().y / this->pointsPerUnit / 2 &&
 		e.getLocation().getY() - e.getSize() < this->curPosition.getY() + window.getSize().y / this->pointsPerUnit / 2);
 }
 
@@ -171,12 +183,17 @@ Point GameDisplayer::screenToGame(const RenderWindow& window, const Vector2f& on
 		(onScreen.y - window.getSize().y / 2) / this->pointsPerUnit + this->curPosition.getY());
 }
 
+
 void GameDisplayer::display(sf::RenderWindow& window, const sf::Texture& texture, const tower_defense::Point& size,
-	const tower_defense::Point& position) {
+	const tower_defense::Point& position, double angle) {
 	Sprite s(texture);
-	s.setPosition(gameToScreen(window, position - size / 2));
+	Vector2f location = gameToScreen(window, position);
+
+	s.setOrigin(Vector2f(s.getLocalBounds().height * 0.5, s.getLocalBounds().width * 0.5));
 	s.setScale(((double)this->pointsPerUnit * size.getX()) / texture.getSize().x,
 		((double)this->pointsPerUnit * size.getY()) / texture.getSize().y);
+	s.setPosition(location);
+	s.setRotation(angle * 180 / PI);
 
 	window.draw(s);
 }

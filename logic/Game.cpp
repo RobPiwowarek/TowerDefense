@@ -24,9 +24,8 @@ tower_defense::Player &tower_defense::Game::getPlayer() {
     return *this->player;
 }
 
-void tower_defense::Game::refresh() {
-	if (this->wave != nullptr)
-	{
+void tower_defense::Game::refreshWave() {
+	if (this->wave != nullptr) {
 
 		Minion* newMinion = this->wave->refresh();
 
@@ -37,12 +36,12 @@ void tower_defense::Game::refresh() {
 			case 1: //E
 				location.setX(this->map->getWidth() - 0.001);
 			case 3: //W
-				location.setY(((rand() * 1000) % ((int)this->map->getHeight() * 1000)) * 0.001);
+				location.setY((rand() % ((int)this->map->getHeight() * 100)) * 0.01);
 				break;
 			case 2: //S
 				location.setY(this->map->getHeight() - 0.001);
 			case 0: //N
-				location.setX(((rand() * 1000) % ((int)this->map->getWidth() * 1000)) * 0.001);
+				location.setX((rand() % ((int)this->map->getWidth() * 100)) * 0.01);
 				break;
 			}
 			std::cout << "adding minion: (" << location.getX() << ", " << location.getY() << ")" << std::endl;
@@ -63,9 +62,11 @@ void tower_defense::Game::refresh() {
 			std::cout << " finished\n";
 		}
 	}
+}
 
-
-    //this->map->refresh(*this);
+void tower_defense::Game::refresh() {
+	this->refreshWave();
+    this->map->refresh(*this);
 }
 
 tower_defense::Game::~Game() {

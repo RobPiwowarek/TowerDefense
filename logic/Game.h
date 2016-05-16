@@ -25,6 +25,8 @@ namespace tower_defense {
         void refresh();
 
     private:
+		void refreshWave();
+
         tower_defense::Map *map;
         int curWave;
         tower_defense::MinionWave *wave;

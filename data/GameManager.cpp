@@ -172,6 +172,6 @@ void GameManager::loadItems(const string& directory, const pugi::xml_node& game,
 }
 
 inline tower_defense::Point GameManager::randPoint() const {
-	return{ (mapSize - playerAreaSize) * 0.5 + ((1000 * rand()) % (1000 * playerAreaSize)) * 0.001,
-		(mapSize - playerAreaSize) * 0.5 + ((1000 * rand()) % (1000 * playerAreaSize)) * 0.001 };
+	return{ (mapSize - playerAreaSize) * 0.5 + (rand() % (100 * playerAreaSize)) * 0.01,
+		(mapSize - playerAreaSize) * 0.5 + (rand() % (100 * playerAreaSize)) * 0.01 };
 }

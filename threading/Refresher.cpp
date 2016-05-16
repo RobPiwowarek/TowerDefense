@@ -96,13 +96,13 @@ void Refresher::refresh() {
 #define DEBUG
 
 void Refresher::refreshGame(int rSeed) {
-#ifndef DEBUG
+#ifdef DEBUG
 	try {
 #endif
 		srand(rSeed);
 		AppModel::getInstance().getGame().get()->refresh();
 		AppModel::getInstance().getGame().release();
-#ifndef DEBUG
+#ifdef DEBUG
 	}
 	catch (std::exception e) {
 		std::cout << "Refr ecx: " << e.what() << std::endl;

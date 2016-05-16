@@ -1,6 +1,8 @@
 #include "Minion.h"
 
-// TODO: czemu entity(point(0,0))?
+#define PI 3.1415
+
+// TODO: czemu entity(point(0,0))? Re: w sumie nie ma znaczenia, ale konstruktor wymaga jakiegos
 tower_defense::Minion::Minion(
         const double velocity, const double size, const int minionClass,
         const int reward, const int health, const int damage, const TargetPriority priority)
@@ -19,6 +21,7 @@ tower_defense::Minion::Minion(const Minion &base, const Point &x0)
     this->health = base.health;
     this->location = x0;
     this->next = nullptr;
+	this->target = base.target;
 }
 
 void tower_defense::Minion::attack(tower_defense::Turret &turret) const{
@@ -47,10 +50,6 @@ bool tower_defense::Minion::takeDamage(const double damage){
 	if (this->health <= 0 || this->dead) return false; //check if already dead
 
 	this->health -= damage;
-	
-	if (this->health <= 0){
-		//this->death(); TODO: singleton pass argument or something
-	}
 
 	return true;
 }
@@ -67,87 +66,92 @@ void tower_defense::Minion::death(Game &game) {
     game.getMap().removeMinion(this);
 }
 
+#include <iostream>
+
 void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
     GridElement* currentLocation = g.getElement(this->location);
     GridElement* left = currentLocation->getLeftNeighbour(),
-    *right = currentLocation->getRightNeighbour(), *up = currentLocation->getUpNeighbour(), *down = currentLocation->getDownNeighbour();
+		*right = currentLocation->getRightNeighbour(),
+		*up = currentLocation->getUpNeighbour(),
+		*down = currentLocation->getDownNeighbour();
 
     this->next = nullptr;
 
-    if (this->target == Item) {
-        if (left != nullptr && left->getDistToTarget() != -1) {
-            this->next = left;
-            this->angle = 270.0f;
-        }
+	auto dist = GridElement::getDistToTarget;
 
-        if (right != nullptr && right->getDistToTarget() != -1) if (right->getDistToTarget() <
-                                                                    this->next->getDistToTarget()) { }
-        {
-            this->next = right;
-            this->angle = 90.0f;
-        }
+	
 
-        if (up != nullptr && up->getDistToTarget() != -1) if (up->getDistToTarget() < this->next->getDistToTarget()) {
-            this->next = up;
-            this->angle = 0.0f;
-        }
+    if (currentLocation->getDistToTarget() != -1 && (target == Item || currentLocation->getDistToTurret() == -1
+		|| (target == Closer &&	(currentLocation->getDistToTarget() <= currentLocation->getDistToTurret())))) { // Go to target
 
-        if (down != nullptr && down->getDistToTarget() != -1) if (down->getDistToTarget() <
-                                                                  this->next->getDistToTarget()) {
-            this->next = down;
-            this->angle = 180.0f;
-        }
+		int dist = currentLocation->getDistToTarget();
+		std::cout << "a";
+        if (left != nullptr)
+			if (!left->hasTurret() && left->getDistToTarget() < dist) {
+				this->next = left;
+				this->angle = -PI/2;
+			}
+
+		if (right != nullptr)
+			if (!right->hasTurret() && right->getDistToTarget() < dist) {
+				this->next = right;
+				this->angle = PI/2;
+			}
+
+		if (up != nullptr)
+			if (!up->hasTurret() && up->getDistToTarget() < dist) {
+				this->next = up;
+				this->angle = 0.0;
+			}
+
+		if (down != nullptr)
+			if (!down->hasTurret() && down->getDistToTarget() < dist) {
+				this->next = down;
+				this->angle = PI;
+			}
+		std::cout << "b";
     }
 
-    if (this->target == Turret){
-        if (left != nullptr && left->getDistToTurret() != -1) {
-            this->next = left;
-            this->angle = 270.0f;
-        }
+    else if (currentLocation->getDistToTurret() != -1){ // Go to turret
+		int dist = currentLocation->getDistToTurret();
 
-        if (right != nullptr && right->getDistToTurret() != -1) if (right->getDistToTurret() <
-                                                                    this->next->getDistToTurret()) { }
-        {
-            this->next = right;
-            this->angle = 90.0f;
-        }
+		if (left != nullptr)
+			if (left->hasTurret() || left->getDistToTurret() < dist) {
+				this->next = left;
+				this->angle = -PI / 2;
+			}
 
-        if (up != nullptr && up->getDistToTurret() != -1) if (up->getDistToTurret() < this->next->getDistToTurret()) {
-            this->next = up;
-            this->angle = 0.0f;
-        }
+		if (right != nullptr)
+			if (right->hasTurret() || right->getDistToTurret() < dist) {
+				this->next = right;
+				this->angle = PI / 2;
+			}
 
-        if (down != nullptr && down->getDistToTurret() != -1) if (down->getDistToTurret() <
-                                                                  this->next->getDistToTurret()) {
-            this->next = down;
-            this->angle = 180.0f;
-        }
-    }
+		if (up != nullptr)
+			if (up->hasTurret() || up->getDistToTurret() < dist) {
+				this->next = up;
+				this->angle = 0.0f;
+			}
+
+		if (down != nullptr)
+			if (down->hasTurret() || down->getDistToTurret() < dist) {
+				this->next = down;
+				this->angle = PI;
+			}
+	}
 }
 
 void tower_defense::Minion::refresh(Grid &g, Game &game) {
     if (this->health <= 0) {
         this->death(game);
+		return;
     }
+	if (this->next == nullptr || this->next == g.getElement(this->location))
+		this->chooseDestination(g, game);
 
-    if (g.getElement(this->location) == this->next){
-        // TODO: remove minion from previous location
-        this->next->addMinion(this);
-        chooseDestination(g, game);
-
-    }
-
-    // TODO:
-    // if road is blocked attack nearest tower
-    if (this->next == nullptr) {
-        this->target = Turret;
-        chooseDestination(g, game);
-    }
-
-    if (this->target == Turret){
-    if (this->next->getDistToTurret() == 0)
-        this->attack(*this->next->getTurret());
-    }
+	if (this->next != nullptr)
+		if (this->next->hasTurret())
+			this->attack(*this->next->getTurret());
 
     if (this->target == Item) {
         if (g.getElement(this->location)->hasItem()){
@@ -158,7 +162,11 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
     // Update location
     
 	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
-    this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
+	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
+
+	
+	if (g.getElement(this->location) == this->next)
+		this->next = nullptr;
 }
 
 int tower_defense::Minion::getDamage() const {

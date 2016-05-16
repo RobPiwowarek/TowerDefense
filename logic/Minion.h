@@ -62,7 +62,7 @@ namespace tower_defense {
         void refresh(Grid &g, Game &game);
 
         /// chooses next destination
-        void chooseDestination(Grid &g, Game &game);
+		void chooseDestination(Grid &g, Game &game);
 
         /// returns true if has item
         bool hasItem() const;
@@ -75,7 +75,6 @@ namespace tower_defense {
 
         /// sets held item, returns false if failed to set
         bool setItem(tower_defense::Item* item);
-
     private:
         int health;
         int reward;

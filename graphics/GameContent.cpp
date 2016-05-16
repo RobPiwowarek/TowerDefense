@@ -1,5 +1,6 @@
 #include "GameContent.h"
 #include "../data/TurretManager.h"
+#include "../data/MinionManager.h"
 
 using namespace graphics;
 using namespace tower_defense;
@@ -122,4 +123,13 @@ void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
 		AppModel::getInstance().getTurretManager().release();
 		AppModel::getInstance().getGame().release();
 	}
+
+
+	//MINION DEBUG
+	if (inGame.getX() > 0 && inGame.getY() > 0)
+		AppModel::getInstance().getGame().get()->getMap().addMinion(
+		new Minion(AppModel::getInstance().getMinionManager().get()->getMinion(0), inGame));
+
+	AppModel::getInstance().getGame().release();
+	AppModel::getInstance().getMinionManager().release();
 }

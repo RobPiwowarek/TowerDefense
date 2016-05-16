@@ -44,7 +44,16 @@ void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
 
     for (std::set<tower_defense::Minion*>::iterator it = this->minions.begin(); it != this->minions.end(); ++it){
+		GridElement *next = nullptr, *prev = grid->getElement((*it)->getLocation());
+
         (*it)->refresh(*this->grid, game);
+
+		next = grid->getElement((*it)->getLocation());
+
+		if (next != prev) {
+			if (prev != nullptr)	prev->removeMinion(*it);
+			if (next != nullptr)	next->addMinion(*it);
+		}
     }
 
     for (std::set<tower_defense::WeaponFire*>::iterator it = this->weaponFires.begin(); it != this->weaponFires.end(); ++it){
@@ -90,13 +99,10 @@ void tower_defense::Map::removeMinion(Minion* m) {
 	this->minions.erase(m);
 	this->grid->getElement(m->getLocation())->removeMinion(m);
 }
-#include <iostream>
+
 void tower_defense::Map::addItem(Item *i) {
-	std::cout << "c";
 	this->items.insert(i);
-	std::cout << "d";
 	this->grid->getElement(i->getLocation())->setItem(i);
-	std::cout << "e";
 	this->grid->calculateDistance(Grid::Item);
 }
 
