@@ -13,7 +13,7 @@ namespace tower_defense {
     public:
         /// creates new instance of Beam object
         /// using given values
-        Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFrst, double width);
+        Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFrst, const double width);
 
         /// creates an instance of Beam object
         /// that is a copy of base

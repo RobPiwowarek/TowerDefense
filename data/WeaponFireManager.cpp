@@ -73,7 +73,8 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 			atoi(fireNode.child_value("damage")),
 			atof(fireNode.child_value("size")),
 			nextClass++,
-			atoi(fireNode.child_value("hitOnlyFirst")));
+			atoi(fireNode.child_value("hitOnlyFirst")),
+			atof(fireNode.child_value("width")));
 	case 'i':
 		toRet = new Ring(
 			atoi(fireNode.child_value("damage")),
