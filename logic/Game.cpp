@@ -67,6 +67,14 @@ void tower_defense::Game::refreshWave() {
 void tower_defense::Game::refresh() {
 	this->refreshWave();
     this->map->refresh(*this);
+	if (player->getNItems() == 0)
+		AppModel::getInstance().setState(AppModel::Defeat);
+	else if (this->wave == nullptr)
+		if (this->getMap().getMinions().empty())
+			AppModel::getInstance().setState(AppModel::Victory);
+
+
+	std::cout << "Game state: " << AppModel::getInstance().getState() << std::endl;
 }
 
 tower_defense::Game::~Game() {

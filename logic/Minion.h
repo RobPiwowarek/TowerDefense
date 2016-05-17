@@ -21,7 +21,8 @@ namespace tower_defense {
         enum TargetPriority {
             Turret,
             Item,
-            Closer
+            Closer,
+			Escape
         };
 
         /// creates a minion prototype with given values

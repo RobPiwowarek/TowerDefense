@@ -2,6 +2,7 @@
 #define APP_MODEL_H
 
 #include <mutex>
+#include <atomic>
 #include "../include/SFML/Graphics.hpp"
 #include "ResourceManager.h"
 
@@ -35,6 +36,15 @@ class AppModel {
 	const char* LABEL_BACKGROUND = "res/basic/label.png";
 	const int LABEL_BACKGORUND_OID = 0;
 public:
+	enum GameState {
+		MainMenu,
+		Loading,
+		Going,
+		Paused,
+		Victory,
+		Defeat
+	};
+
 	// returns the instance
 	static AppModel& getInstance();
 
@@ -66,7 +76,11 @@ public:
 	bool createGame(const std::string& xmlURI);
 	//closes the game
 	void closeGame();
+	
+	void setState(GameState s);
+	GameState getState();
 private:
+	std::atomic<GameState> state;
 
     ResourceManager<tower_defense::Game> *game;
     ResourceManager<Refresher> *refresher;

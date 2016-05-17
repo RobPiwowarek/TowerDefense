@@ -62,8 +62,6 @@ void tower_defense::Minion::death(Game &game) {
     this->dead = true;
 
     game.getPlayer().setMoney(this->reward);
-
-    game.getMap().removeMinion(this);
 }
 
 #include <iostream>
@@ -77,15 +75,10 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 
     this->next = nullptr;
 
-	auto dist = GridElement::getDistToTarget;
-
-	
-
     if (currentLocation->getDistToTarget() != -1 && (target == Item || currentLocation->getDistToTurret() == -1
 		|| (target == Closer &&	(currentLocation->getDistToTarget() <= currentLocation->getDistToTurret())))) { // Go to target
 
 		int dist = currentLocation->getDistToTarget();
-		std::cout << "a";
         if (left != nullptr)
 			if (!left->hasTurret() && left->getDistToTarget() < dist) {
 				this->next = left;
@@ -109,7 +102,6 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 				this->next = down;
 				this->angle = PI;
 			}
-		std::cout << "b";
     }
 
     else if (currentLocation->getDistToTurret() != -1){ // Go to turret
@@ -156,6 +148,7 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
     if (this->target == Item) {
         if (g.getElement(this->location)->hasItem()){
             g.getElement(this->location)->getItem().pickUp(this, g);
+			g.calculateDistance(Grid::Item);
         }
     }
 

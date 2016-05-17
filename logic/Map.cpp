@@ -39,9 +39,11 @@ std::set<tower_defense::Minion *> tower_defense::Map::getMinionsNearPoint(const 
 
 	return minionsNearPoint;
 }
-
+#include<iostream>
 void tower_defense::Map::refresh(Game &game) {
     // TODO: EVERYTHING
+
+	std::set<tower_defense::Minion*> toRemove;
 
     for (std::set<tower_defense::Minion*>::iterator it = this->minions.begin(); it != this->minions.end(); ++it){
 		GridElement *next = nullptr, *prev = grid->getElement((*it)->getLocation());
@@ -50,11 +52,21 @@ void tower_defense::Map::refresh(Game &game) {
 
 		next = grid->getElement((*it)->getLocation());
 
+		if ((*it)->getHealth() <= 0) toRemove.insert(*it);
+
 		if (next != prev) {
 			if (prev != nullptr)	prev->removeMinion(*it);
 			if (next != nullptr)	next->addMinion(*it);
+			else					toRemove.insert(*it);
 		}
     }
+	for (tower_defense::Minion* m : toRemove) {
+		std::cout << "Removing " << m << "... ";
+		this->removeMinion(game, m);
+		std::cout << "Destroying... ";
+		delete m;
+		std::cout << "Done\n";
+	}
 
     for (std::set<tower_defense::WeaponFire*>::iterator it = this->weaponFires.begin(); it != this->weaponFires.end(); ++it){
         (*it)->refresh(*this->grid);
@@ -95,9 +107,20 @@ void tower_defense::Map::addMinion(Minion *m) {
 	this->grid->getElement(m->getLocation())->addMinion(m);
 }
 
-void tower_defense::Map::removeMinion(Minion* m) {
+void tower_defense::Map::removeMinion(Game& game, Minion* m) {
+	GridElement* g = grid->getElement(m->getLocation());
+	if (g != nullptr) {
+		g->removeMinion(m);
+		if (m->hasItem()) {
+			this->items.erase(m->getItem());
+			delete m->getItem();
+			game.getPlayer().setNItems(game.getPlayer().getNItems() - 1);
+		}
+	}
+
+	
+
 	this->minions.erase(m);
-	this->grid->getElement(m->getLocation())->removeMinion(m);
 }
 
 void tower_defense::Map::addItem(Item *i) {
@@ -130,4 +153,8 @@ std::set<tower_defense::WeaponFire *> &tower_defense::Map::getWeaponFires() {
 
 tower_defense::Grid& tower_defense::Map::getGrid() {
 	return *this->grid;
+}
+
+bool tower_defense::Map::outOfMap(const tower_defense::Point& p)const {
+	return p.getX() < 0 || p.getY() < 0 || p.getX() >= this->getWidth() || p.getY() >= this->getHeight();
 }

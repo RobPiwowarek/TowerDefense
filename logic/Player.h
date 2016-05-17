@@ -13,9 +13,16 @@ namespace tower_defense {
 
         /// sets player's money
         void setMoney(const int money);
+		
+		/// returns number if items to protect
+		int getNItems() const;
+
+		/// sets number of items to protect
+		void setNItems(const int n);
 
     private:
         int money;
+		int nItems;
     };
 }
 

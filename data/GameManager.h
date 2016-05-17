@@ -38,7 +38,9 @@ namespace data {
 
 		void loadWaves(const std::string &directory, const pugi::xml_node &waves);
 		void loadTurrets(const std::string &directory, const pugi::xml_node &turrets);
-		void loadItems(const std::string &directory, const pugi::xml_node &game, tower_defense::Map* map);
+
+		// returns number of loaded items
+		int loadItems(const std::string &directory, const pugi::xml_node &game, tower_defense::Map* map);
 
         int mapSize;
         int playerAreaSize;

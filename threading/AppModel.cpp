@@ -84,6 +84,7 @@ AppModel::AppModel() {
 #include <iostream>
 
 bool AppModel::createGame(const std::string& xmlURI) {
+	this->state = Loading;
 	srand(time(NULL));
 	bool g = false;
 	try {
@@ -99,9 +100,10 @@ bool AppModel::createGame(const std::string& xmlURI) {
 		this->closeGame();
 
 		std::cout << "Failed to load game" << e.what() << std::endl;
+		this->state = MainMenu;
 		return false;
 	}
-
+	this->state = Going;
 	return true;
 }
 
@@ -162,4 +164,11 @@ const sf::Texture* AppModel::getLabelBackground() {
 	this->textureManager->release();
 
 	return toRet;
+}
+
+void AppModel::setState(AppModel::GameState s) {
+	this->state = s;
+}
+AppModel::GameState AppModel::getState() {
+	return this->state;
 }

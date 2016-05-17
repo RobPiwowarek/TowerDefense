@@ -80,8 +80,10 @@ int tower_defense::Grid::getHeight() const {
 
 void tower_defense::Grid::calcDistItems(_calcDistNodeQueue &initialNodes) {
     for (tower_defense::Item *item: this->map.getItems()) {
-        initialNodes.push(std::make_pair(0, this->getElement(item->getLocation())));
-        this->getElement(item->getLocation())->setDistToTarget(0);
+		if (!item->isHeld()) {
+			initialNodes.push(std::make_pair(0, this->getElement(item->getLocation())));
+			this->getElement(item->getLocation())->setDistToTarget(0);
+		}
     }
 }
 

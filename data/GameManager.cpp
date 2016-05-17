@@ -55,7 +55,7 @@ Game *GameManager::load(const string &path) {
 
     loadWaves(directory, game.child("waves"));
 
-	loadItems(directory, game, map);
+	player->setNItems(loadItems(directory, game, map));
 
     return new Game(map, player);
 }
@@ -139,7 +139,7 @@ GameManager::~GameManager() {
     this->clear();
 }
 
-void GameManager::loadItems(const string& directory, const pugi::xml_node& game, tower_defense::Map* map) {
+int GameManager::loadItems(const string& directory, const pugi::xml_node& game, tower_defense::Map* map) {
 	cout << "Loading items:\n";
 	int nextItemClass = 0;
 	std::map<string, int> itemTextures;
@@ -169,6 +169,8 @@ void GameManager::loadItems(const string& directory, const pugi::xml_node& game,
 	AppModel::getInstance().getTextures().release();
 
 	cout << '.' << endl;
+
+	return nextItemClass;
 }
 
 inline tower_defense::Point GameManager::randPoint() const {

@@ -35,7 +35,7 @@ namespace tower_defense {
         void addMinion(Minion *m);
 		
 		/// removes a minion from map
-		void removeMinion(Minion* m);
+		void removeMinion(Game& game, Minion* m);
 
         /// adds a turret to map
         void addTurret(Turret *t, Point p);
@@ -76,6 +76,8 @@ namespace tower_defense {
         std::set<WeaponFire *> weaponFires;
         std::set<Turret *> turrets;
         std::set<Item *> items;
+
+		bool outOfMap(const Point& p)const;
     };
 }
 
