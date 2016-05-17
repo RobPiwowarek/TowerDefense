@@ -7,6 +7,22 @@ tower_defense::GridElement::GridElement(const Point &location, Grid &g) : grid(g
     this->distToTurret = 0;
 }
 
+int tower_defense::GridElement::getDistToCorner() const{
+	return this->distToCorner;
+}
+
+void tower_defense::GridElement::setDistToCorner(const int dist){
+	this->distToCorner = dist;
+}
+
+int tower_defense::GridElement::getDistToEdge() const{
+	return this->distToEdge;
+}
+
+void tower_defense::GridElement::setDistToEdge(const int dist){
+	this->distToEdge = dist;
+}
+
 tower_defense::Turret *tower_defense::GridElement::getTurret() {
     return this->turret;
 }

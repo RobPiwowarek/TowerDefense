@@ -1,6 +1,6 @@
 #include "Beam.h"
 
-tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFirst)
+tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFirst, double width)
         : WeaponFire(damage, maxSize, 1, beam, fireClass) {
     this->hitOnlyFirst = hitOnlyFirst;
 }
@@ -8,11 +8,13 @@ tower_defense::Beam::Beam(const int damage, const double maxSize, const int fire
 tower_defense::Beam::Beam(const Beam &base, const double angleModifier)
         : WeaponFire(base, angleModifier) {
     this->hitOnlyFirst = base.hitOnlyFirst;
+	this->width = base.width;
 }
 
 tower_defense::Beam::Beam(const Beam &base, const Point &location, const double angle)
         : WeaponFire(base, location, angle) {
     this->hitOnlyFirst = base.hitOnlyFirst;
+	this->width = base.width;
 }
 
 bool tower_defense::Beam::isHitOnlyFirst() const {
@@ -30,6 +32,15 @@ bool tower_defense::Beam::refresh(Grid& g) {
 
 	return false; //TODO
 }
+
+double tower_defense::Beam::getWidth() const{
+	return this->width;
+}
+
+void tower_defense::Beam::setWidth(const double width){
+	this->width = width;
+}
+
 
 bool tower_defense::Beam::hits(Minion* m) {
 	return false; //TODO

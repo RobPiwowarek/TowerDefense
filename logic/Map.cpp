@@ -133,6 +133,7 @@ void tower_defense::Map::addTurret(Turret *t, Point p) {
     // TODO (Grid)
 	this->grid->calculateDistance(Grid::Turret);
 	this->grid->calculateDistance(Grid::Item);
+	this->grid->calculateDistance(Grid::Escape);
 }
 
 std::set<tower_defense::Item *> &tower_defense::Map::getItems() {

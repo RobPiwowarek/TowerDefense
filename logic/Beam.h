@@ -13,7 +13,7 @@ namespace tower_defense {
     public:
         /// creates new instance of Beam object
         /// using given values
-        Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFrst);
+        Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFrst, double width);
 
         /// creates an instance of Beam object
         /// that is a copy of base
@@ -34,9 +34,15 @@ namespace tower_defense {
 		/// check collision
 		bool checkCollision(tower_defense::Minion * minion);
 
+		/// returns width 
+		double getWidth() const;
+
+		/// sets width
+		void setWidth(const double width);
+
     private:
         bool hitOnlyFirst;
-
+		double width;
         bool hits(Minion* m);
     };
 }

@@ -20,7 +20,8 @@ namespace tower_defense {
         /// helper enum in calculateDistance()
         enum Target {
             Turret,
-            Item
+            Item,
+			Escape
         };
 
         /// creates grid with given size
@@ -37,14 +38,23 @@ namespace tower_defense {
         /// returns element
         GridElement *getElement(const Point &p) const;
 
+		/// returns element
+		GridElement *getElement(const double x, const double y) const;
+
         /// calculate distances
         void calculateDistance(const Target target);
 
-        /// helper function for function pointers in calculateDistance()
+        /// helper function in calculateDistance()
 		void calcDistItems(_calcDistNodeQueue &initialNodes);
 
-        /// helper function for function pointers in calculateDistnace()
+        /// helper function in calculateDistance()
 		void calcDistTurrets(_calcDistNodeQueue &initialNodes);
+
+		/// helper function in calculateDistance()
+		void calcDistEscapeCorners(_calcDistNodeQueue &initialNodes);
+
+		/// helper function in calculateDistance()
+		void calcDistEscapeEdges(_calcDistNodeQueue &initialNodes);
 
 		/// returns grid elements in a radius from a Point
 		std::set<GridElement*> getElementsInRadius(const Point & p, double radius) const;

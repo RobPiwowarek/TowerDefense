@@ -35,6 +35,12 @@ namespace tower_defense {
 
         void attack(tower_defense::Turret &turret) const;
 
+		/// return targetPriority
+		TargetPriority getTargetPriority() const;
+
+		/// sets targetPriority
+		void setTargetPriority(TargetPriority target);
+
 		/// returns true if minion got damaged in the process
 		bool takeDamage(const double damage);
 

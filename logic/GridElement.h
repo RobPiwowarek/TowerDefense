@@ -25,6 +25,18 @@ namespace tower_defense {
         /// sets distance to the closest target
         void setDistToTarget(const int dist);
 
+		/// returns distance to the closest corner
+		int getDistToCorner() const;
+
+		/// sets distance to the closest corner
+		void setDistToCorner(const int dist);
+
+		/// returns distance to the closest edge
+		int getDistToEdge() const;
+
+		/// sets distance to the closest edge
+		void setDistToEdge(const int dist);
+
         /// returns distance to the closest turret
         int getDistToTurret() const;
 
@@ -87,6 +99,8 @@ namespace tower_defense {
         Point location;
         int distToTarget = -1;
         int distToTurret = -1;
+		int distToCorner = -1;
+		int distToEdge = -1;
         bool occupied = false; // has turret?
 
         Grid &grid;

@@ -131,6 +131,35 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 				this->angle = PI;
 			}
 	}
+	else if (currentLocation->getDistToCorner() != -1 && target == Escape){ // Go to corner
+		int dist = currentLocation->getDistToCorner();
+
+		if (left != nullptr)
+			if (left->hasTurret() || left->getDistToCorner() < dist) {
+				this->next = left;
+				this->angle = -PI / 2;
+			}
+
+		if (right != nullptr)
+			if (right->hasTurret() || right->getDistToCorner() < dist) {
+				this->next = right;
+				this->angle = PI / 2;
+			}
+
+		if (up != nullptr)
+			if (up->hasTurret() || up->getDistToCorner() < dist) {
+				this->next = up;
+				this->angle = 0.0f;
+			}
+
+		if (down != nullptr)
+			if (down->hasTurret() || down->getDistToCorner() < dist) {
+				this->next = down;
+				this->angle = PI;
+			}
+
+	}
+
 }
 
 void tower_defense::Minion::refresh(Grid &g, Game &game) {
@@ -146,20 +175,27 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
 			this->attack(*this->next->getTurret());
 
     if (this->target == Item) {
-        if (g.getElement(this->location)->hasItem()){
-            g.getElement(this->location)->getItem().pickUp(this, g);
+		if (g.getElement(this->location)->hasItem()){
+			g.getElement(this->location)->getItem().pickUp(this, g);
 			g.calculateDistance(Grid::Item);
-        }
+			g.calculateDistance(Grid::Escape);
+		}
     }
 
     // Update location
-    
 	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
 	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
-
 	
 	if (g.getElement(this->location) == this->next)
 		this->next = nullptr;
+}
+
+tower_defense::Minion::TargetPriority tower_defense::Minion::getTargetPriority() const{
+	return this->target;
+}
+
+void tower_defense::Minion::setTargetPriority(tower_defense::Minion::TargetPriority target){
+	this->target = target;
 }
 
 int tower_defense::Minion::getDamage() const {

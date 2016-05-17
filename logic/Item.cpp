@@ -32,6 +32,7 @@ bool tower_defense::Item::pickUp(tower_defense::Minion* minion, tower_defense::G
 
     this->holdingMinion = minion;
     minion->setItem(this);
+	minion->setTargetPriority(tower_defense::Minion::Escape);
     grid.getElement(this->location)->setItem(nullptr);
 
     this->held = true;
