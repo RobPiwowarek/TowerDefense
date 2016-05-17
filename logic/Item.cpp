@@ -1,5 +1,5 @@
 #include "Item.h"
-
+#include <iostream>
 //TODO:
 tower_defense::Item::Item(const tower_defense::Point &location, const double angle, const double size,
                           const int itemClass) : Entity(location, angle, size, itemClass) {
@@ -33,6 +33,7 @@ bool tower_defense::Item::pickUp(tower_defense::Minion* minion, tower_defense::G
     this->holdingMinion = minion;
     minion->setItem(this);
 	minion->setTargetPriority(tower_defense::Minion::Escape);
+	std::cout << "ITEM PICKEDUP " << minion->getTargetPriority() << std::endl;
     grid.getElement(this->location)->setItem(nullptr);
 
     this->held = true;

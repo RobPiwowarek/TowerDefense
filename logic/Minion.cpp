@@ -131,7 +131,9 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 				this->angle = PI;
 			}
 	}
-	else if (currentLocation->getDistToCorner() != -1 && target == Escape){ // Go to corner
+	
+	if (currentLocation->getDistToCorner() != -1 && target == Escape){ // Go to corner
+		std::cout << "CALCULATING ESCAPE ROUTE" << std::endl;
 		int dist = currentLocation->getDistToCorner();
 
 		if (left != nullptr)

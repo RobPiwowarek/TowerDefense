@@ -89,21 +89,29 @@ void tower_defense::Grid::calcDistItems(_calcDistNodeQueue &initialNodes) {
 
 void tower_defense::Grid::calcDistEscapeCorners(_calcDistNodeQueue &initialNodes) {
 	initialNodes.push(std::make_pair(0, this->getElement(0, 0)));
+	this->getElement(0, 0)->setDistToCorner(0);
 	initialNodes.push(std::make_pair(0, this->getElement(this->width-1, this->height-1)));
+	this->getElement(this->width - 1, this->height - 1)->setDistToCorner(0);
 	initialNodes.push(std::make_pair(0, this->getElement(0, this->height-1)));
+	this->getElement(0, this->height - 1)->setDistToCorner(0);
 	initialNodes.push(std::make_pair(0, this->getElement(this->width-1, 0)));
+	this->getElement(this->width - 1, 0)->setDistToCorner(0);
 }
 
 void tower_defense::Grid::calcDistEscapeEdges(_calcDistNodeQueue &initialNodes) {
 	for (int i = 0; i < this->width; i++){
 		initialNodes.push(std::make_pair(0, this->getElement(i, 0)));
+		this->getElement(i, 0)->setDistToEdge(0);
 		initialNodes.push(std::make_pair(0, this->getElement(i, this->height-1)));
+		this->getElement(i, this->height - 1)->setDistToEdge(0);
 	}
 
-	/// 1 i -2 bo rogi w teorii dodaja sie w petli wyzej
-	for (int i = 1; i < this->height-2; i++){
+	/// 1 i -2 bo rogi w teorii dodaja sie w petli wyzej?
+	for (int i = 0; i < this->height-1; i++){
 		initialNodes.push(std::make_pair(0, this->getElement(0, i)));
+		this->getElement(0, i)->setDistToEdge(0);
 		initialNodes.push(std::make_pair(0, this->getElement(this->width-1, i)));
+		this->getElement(this->width - 1, i)->setDistToEdge(0);
 	}
 }
 
@@ -149,7 +157,7 @@ void tower_defense::Grid::calculateDistance(const Target target) {
 				this->elements[i][j]->setDistToTarget(-1);
 			else if (target == Turret)
 				this->elements[i][j]->setDistToTurret(-1);
-			else
+			else if (target == Escape)
 				this->elements[i][j]->setDistToCorner(-1);
         }
     }
