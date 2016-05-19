@@ -38,7 +38,7 @@ namespace tower_defense {
 		void removeMinion(Game& game, Minion* m);
 
         /// adds a turret to map
-        void addTurret(Turret *t, Point p);
+        void addTurret(Turret *t);
 
         /// adds an item to map
         void addItem(Item *i);

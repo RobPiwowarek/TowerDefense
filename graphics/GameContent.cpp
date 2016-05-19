@@ -114,22 +114,25 @@ void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
 	}
 	else if (selectedTurret != -1) {
 		Point turLocation = this->displayer->getSelecetedTurretsLocation(w);
-		std::cout << "Placing turret at (" << turLocation.getX() << ", " << turLocation.getY() << "): ";
+		std::cout << "Placing turret at (" << turLocation.getX() << ", " << turLocation.getY() << ")\n";
 
-		std::cout <<
-			AppModel::getInstance().getGame().get()->getMap().canPlaceTurret(turLocation,
-			AppModel::getInstance().getTurretManager().get()->getTurret(this->selectedTurret)) << endl;
+		AppModel::getInstance().getGame().get()->addTurret(
+			&AppModel::getInstance().getTurretManager().get()->getTurret(selectedTurret),
+			turLocation, this->turretList[selectedTurret].second.second);
+
+
 
 		AppModel::getInstance().getTurretManager().release();
 		AppModel::getInstance().getGame().release();
 	}
 
-
+	/*
 	//MINION DEBUG
 	if (inGame.getX() > 0 && inGame.getY() > 0)
 		AppModel::getInstance().getGame().get()->getMap().addMinion(
 		new Minion(AppModel::getInstance().getMinionManager().get()->getMinion(0), inGame));
-
+		
 	AppModel::getInstance().getGame().release();
 	AppModel::getInstance().getMinionManager().release();
+	*/
 }

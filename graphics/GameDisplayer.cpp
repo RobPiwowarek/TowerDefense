@@ -4,6 +4,7 @@
 #include "../threading/AppModel.h"
 #include "../data/GameManager.h"
 #include "../data/MinionManager.h"
+#include "../data/TurretManager.h"
 
 #include <cmath>
 
@@ -50,12 +51,15 @@ void GameDisplayer::refresh(RenderWindow& window) {
 
 	this->drawMapAndMinions(window, g);
 	
-	//TurretManager* tm = AppModel::getInstance().
+	TurretManager* tm = AppModel::getInstance().getTurretManager().get();
 
 	for (set<Turret*>::const_iterator it = g->getMap().getTurrets().cbegin(); it != g->getMap().getTurrets().cend(); it++)
-		if (onScreen(window, **it));
-			//display TODO
-	
+		if (onScreen(window, **it))
+			display(window, tm->getTexture((*it)->getObjClass()),
+			{ (*it)->getSize(), (*it)->getSize() }, (*it)->getLocation(), (*it)->getAngle());
+
+	AppModel::getInstance().getTurretManager().release();
+
 	GameManager* gm = AppModel::getInstance().getGameManager().get();
 
 	for (set<Item*>::const_iterator it = g->getMap().getItems().cbegin(); it != g->getMap().getItems().cend(); it++)

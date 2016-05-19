@@ -142,6 +142,7 @@ GameManager::~GameManager() {
 int GameManager::loadItems(const string& directory, const pugi::xml_node& game, tower_defense::Map* map) {
 	cout << "Loading items:\n";
 	int nextItemClass = 0;
+	int nItems = 0;
 	std::map<string, int> itemTextures;
 
 	pugi::xml_object_range<pugi::xml_named_node_iterator> items = game.child("player").child("items").children("item");
@@ -162,6 +163,7 @@ int GameManager::loadItems(const string& directory, const pugi::xml_node& game, 
 		else objClass = itemTextures[textureName];
 		cout << "adding to map: ";
 		map->addItem(new Item(randPoint(), 0, it->attribute("size").as_double(), objClass));
+		nItems++;
 		cout << "done!\n";
 	}
 	cout << "finished with items";
@@ -170,7 +172,7 @@ int GameManager::loadItems(const string& directory, const pugi::xml_node& game, 
 
 	cout << '.' << endl;
 
-	return nextItemClass;
+	return nItems;
 }
 
 inline tower_defense::Point GameManager::randPoint() const {

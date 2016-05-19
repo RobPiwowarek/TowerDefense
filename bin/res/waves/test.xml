@@ -2,12 +2,21 @@
 
 <wave>
     <timeBetweenMinions>
-        2
+        20
     </timeBetweenMinions>
     <minion>
         small
     </minion>
-    <!--<minion>
+    <minion>
         small
-    </minion>-->
+    </minion>
+    <minion>
+        small
+    </minion>
+    <minion>
+        small
+    </minion>
+    <minion>
+        small
+    </minion>
 </wave>

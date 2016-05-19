@@ -22,6 +22,8 @@ namespace tower_defense {
 
         tower_defense::Player &getPlayer();
 
+		void addTurret(const Turret* base, const Point& p, const int cost);
+
         void refresh();
 
     private:
