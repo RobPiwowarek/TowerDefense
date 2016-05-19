@@ -4101,7 +4101,7 @@
     <texture x="63" y="63">239 228 176.png</texture>
   </map>
   <player>
-    <startingMoney>100</startingMoney>
+    <startingMoney>1000</startingMoney>
     <items>
       <item img="item.png" size="0.5" />
       <item img="item.png" size="0.5" />

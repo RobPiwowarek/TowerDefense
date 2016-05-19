@@ -208,3 +208,19 @@ tower_defense::GridElement *tower_defense::Grid::getElement(const Point &p) cons
 
     return this->elements[x][y];
 }
+
+std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity) const {
+	return this->getOccupied(entity, entity.getLocation());
+}
+std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity, const Point& p) const {
+	std::set<GridElement*> toRet;
+	for (int i = 0; i < entity.getSize(); i++) {
+		for (int j = 0; j < entity.getSize(); j++) {
+			tower_defense::Point temp = p - (Point(entity.getSize(), entity.getSize()) / 2) + Point(i, j);
+			std::cout << "P: " << temp.getX() << " " << temp.getY() << "\n";
+			toRet.insert(this->getElement(temp));
+		}
+	}
+
+	return toRet;
+}

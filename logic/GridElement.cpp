@@ -36,9 +36,6 @@ void tower_defense::GridElement::removeMinion(Minion *m) {
 }
 
 bool tower_defense::GridElement::setTurret(Turret *t) {
-    if (this->minions.empty() || this->turret != nullptr)
-        return false;
-
     this->occupied = true;
     this->turret = t;
     return true;

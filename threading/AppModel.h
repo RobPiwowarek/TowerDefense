@@ -76,6 +76,10 @@ public:
 	bool createGame(const std::string& xmlURI);
 	//closes the game
 	void closeGame();
+	//pauses the game
+	void pauseGame();
+	//runs paused game
+	void unpauseGame();
 	
 	void setState(GameState s);
 	GameState getState();

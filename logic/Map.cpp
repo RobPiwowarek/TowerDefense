@@ -82,22 +82,14 @@ void tower_defense::Map::refresh(Game &game) {
         (*it)->refresh(*this->grid);
     }
 }
-#include <iostream>
+
 bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret) {
-	std::cout << "cPT";
-	for (int i = 0; i < turret.getSize(); i++){
-		for (int j = 0; j < turret.getSize(); j++){
-			std::cout << "(" << i << "," << j <<")";
-			tower_defense::Point temp = point - (Point(turret.getSize(), turret.getSize()) / 2) + Point(i, j);
-			std::cout << "=(" << temp.getX() << "," << temp.getY() << ")\n";
-			tower_defense::GridElement *tempElement = this->grid->getElement(temp);
+	for (GridElement* g : grid->getOccupied(turret, point)) {
+		if (g == nullptr) return false;
+		std::cout << g->getLocation().getX() << " " << g->getLocation().getY() << ": " << g->hasItem() << ", " << g->hasTurret() << ", " << g->getMinions().empty() << std::endl;
 
-
-			if (tempElement == nullptr) return false;
-
-			if (tempElement->hasItem() || tempElement->hasTurret() || !tempElement->getMinions().empty()){
-				return false;
-			}
+		if (g->hasItem() || g->hasTurret() || !g->getMinions().empty()) {
+			return false;
 		}
 	}
 
@@ -129,12 +121,8 @@ void tower_defense::Map::addItem(Item *i) {
 }
 
 void tower_defense::Map::addTurret(Turret *t) {
-	for (int i = 0; i < t->getSize(); i++) {
-		for (int j = 0; j < t->getSize(); j++) {
-			tower_defense::Point temp = t->getLocation() - (Point(t->getSize(), t->getSize()) / 2) + Point(i, j);
-			this->grid->getElement(temp)->setTurret(t);
-		}
-	}
+	for (GridElement* g : this->grid->getOccupied(*t))
+		g->setTurret(t);
 
 	this->turrets.insert(t);
 	
@@ -166,3 +154,4 @@ tower_defense::Grid& tower_defense::Map::getGrid() {
 bool tower_defense::Map::outOfMap(const tower_defense::Point& p)const {
 	return p.getX() < 0 || p.getY() < 0 || p.getX() >= this->getWidth() || p.getY() >= this->getHeight();
 }
+

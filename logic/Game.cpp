@@ -49,7 +49,6 @@ void tower_defense::Game::refreshWave() {
 		}
 
 		if (this->wave->finished()) {
-			std::cout << "Wave";
 			delete this->wave;
 			data::MinionWaveManager* manager = AppModel::getInstance().getMinionWaveManager().get();
 
@@ -59,7 +58,6 @@ void tower_defense::Game::refreshWave() {
 				this->wave = new MinionWave(manager->get(this->curWave));
 
 			AppModel::getInstance().getMinionWaveManager().release();
-			std::cout << " finished\n";
 		}
 	}
 }
@@ -74,7 +72,7 @@ void tower_defense::Game::refresh() {
 			AppModel::getInstance().setState(AppModel::Victory);
 
 
-	std::cout << "Game state: " << AppModel::getInstance().getState() << " items: " << player->getNItems() << std::endl;
+	//std::cout << "Game state: " << AppModel::getInstance().getState() << " items: " << player->getNItems() << std::endl;
 }
 
 tower_defense::Game::~Game() {
@@ -82,7 +80,8 @@ tower_defense::Game::~Game() {
 }
 void tower_defense::Game::addTurret(const Turret* base, const Point& p, const int cost) {
 	if (this->player->getMoney() < cost) return;
-	this->player->setMoney(this->player->getMoney() - cost);
-	if (this->map->canPlaceTurret(p, *base));
-	this->map->addTurret(new Turret(*base, p));
+	if (this->map->canPlaceTurret(p, *base)) {
+		this->player->setMoney(this->player->getMoney() - cost);
+		this->map->addTurret(new Turret(*base, p));
+	}
 }

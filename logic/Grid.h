@@ -65,13 +65,17 @@ namespace tower_defense {
 		/// returns grid elements in a line given by starting point and ending point
 		std::set<GridElement*> getElementsInLine(const Point & startingPoint, const Point & endingPoint) const;
 
+
+		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity) const;
+		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const Point& p) const;
     private:
         int height;
         int width;
         GridElement ***elements;
         tower_defense::Map &map;
 
-		inline void tower_defense::Grid::calculateDistance_checkNeighbour(const tower_defense::Grid::Target target,
+		inline void tower_defense::Grid::calculateDistance_checkNeighbour(
+			const tower_defense::Grid::Target target,
 			tower_defense::GridElement* neighbour,
 			_calcDistNode& node,
 			_calcDistNodeQueue& nodes);

@@ -75,7 +75,40 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 
     this->next = nullptr;
 
-    if (currentLocation->getDistToTarget() != -1 && (target == Item || currentLocation->getDistToTurret() == -1
+	if (currentLocation->getDistToCorner() != -1 && target == Escape) { // Go to corner
+		int dist = currentLocation->getDistToCorner();
+
+		if (dist == 0) {
+			this->next = currentLocation;
+			return;
+		}
+
+		if (left != nullptr)
+			if (!left->hasTurret() && left->getDistToCorner() < dist) {
+				this->next = left;
+				this->angle = -PI / 2;
+			}
+
+		if (right != nullptr)
+			if (!right->hasTurret() && right->getDistToCorner() < dist) {
+				this->next = right;
+				this->angle = PI / 2;
+			}
+
+		if (up != nullptr)
+			if (!up->hasTurret() && up->getDistToCorner() < dist) {
+				this->next = up;
+				this->angle = 0.0f;
+			}
+
+		if (down != nullptr)
+			if (!down->hasTurret() && down->getDistToCorner() < dist) {
+				this->next = down;
+				this->angle = PI;
+			}
+
+	}
+    else if (currentLocation->getDistToTarget() != -1 && (target == Item || currentLocation->getDistToTurret() == -1
 		|| (target == Closer &&	(currentLocation->getDistToTarget() <= currentLocation->getDistToTurret())))) { // Go to target
 
 		int dist = currentLocation->getDistToTarget();
@@ -132,35 +165,6 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 			}
 	}
 	
-	if (currentLocation->getDistToCorner() != -1 && target == Escape){ // Go to corner
-		std::cout << "CALCULATING ESCAPE ROUTE" << std::endl;
-		int dist = currentLocation->getDistToCorner();
-
-		if (left != nullptr)
-			if (left->hasTurret() || left->getDistToCorner() < dist) {
-				this->next = left;
-				this->angle = -PI / 2;
-			}
-
-		if (right != nullptr)
-			if (right->hasTurret() || right->getDistToCorner() < dist) {
-				this->next = right;
-				this->angle = PI / 2;
-			}
-
-		if (up != nullptr)
-			if (up->hasTurret() || up->getDistToCorner() < dist) {
-				this->next = up;
-				this->angle = 0.0f;
-			}
-
-		if (down != nullptr)
-			if (down->hasTurret() || down->getDistToCorner() < dist) {
-				this->next = down;
-				this->angle = PI;
-			}
-
-	}
 
 }
 
@@ -171,6 +175,8 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
     }
 	if (this->next == nullptr || this->next == g.getElement(this->location))
 		this->chooseDestination(g, game);
+	else if (this->next->hasTurret() && this->target != Turret)
+			this->chooseDestination(g, game);
 
 	if (this->next != nullptr)
 		if (this->next->hasTurret())

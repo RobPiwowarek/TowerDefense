@@ -79,6 +79,7 @@ AppModel::AppModel() {
 	this->weaponFireManager = new ResourceManager<data::WeaponFireManager>(new data::WeaponFireManager);
 
 	this->loadResources();
+	this->state = AppModel::MainMenu;
 }
 
 #include <iostream>
@@ -104,6 +105,8 @@ bool AppModel::createGame(const std::string& xmlURI) {
 		return false;
 	}
 	this->state = Going;
+	this->refresher->get()->start();
+	this->refresher->release();
 	return true;
 }
 
@@ -143,6 +146,8 @@ void AppModel::closeGame() {
 	this->turretManager->get()->clear();
 	this->turretManager->release();
 	std::cout << "Done!\n";
+
+	AppModel::state = AppModel::MainMenu;
 }
 
 
@@ -171,4 +176,22 @@ void AppModel::setState(AppModel::GameState s) {
 }
 AppModel::GameState AppModel::getState() {
 	return this->state;
+}
+
+
+void AppModel::pauseGame() {
+	if (this->game == nullptr)
+		GAME_NOT_INITIALIZED
+
+	this->refresher->get()->stop();
+	this->refresher->release();
+	this->state = AppModel::Paused;
+}
+void AppModel::unpauseGame() {
+	if (this->game == nullptr)
+		GAME_NOT_INITIALIZED
+
+	this->refresher->get()->start();
+	this->refresher->release();
+	this->state = AppModel::Going;
 }
