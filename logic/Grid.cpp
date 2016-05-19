@@ -15,7 +15,7 @@ tower_defense::Grid::Grid(int width, int height, Map &m) : map(m) {
 }
 
 
-std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInLine(const Point & startingPoint, const Point & endingPoint) const{
+std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInLine(const Point & startingPoint, const Point & endingPoint, const double width) const{
 	if (startingPoint.getX() > endingPoint.getX()) return this->getElementsInLine(endingPoint, startingPoint);
 	
 	std::set<tower_defense::GridElement*> elements;
@@ -24,18 +24,43 @@ std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInLine(con
 	const double a = (endingPoint.getY() - startingPoint.getY()) / (endingPoint.getX() - startingPoint.getX());
 	const double b = a*(-startingPoint.getX()) + startingPoint.getY();
 
-	/// todo: check if gets grid elements correctly.
-	for (int i = startingPoint.getX(); i <= endingPoint.getX(); ++i){
-		if (i > this->width || i < 0) return elements; // edge case;
-	
-		int y = a*i + b;
-	
-		if (y < 0 || y > this->height) return elements; // second edge case
+	if (a == 0){
+		double x = startingPoint.getX();
 
-		elements.insert(this->elements[i][y]);
+		for (double i = startingPoint.getY(); i <= endingPoint.getY(); ++i){
+			if (inBounds(x, i)) elements.insert(this->getElement(x, i));
+			if (inBounds(x + width, i + width)) elements.insert(this->getElement(x + width, i + width));
+			if (inBounds(x - width, i - width)) elements.insert(this->getElement(x - width, i - width));
+		}
+
+		return elements;
 	}
+	else {
 
-	return elements;
+		for (double i = startingPoint.getX(); i <= endingPoint.getX(); ++i){
+			double y = a*i + b;
+
+			if (inBounds(i, y)) elements.insert(this->getElement(i, y));
+
+			if (inBounds(i + width, y + width)) elements.insert(this->getElement(i + width, y + width));
+
+			if (inBounds(i - width, y - width)) elements.insert(this->getElement(i - width, y - width));
+		}
+
+		return elements;
+	}
+}
+
+bool tower_defense::Grid::inBounds(double x, double y)const {
+	if (x > this->width - 1 || x < 0) return false; // x out of bounds
+	else if (y > this->height - 1 || y < 0) return false; // y out of bounds
+	else return true;
+}
+
+bool tower_defense::Grid::inBounds(int x, int y)const{
+	if (x > this->width - 1 || x < 0) return false; // x out of bounds
+	else if (y > this->height - 1 || y < 0) return false; // y out of bounds
+	else return true;
 }
 
 std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(const Point & p, double radius) const{

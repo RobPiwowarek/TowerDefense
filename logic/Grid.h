@@ -63,8 +63,10 @@ namespace tower_defense {
 		std::set<GridElement*> getElementsInRadius(Minion * minion, double radius) const;
 
 		/// returns grid elements in a line given by starting point and ending point
-		std::set<GridElement*> getElementsInLine(const Point & startingPoint, const Point & endingPoint) const;
+		std::set<GridElement*> getElementsInLine(const Point & startingPoint, const Point & endingPoint, const double offset=0) const;
 
+		bool inBounds(double x, double y) const;
+		bool inBounds(int x, int y) const;
 
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity) const;
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const Point& p) const;

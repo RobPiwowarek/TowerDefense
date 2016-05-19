@@ -23,7 +23,7 @@ bool tower_defense::Beam::isHitOnlyFirst() const {
 }
 
 bool tower_defense::Beam::refresh(Grid& g) {
-	for (tower_defense::GridElement* element : g.getElementsInLine(this->location, this->location + this->size)){
+	for (tower_defense::GridElement* element : g.getElementsInLine(this->location, this->location + this->size, this->width/2)){
 		for (tower_defense::Minion* minion : element->getMinions()){
 			if (this->checkCollision(minion)){
 				minion->takeDamage(this->damage);
@@ -49,6 +49,14 @@ bool tower_defense::Beam::hits(Minion* m) {
 
 bool tower_defense::Beam::checkCollision(tower_defense::Minion * minion){
 
+	const double a = (this->location.getY() - this->location.getY()-this->size) / (this->location.getX() - this->location.getX()-this->size);
+	const double b = a*(-this->location.getX()) + this->location.getY() + this->size;
+
+	// y = ax + b => y - ax - b = 0
+
+	double d = minion->getSqDistanceFromLine(a, 1, b);
+
+	if (d <= this->width / 2) return true;
 
 	return false; //TODO
 }

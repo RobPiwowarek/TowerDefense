@@ -18,6 +18,11 @@ double tower_defense::Entity::getSqDistance(const tower_defense::Entity *e) cons
            pow(e->getLocation().getY() - this->getLocation().getY(), 2.0f);
 }
 
+double tower_defense::Entity::getSqDistanceFromLine(const double A, const double B, const double C)const{
+	/// Ax + By + C = 0;
+	return pow((A*this->location.getX() + B*this->location.getY() + C), 2.0f) / (A*A + B*B);
+}
+
 double tower_defense::Entity::getAngle() const {
     return this->angle;
 }
