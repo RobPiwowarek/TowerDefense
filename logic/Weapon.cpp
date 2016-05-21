@@ -19,11 +19,6 @@ tower_defense::Weapon::Weapon(const Weapon &base, const Turret *const parent) {
     this->cur = fireList->begin();
 }
 
-//TODO:
-bool tower_defense::Weapon::shoot(Minion *target) const {
-    return true;
-}
-
 double tower_defense::Weapon::getRange() const {
     return this->range;
 }
@@ -34,4 +29,22 @@ int tower_defense::Weapon::getFireRate() const {
 
 int tower_defense::Weapon::getReloading() const {
     return this->reloading;
+}
+#include <iostream>
+void tower_defense::Weapon::refresh(bool beginSequence, Map* m) {
+	if (this->reloading != 0 || beginSequence) {
+		while (this->cur->first == this->reloading) {
+			//TODO fire
+
+			std::cout << "fire";
+
+			if (++cur == this->fireList->cend()) {
+				this->cur = this->fireList->cbegin();
+				break;
+			}
+
+		}
+
+		if (++this->reloading == this->fireRate) this->reloading = 0;
+	}
 }

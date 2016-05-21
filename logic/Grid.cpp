@@ -66,14 +66,12 @@ bool tower_defense::Grid::inBounds(int x, int y)const{
 std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInRadius(const Point & p, double radius) const{
 	std::set<tower_defense::GridElement*> elements;
 
-	for (int i = p.getY() - radius; i < p.getY() + radius; i++){
-		for (int j = p.getX() - radius; i < p.getX() + radius; i++){
-			int x = j == this->width ? this->width - 1 : (int)floor(j);
-			int y = i == this->height ? this->height - 1 : (int)floor(i);
+	for (int i = p.getY() - radius < 0 ? 0 : p.getY() - radius;
+		i < p.getY() + radius && i < this->height; i++){
+		for (int j = p.getX() - radius < 0 ? 0 : p.getX() - radius;
+			j < p.getX() + radius && j < width; j++) {
 
-			if (x >= this->width || y >= this->height) continue;
-
-			elements.insert(this->elements[x][y]);
+			elements.insert(this->elements[j][i]);
 		}
 	}
 	

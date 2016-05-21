@@ -11,6 +11,7 @@ namespace tower_defense {
 #include "Entity.h"
 #include "Minion.h"
 #include "Weapon.h"
+#include "Map.h"
 
 namespace tower_defense {
     /// class that represents an anti-minion
@@ -63,7 +64,7 @@ namespace tower_defense {
         void setArmor(int armor);
 
         /// refreshes turret (and it's weapon)
-        bool refresh(std::list<Minion *> enemies);
+        bool refresh(tower_defense::Map* map);
 
         /// returns turret current weapon
         Weapon &getWeapon();

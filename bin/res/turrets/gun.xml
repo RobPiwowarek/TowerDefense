@@ -4,12 +4,12 @@
  <imgsrc>gun.png</imgsrc>
  <name>Gun tower</name>
  <size>1</size>
- <rotationSpeed>0.25</rotationSpeed>
+ <rotationSpeed>4.00</rotationSpeed>
  <health>150</health>
  <cost>50</cost>
  <weapon>
   <reloadTime>20</reloadTime>
-  <range>4</range>
+  <range>16</range>
   <weaponFire time='0'>bullet</weaponFire>
  </weapon>
 </turret>

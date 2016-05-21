@@ -10,6 +10,7 @@ namespace tower_defense {
 #include "Minion.h"
 #include "Turret.h"
 #include "WeaponFire.h"
+#include "Map.h"
 
 typedef double angleModifier;
 
@@ -44,11 +45,8 @@ namespace tower_defense {
         /// returns weapon's type
         int getClass() const;
 
-        /// shoots at target enemy
-        bool shoot(Minion *target) const;
-
         /// refreshes weapon
-        bool refresh(const std::list<Minion *> &enemies);
+        void refresh(bool beginSequence, Map* m);
 
     private:
         const WeaponFireList *fireList;

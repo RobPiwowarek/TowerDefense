@@ -113,7 +113,7 @@ Weapon* TurretManager::load(const xml_node& weaponNode, const string& directory,
 
 	for (xml_named_node_iterator it = fires.begin(); it != fires.end(); it++)
 		if (next = fireManager->load(directory, it->child_value()))
-			wfl->push_back(make_pair(it->attribute("fireTime").as_int(),
+			wfl->push_back(make_pair(it->attribute("time").as_int(),
 			make_pair(next, it->attribute("angleMod").as_double())));
 
 	AppModel::getInstance().getWeaponFireManager().release();

@@ -51,16 +51,57 @@ void tower_defense::Turret::setCurrentHealth(int currentHealth) {
         this->currentHealth = currentHealth;
 }
 
-// TODO: ask kuba if it should do something else
-bool tower_defense::Turret::refresh(std::list<Minion *> enemies) {
-    // assuming first enemy is the closest.
+const double PI = 3.1415;
+double normalizeAngle(double angle) {
+	while (angle <= -PI) angle += 2 * PI;
+	while (angle > PI) angle -= 2 * PI;
+	return angle;
+}
+
+double angleDiff(double from, double to) {
+	return normalizeAngle(from - to);
+}
+
+#include <iostream>
+
+bool tower_defense::Turret::refresh(Map* map) {
+    // assuming first enemy is the closest in angle
     // TODO: change to one closest to the item
 
-    // if in range
-    if (enemies.front()->getSqDistance(this) <= pow(this->getWeapon().getRange(), 2.0f)) {
-        // shoot at enemy
-        this->weapon->shoot(enemies.front());
-    }
+	Minion* target = nullptr;
+	double angleD;
+	double nAngleD;
+
+	std::set<GridElement*> fireRange = map->getGrid().getElementsInRadius(this->location, this->weapon->getRange());
+
+	for (GridElement* g : fireRange) {
+		for (Minion* m : g->getMinions()) {
+			if (this->location.getSquareDistance(m->getLocation()) <= this->weapon->getRange() * this->weapon->getRange())
+			if (target == nullptr) {
+				target = m;
+				angleD = angleDiff(this->angle,
+					-atan2(this->location.getX() - m->getLocation().getX(),
+					this->location.getY() - m->getLocation().getY()));
+			}
+			else if (abs(nAngleD = angleDiff(this->angle,
+				-atan2(this->location.getX() - m->getLocation().getX(),
+				this->location.getY() - m->getLocation().getY()))) < abs(angleD)) {
+				target = m;
+				angleD = nAngleD;
+			}
+		}
+	}
+	//std::cout << angle << "\t" << angleD << std::endl;
+	if (target != nullptr) {
+		if (abs(angleD) < this->rotationSpeed)	this->angle -= angleD;
+		else if (angleD > 0)					this->angle -= this->rotationSpeed;
+		else									this->angle += this->rotationSpeed;
+
+		this->angle = normalizeAngle(this->angle);
+
+		this->weapon->refresh(true, map);
+	}
+	else this->weapon->refresh(false, map);
 
     return true;
 }
