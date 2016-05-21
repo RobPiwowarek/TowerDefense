@@ -6,14 +6,8 @@ tower_defense::Beam::Beam(const int damage, const double maxSize, const int fire
 	this->width = width;
 }
 
-tower_defense::Beam::Beam(const Beam &base, const double angleModifier)
-        : WeaponFire(base, angleModifier) {
-    this->hitOnlyFirst = base.hitOnlyFirst;
-	this->width = base.width;
-}
-
-tower_defense::Beam::Beam(const Beam &base, const Point &location, const double angle)
-        : WeaponFire(base, location, angle) {
+tower_defense::Beam::Beam(const Beam &base, const Point &location, const double angle, const double angleModifier)
+	: WeaponFire(base, location, angle, angleModifier) {
     this->hitOnlyFirst = base.hitOnlyFirst;
 	this->width = base.width;
 }

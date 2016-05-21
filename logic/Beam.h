@@ -16,14 +16,9 @@ namespace tower_defense {
         Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFrst, const double width);
 
         /// creates an instance of Beam object
-        /// that is a copy of base
-        /// and will be fired with angle modified by angleModifier
-        Beam(const Beam &base, const double angleModifier);
-
-        /// creates an instance of Beam object
         /// that is a copy of base,
         /// located in location and directed in angle
-        Beam(const Beam &base, const Point &location, const double angle);
+		Beam(const Beam &base, const Point &location, const double angle, const double angleModifier);
 
         /// returns if beam hits only first target in line
         bool isHitOnlyFirst() const;

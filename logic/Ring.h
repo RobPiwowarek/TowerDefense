@@ -16,14 +16,9 @@ namespace tower_defense {
 			const int lifeTime, const int fireClass);
 
         /// creates an instance of Ring object
-        /// that is a copy of base
-        /// and will be fired with angle modified by angleModifier
-        Ring(const Ring &base, const double angleModifier);
-
-        /// creates an instance of Ring object
         /// that is a copy of base,
         /// located in location and directed in angle
-        Ring(const Ring &base, const Point &location, const double angle);
+		Ring(const Ring &base, const Point &location, const double angle, const double angleModifier);
 
         /// returns the ring's velocity
         double getVelocity() const;

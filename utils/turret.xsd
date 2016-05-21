@@ -23,8 +23,9 @@
                             <xs:element name="weaponFire" maxOccurs="unbounded">
                               <xs:complexType>
                                 <xs:simpleContent>
-                                  <xs:extension base="xs:nonNegativeInteger">
+                                  <xs:extension base="xs:anyURI">
                                     <xs:attribute name="time" type="xs:nonNegativeInteger" />
+                                    <xs:attribute name="angleMod" type="xs:double" use="optional" />
                                   </xs:extension>
                                 </xs:simpleContent>
                                 </xs:complexType>

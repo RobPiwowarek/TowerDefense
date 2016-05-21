@@ -6,13 +6,8 @@ tower_defense::Ring::Ring(const int damage, const double velocity,
     this->velocity = velocity;
 }
 
-tower_defense::Ring::Ring(const Ring &base, const double angleModifier)
-        : WeaponFire(base, angleModifier) {
-    this->velocity = base.velocity;
-}
-
-tower_defense::Ring::Ring(const Ring &base, const Point &location, const double angle)
-        : WeaponFire(base, location, angle) {
+tower_defense::Ring::Ring(const Ring &base, const Point &location, const double angle, const double angleModifier)
+	: WeaponFire(base, location, angle, angleModifier) {
     this->velocity = base.velocity;
 }
 

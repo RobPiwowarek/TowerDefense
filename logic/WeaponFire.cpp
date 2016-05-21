@@ -9,17 +9,13 @@ tower_defense::WeaponFire::WeaponFire(const int damage, const double size,
     this->type = type;
 }
 
-tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const double angleModifier)
-        : Entity(base) {
-    this->damage = base.damage;
-    this->lifeTime = base.lifeTime;
-    this->type = base.type;
-    this->angle += angleModifier;
-}
-
-tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const Point &location, const double angle)
-        : WeaponFire(base, angle) {
-    this->location = location;
+tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const Point &location, const double angle, const double angleModifier)
+	: Entity(base) {
+	this->damage = base.damage;
+	this->lifeTime = base.lifeTime;
+	this->type = base.type;
+	this->location = location;
+	this->angle = angle + angleModifier;
 }
 
 double tower_defense::WeaponFire::getDamage() const {

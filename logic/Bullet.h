@@ -18,14 +18,9 @@ namespace tower_defense {
                const double velocity, const int lifeTime, const int fireClass);
 
         /// creates an instance of Beam object
-        /// that is a copy of base
-        /// and will be fired with angle modified by angleModifier
-        Bullet(const Bullet &base, const double angleModifier);
-
-        /// creates an instance of Beam object
         /// that is a copy of base,
         /// located in location and directed in angle
-        Bullet(const Bullet &base, const Point &location, const double angle);
+		Bullet(const Bullet &base, const Point &location, const double angle, const double angleModifier);
 
         /// returns if the bullet can hit only the first object on its way
         bool isHitOnlyFirst() const;

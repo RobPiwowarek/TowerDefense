@@ -10,15 +10,8 @@ tower_defense::Bullet::Bullet(const int damage, const double size, const bool hi
     this->velocity = velocity;
 }
 
-tower_defense::Bullet::Bullet(const Bullet &base, const double angleModifier)
-        : WeaponFire(base, angleModifier) {
-    this->hitOnlyFirst = base.hitOnlyFirst;
-    this->splash = base.splash;
-    this->velocity = base.velocity;
-}
-
-tower_defense::Bullet::Bullet(const Bullet &base, const Point &location, const double angle)
-        : WeaponFire(base, location, angle) {
+tower_defense::Bullet::Bullet(const Bullet &base, const Point &location, const double angle, const double angleModifier)
+        : WeaponFire(base, location, angle, angleModifier) {
     this->hitOnlyFirst = base.hitOnlyFirst;
     this->splash = base.splash;
     this->velocity = base.velocity;

@@ -11,7 +11,9 @@ namespace tower_defense {
 #include "Turret.h"
 #include "WeaponFire.h"
 
-typedef std::list<std::pair<int, tower_defense::WeaponFire *> > WeaponFireList;
+typedef double angleModifier;
+
+typedef std::list<std::pair<int, std::pair<tower_defense::WeaponFire *, angleModifier> > > WeaponFireList;
 
 namespace tower_defense {
 
