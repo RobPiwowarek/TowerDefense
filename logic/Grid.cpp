@@ -247,3 +247,17 @@ std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tow
 
 	return toRet;
 }
+
+std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity, const double x, const double y) const {
+	std::set<GridElement*> toRet;
+	for (int i = 0; i < entity.getSize(); i++) {
+		for (int j = 0; j < entity.getSize(); j++) {
+			double tempX = x - entity.getSize() / 2 + i;
+			double tempY = y - entity.getSize() / 2 + j;
+			std::cout << "P: " << tempX << " " << tempY << "\n";
+			toRet.insert(this->getElement(tempX, tempY));
+		}
+	}
+
+	return toRet;
+}

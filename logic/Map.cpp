@@ -100,6 +100,32 @@ bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, cons
 	return true;
 }
 
+bool tower_defense::Map::canPlaceTurret(const double x, const double y, const tower_defense::Turret & turret) {
+	for (GridElement* g : grid->getOccupied(turret, x, y)) {
+		if (g == nullptr) return false;
+		std::cout << g->getLocation().getX() << " " << g->getLocation().getY() << ": " << g->hasItem() << ", " << g->hasTurret() << ", " << g->getMinions().empty() << std::endl;
+
+		if (g->hasItem() || g->hasTurret() || !g->getMinions().empty()) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool tower_defense::Map::canPlaceTurret(const int x, const int y, const tower_defense::Turret & turret) {
+	for (GridElement* g : grid->getOccupied(turret, x, y)) {
+		if (g == nullptr) return false;
+		std::cout << g->getLocation().getX() << " " << g->getLocation().getY() << ": " << g->hasItem() << ", " << g->hasTurret() << ", " << g->getMinions().empty() << std::endl;
+
+		if (g->hasItem() || g->hasTurret() || !g->getMinions().empty()) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 double tower_defense::Map::getWidth() const {
     return this->grid->getWidth();
 }

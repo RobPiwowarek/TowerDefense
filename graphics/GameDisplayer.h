@@ -37,7 +37,7 @@ namespace graphics {
 
 		GameDisplayer(const tower_defense::Point& startingLocation);
 	private:
-		void drawBuildingTurret(sf::RenderWindow& window, tower_defense::Game& g);
+		void drawBuildingTurret(sf::RenderWindow& window, tower_defense::Game* g);
 		void drawTurrets(sf::RenderWindow& window, tower_defense::Game* g);
 		void drawMinions(sf::RenderWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager);
 		void drawMapAndMinions(sf::RenderWindow& window, tower_defense::Game* g);

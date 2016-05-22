@@ -34,7 +34,11 @@ namespace data {
 class AppModel {
 	const char* FONT_LOCATION = "res/basic/arial.ttf";
 	const char* LABEL_BACKGROUND = "res/basic/label.png";
+	const char* PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE = "res/turrets/PLACEHOLDER_CAN_PLACE_FLAME.png";
+	const char* PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE = "res/turrets/PLACEHOLDER_CANT_PLACE_FLAME.png";
 	const int LABEL_BACKGORUND_OID = 0;
+	const int PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID = 1;
+	const int PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID = 2;
 public:
 	enum GameState {
 		MainMenu,
@@ -69,6 +73,12 @@ public:
 	const sf::Font* getFont();
 	//returns basic texture for the label's background
 	const sf::Texture* getLabelBackground();
+
+	//returns basic texture for placing turrets 
+	const sf::Texture* getCanPlaceTurretBackground();
+
+	//returns basic texture for placing turrets 
+	const sf::Texture* getCantPlaceTurretBackground();
 
 	//creates the game and refresher
 	//does not runs the refresher

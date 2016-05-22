@@ -158,10 +158,36 @@ const sf::Font* AppModel::getFont() {
 void AppModel::loadResources() {
 	this->textureManager->get()->add(graphics::TextureManager::MENU, LABEL_BACKGORUND_OID, LABEL_BACKGROUND);
 	this->textureManager->release();
+	this->textureManager->get()->add(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID, PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE);
+	this->textureManager->release();
+	this->textureManager->get()->add(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE);
+	this->textureManager->release();
 
 	this->font = new sf::Font();
 	if (!this->font->loadFromFile(FONT_LOCATION))
 		NO_FONT_LOADED
+}
+
+const sf::Texture* AppModel::getCanPlaceTurretBackground() {
+	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID);
+	this->textureManager->release();
+
+	if (toRet == nullptr){
+		std::cout << "DUPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+	}
+
+	return toRet;
+}
+
+const sf::Texture* AppModel::getCantPlaceTurretBackground() {
+	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID);
+	this->textureManager->release();
+
+	if (toRet == nullptr){
+		std::cout << "DUPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+	}
+
+	return toRet;
 }
 
 const sf::Texture* AppModel::getLabelBackground() {

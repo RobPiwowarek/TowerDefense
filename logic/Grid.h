@@ -70,6 +70,7 @@ namespace tower_defense {
 
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity) const;
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const Point& p) const;
+		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const double x, const double y) const;
     private:
         int height;
         int width;

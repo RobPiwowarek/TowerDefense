@@ -66,6 +66,9 @@ namespace tower_defense {
 
 		/// returns if you can place a tower on given point
 		bool canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret);
+		bool canPlaceTurret(const double x, const double y, const tower_defense::Turret & turret);
+		bool canPlaceTurret(const int x, const int y, const tower_defense::Turret & turret);
+
 
         /// refreshes all elements contained by the map
         void refresh(Game &game);

@@ -51,6 +51,10 @@ void GameDisplayer::refresh(RenderWindow& window) {
 
 	this->drawMapAndMinions(window, g);
 	
+	if (this->selectedTurretBase != nullptr){
+		this->drawBuildingTurret(window, g);
+	}
+
 	TurretManager* tm = AppModel::getInstance().getTurretManager().get();
 
 	for (set<Turret*>::const_iterator it = g->getMap().getTurrets().cbegin(); it != g->getMap().getTurrets().cend(); it++)
@@ -127,14 +131,33 @@ void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 	AppModel::getInstance().getGameManager().release();
 }
 
-void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game& g) {
-	if (this->selectedTurretBase != nullptr) {
+void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game* g) {
+	int mouseX = sf::Mouse::getPosition().x - window.getPosition().x;
+	int mouseY = sf::Mouse::getPosition().y - window.getPosition().y;
 
-		Point location = getSelecetedTurretsLocation(window);
+	std::cout << "MOUSEX: " << mouseX << " MOUSEY: " << mouseY << std::endl;
 
-
-		//if (g.getMap().canPlaceTurret())
+	sf::Texture texture;
+	
+	if (g->getMap().canPlaceTurret(mouseX, mouseY, *this->selectedTurretBase)){
+		texture = *AppModel::getInstance().getCanPlaceTurretBackground();
 	}
+	else {
+		texture = *AppModel::getInstance().getCantPlaceTurretBackground();
+	}
+	Sprite s(texture);
+
+	Vector2f location = gameToScreen(window, { (double)mouseX, (double)mouseY });
+
+	s.setOrigin(Vector2f(s.getLocalBounds().height * 0.5, s.getLocalBounds().width * 0.5));
+
+	s.setScale(((double)this->pointsPerUnit * this->selectedTurretBase->getSize()) / texture.getSize().x,
+
+		((double)this->pointsPerUnit * this->selectedTurretBase->getSize()) / texture.getSize().y);
+
+	s.setPosition(location);
+
+	window.draw(s);
 }
 void GameDisplayer::drawTurrets(sf::RenderWindow& window, tower_defense::Game* g) {
 	//TODO
