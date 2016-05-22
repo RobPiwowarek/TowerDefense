@@ -145,6 +145,9 @@ void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game* g) {
 	else {
 		texture = *AppModel::getInstance().getCantPlaceTurretBackground();
 	}
+	this->display(window, texture, { this->selectedTurretBase->getSize(), this->selectedTurretBase->getSize() }, { (double)mouseX, (double)mouseY });
+
+	/*
 	Sprite s(texture);
 
 	Vector2f location = gameToScreen(window, { (double)mouseX, (double)mouseY });
@@ -157,7 +160,7 @@ void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game* g) {
 
 	s.setPosition(location);
 
-	window.draw(s);
+	window.draw(s);*/
 }
 void GameDisplayer::drawTurrets(sf::RenderWindow& window, tower_defense::Game* g) {
 	//TODO
