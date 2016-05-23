@@ -132,35 +132,19 @@ void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 }
 
 void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game* g) {
-	int mouseX = sf::Mouse::getPosition().x - window.getPosition().x;
-	int mouseY = sf::Mouse::getPosition().y - window.getPosition().y;
 
-	std::cout << "MOUSEX: " << mouseX << " MOUSEY: " << mouseY << std::endl;
+	Point loc = getSelecetedTurretsLocation(window);
 
 	sf::Texture texture;
 	
-	if (g->getMap().canPlaceTurret(mouseX, mouseY, *this->selectedTurretBase)){
+	if (g->getMap().canPlaceTurret(loc, *this->selectedTurretBase)){
 		texture = *AppModel::getInstance().getCanPlaceTurretBackground();
 	}
 	else {
 		texture = *AppModel::getInstance().getCantPlaceTurretBackground();
 	}
-	this->display(window, texture, { this->selectedTurretBase->getSize(), this->selectedTurretBase->getSize() }, { (double)mouseX, (double)mouseY });
+	this->display(window, texture, { this->selectedTurretBase->getSize(), this->selectedTurretBase->getSize() }, loc);
 
-	/*
-	Sprite s(texture);
-
-	Vector2f location = gameToScreen(window, { (double)mouseX, (double)mouseY });
-
-	s.setOrigin(Vector2f(s.getLocalBounds().height * 0.5, s.getLocalBounds().width * 0.5));
-
-	s.setScale(((double)this->pointsPerUnit * this->selectedTurretBase->getSize()) / texture.getSize().x,
-
-		((double)this->pointsPerUnit * this->selectedTurretBase->getSize()) / texture.getSize().y);
-
-	s.setPosition(location);
-
-	window.draw(s);*/
 }
 void GameDisplayer::drawTurrets(sf::RenderWindow& window, tower_defense::Game* g) {
 	//TODO
