@@ -41,9 +41,15 @@ std::set<tower_defense::Minion *> tower_defense::Map::getMinionsNearPoint(const 
 }
 #include<iostream>
 void tower_defense::Map::refresh(Game &game) {
-    // TODO: EVERYTHING
-
 	std::set<tower_defense::Minion*> toRemove;
+	std::set<tower_defense::WeaponFire*> bulletsToRemove;
+
+	
+	for (tower_defense::WeaponFire* w : weaponFires){
+		if (w->shouldBeRemoved()){
+			bulletsToRemove.insert(w);
+		}
+	}
 
     for (std::set<tower_defense::Minion*>::iterator it = this->minions.begin(); it != this->minions.end(); ++it){
 		GridElement *next = nullptr, *prev = grid->getElement((*it)->getLocation());
@@ -60,6 +66,14 @@ void tower_defense::Map::refresh(Game &game) {
 			else					toRemove.insert(*it);
 		}
     }
+
+	for (tower_defense::WeaponFire* w : bulletsToRemove){
+		if (w) {
+			this->weaponFires.erase(w);
+			delete w;
+		}
+	}
+
 	for (tower_defense::Minion* m : toRemove) {
 		GridElement* g = grid->getElement(m->getLocation());
 		if (g != nullptr) {

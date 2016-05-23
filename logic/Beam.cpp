@@ -25,6 +25,7 @@ bool tower_defense::Beam::refresh(Grid& g) {
 		}
 	}
 
+	this->toRemove = true;
 	return false; //TODO
 }
 

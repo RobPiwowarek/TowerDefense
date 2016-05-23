@@ -18,6 +18,14 @@ tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const Point &locat
 	this->angle = angle + angleModifier;
 }
 
+bool tower_defense::WeaponFire::shouldBeRemoved() const{
+	return this->toRemove;
+}
+
+void tower_defense::WeaponFire::setToRemove(const bool b){
+	this->toRemove = b;
+}
+
 double tower_defense::WeaponFire::getDamage() const {
     return this->damage;
 }

@@ -16,18 +16,23 @@ double tower_defense::Ring::getVelocity() const {
 }
 
 bool tower_defense::Ring::refresh(Grid& g) {
-	tower_defense::GridElement * temp = g.getElement(this->location);
+	std::set<tower_defense::GridElement*> elements;
 
-	if (!temp->getMinions().empty()){
-		for (tower_defense::Minion* minion : temp->getMinions()){
+	elements = g.getElementsInRadius(this->location, this->size);
+
+	for (tower_defense::GridElement* element : elements){
+		for (tower_defense::Minion* minion : element->getMinions()){
 			if (this->checkCollision(minion)){
-
-				/// mozna trafione miniony gdzies zachowac i dalej z nimi cos zrobic
+				minion->takeDamage(this->damage);
 			}
 		}
 	}
 
 	this->size += this->velocity;
+
+	if (this->size >= this->lifeTime){
+		this->toRemove = true;
+	}
 
 	return false; //TODO
 }

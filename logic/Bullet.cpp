@@ -34,6 +34,11 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
 	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 
+	/// reached map bounds
+	if (!g.inBounds(this->location.getX(), this->location.getY())){
+		this->toRemove = true;
+	}
+
 	/// detect collision
 	tower_defense::GridElement * temp = g.getElement(this->location);
 
@@ -53,14 +58,10 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 				minion->takeDamage(this->damage); // damage the main minion
 
 				if (this->hitOnlyFirst){
-
-					/// TODO: usun po kolizji
+					this->toRemove = true;
 				}
-
+				
 				std::cout << "KOLIZJA" << std::endl;
-
-				/// mozna trafione miniony gdzies zachowac i dalej z nimi cos zrobic
-
 			}
 		}
 	}

@@ -33,6 +33,12 @@ namespace tower_defense {
         /// returns type of this object
         FireType getType() const;
 
+		/// returns toRemove
+		bool shouldBeRemoved() const;
+
+		/// sets toRemove
+		void setToRemove(const bool b);
+
 		/// checks collision with minion
 		virtual bool checkCollision(tower_defense::Minion * minion) = 0;
 
@@ -51,6 +57,7 @@ namespace tower_defense {
 
         int damage;
         int lifeTime;
+		bool toRemove = false;
         Minion *target = nullptr;
         FireType type;
 
