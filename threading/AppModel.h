@@ -34,11 +34,15 @@ namespace data {
 class AppModel {
 	const char* FONT_LOCATION = "res/basic/arial.ttf";
 	const char* LABEL_BACKGROUND = "res/basic/label.png";
+	const char* VICTORY_TEXTURE = "res/basic/victory.png";
+	const char* DEFEAT_TEXTURE = "res/basic/defeat.png";
 	const char* PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE = "res/turrets/PLACEHOLDER_CAN_PLACE_FLAME.png";
 	const char* PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE = "res/turrets/PLACEHOLDER_CANT_PLACE_FLAME.png";
 	const int LABEL_BACKGORUND_OID = 0;
 	const int PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID = 1;
 	const int PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID = 2;
+	const int VICTORY_TEXTURE_OID = 3;
+	const int DEFEAT_TEXTURE_OID = 4;
 public:
 	enum GameState {
 		MainMenu,
@@ -79,6 +83,11 @@ public:
 
 	//returns basic texture for placing turrets 
 	const sf::Texture* getCantPlaceTurretBackground();
+
+	//returns texture for defeat screen
+	const sf::Texture* getDefeatTexture();
+	//returns texture for victory screen
+	const sf::Texture* getVictoryTexture();
 
 	//creates the game and refresher
 	//does not runs the refresher

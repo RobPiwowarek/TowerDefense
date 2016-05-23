@@ -132,7 +132,6 @@ void GameDisplayer::drawMapAndMinions(RenderWindow& window, Game* g) {
 }
 
 void GameDisplayer::drawBuildingTurret(RenderWindow& window, Game* g) {
-
 	Point loc = getSelecetedTurretsLocation(window);
 
 	sf::Texture texture;

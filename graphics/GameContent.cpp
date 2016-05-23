@@ -10,9 +10,15 @@ using namespace std;
 GameContent::GameContent(RenderWindow& w) {
 	w.setSize({ WINDOW_WIDTH, WINDOW_HEIGHT });
 	this->displayer = new GameDisplayer(Point(0, 0));
+
 	this->money = new Label(Vector2f(MONEY_LABEL_WIDTH, MONEY_LABEL_HEIGHT),
 		Vector2f(MONEY_LABEL_X, MONEY_LABEL_Y), AppModel::getInstance().getLabelBackground(), "$:");
 	this->money->setFontSize(MONEY_LABEL_FONT_SIZE);
+
+	this->confirmLabel = new Label(Vector2f(FINISHED_LABEL_WIDTH, FINISHED_LABEL_HEIGHT),
+		Vector2f(FINISHED_LABEL_X, FINISHED_LABEL_Y), AppModel::getInstance().getLabelBackground(), "Ok");
+	this->confirmLabel->setFontSize(FINISHED_LABEL_FONT_SIZE);
+
 	this->createTurretList();
 
 	for (bool b : this->keys)
@@ -38,6 +44,25 @@ void GameContent::createTurretList() {
 	}
 }
 
+Sprite& GameContent::getVictoryScreen(RenderWindow& w) {
+	static Sprite* s = nullptr;
+	if (s == nullptr) {
+		s = new Sprite(*AppModel::getInstance().getVictoryTexture());
+		s->setScale((float)w.getSize().x / s->getTexture()->getSize().x,
+			(float)w.getSize().y / s->getTexture()->getSize().y);
+	}
+	return *s;
+}
+Sprite& GameContent::getDefeatScreen(RenderWindow& w) {
+	static Sprite* s = nullptr;
+	if (s == nullptr) {
+		s = new Sprite(*AppModel::getInstance().getDefeatTexture());
+		s->setScale((float)w.getSize().x / s->getTexture()->getSize().x,
+			(float)w.getSize().y / s->getTexture()->getSize().y);
+	}
+	return *s;
+}
+
 void GameContent::refresh(RenderWindow& w) {
 	Event e;
 	while (w.pollEvent(e))
@@ -47,12 +72,22 @@ void GameContent::refresh(RenderWindow& w) {
 
 	this->displayer->refresh(w);
 
-	Game* g = AppModel::getInstance().getGame().get();
-	this->money->display(w, to_string(g->getPlayer().getMoney()));
-	AppModel::getInstance().getGame().release();
 
-	for (int i = 0; i < turretN; i++) {
-		this->turretLabels[i]->display(w, "");
+
+	switch (AppModel::getInstance().getState()) {
+	case AppModel::GameState::Going:
+		this->displayUI_game(w);
+		break;
+	case AppModel::GameState::Victory:
+		w.draw(this->getVictoryScreen(w));
+
+		this->displayUI_finished(w);
+		break;
+	case AppModel::GameState::Defeat:
+		w.draw(this->getDefeatScreen(w));
+
+		this->displayUI_finished(w);
+		break;
 	}
 
 	this->debugL->display(w, to_string(this->selectedTurret));
@@ -100,6 +135,23 @@ void GameContent::checkKeys(sf::RenderWindow& w) {
 }
 
 void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
+	switch (AppModel::getInstance().getState()) {
+	case AppModel::GameState::Going:
+		this->manageEvent_mousePress_gameGoing(e, w);
+		break;
+	case AppModel::GameState::Victory:
+	case AppModel::GameState::Defeat:
+		this->manageEvent_mousePress_gameFinished(e, w);
+		break;
+	}
+}
+void GameContent::manageEvent_mousePress_gameFinished(Event& e, RenderWindow& w) {
+	if (Mouse::getPosition().x >= FINISHED_LABEL_X && Mouse::getPosition().x <= FINISHED_LABEL_X + FINISHED_LABEL_WIDTH &&
+		Mouse::getPosition().y >= FINISHED_LABEL_Y && Mouse::getPosition().y <= FINISHED_LABEL_Y + FINISHED_LABEL_HEIGHT);
+}
+
+void GameContent::manageEvent_mousePress_gameGoing(Event& e, RenderWindow& w) {
+
 	int mouseX = sf::Mouse::getPosition().x - w.getPosition().x;
 	int mouseY = sf::Mouse::getPosition().y - w.getPosition().y;
 
@@ -109,7 +161,10 @@ void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
 	int label = floor(((double)mouseY - TURRET_LABELS_Y) / TURRET_LABELS_Y_DIFF);
 	if (mouseX >= TURRET_LABELS_X && mouseX <= TURRET_LABELS_X + TURRET_LABEL_WIDTH && label >= 0 && label < turretN) {
 			this->selectedTurret = label != this->selectedTurret ? label : -1;
-			this->displayer->setBuildingTurret(&AppModel::getInstance().getTurretManager().get()->getTurret(selectedTurret));
+			if (this->selectedTurret == -1)
+				this->displayer->setBuildingTurret(nullptr);
+			else
+				this->displayer->setBuildingTurret(&AppModel::getInstance().getTurretManager().get()->getTurret(selectedTurret));
 			AppModel::getInstance().getTurretManager().release();
 	}
 	else if (selectedTurret != -1) {
@@ -135,4 +190,18 @@ void GameContent::manageEvent_mousePress(Event& e, RenderWindow& w) {
 	AppModel::getInstance().getGame().release();
 	AppModel::getInstance().getMinionManager().release();
 	*/
+}
+
+void graphics::GameContent::displayUI_game(RenderWindow& w) {
+	Game* g = AppModel::getInstance().getGame().get();
+	this->money->display(w, to_string(g->getPlayer().getMoney()));
+	AppModel::getInstance().getGame().release();
+
+	for (int i = 0; i < turretN; i++) {
+		this->turretLabels[i]->display(w, "");
+	}
+}
+
+void graphics::GameContent::displayUI_finished(RenderWindow& w) {
+	this->confirmLabel->display(w, "");
 }
