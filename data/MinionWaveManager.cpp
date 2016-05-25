@@ -20,10 +20,10 @@ void MinionWaveManager::clear() {
     this->waves.clear();
 }
 
-void MinionWaveManager::load(const string &directory, const vector<string> &waves) {
+void MinionWaveManager::load(const string &directory, const vector<string> &waves, graphics::TextureManager* tm) {
 	MinionWave *cur;
     for (int i = 0; i < waves.size(); i++)
-		if (cur = this->loadWave(directory, waves[i]))
+		if (cur = this->loadWave(directory, waves[i], tm))
             this->waves.push_back(cur);
 }
 #include<iostream>
@@ -43,7 +43,7 @@ MinionWaveManager::~MinionWaveManager() {
     this->clear();
 }
 
-MinionWave *MinionWaveManager::loadWave(const string &directory, const string &name) {
+MinionWave *MinionWaveManager::loadWave(const string &directory, const string &name, graphics::TextureManager* tm) {
     xml_document waveDoc;
     if (!waveDoc.load_file((directory + WAVE_LOCATION + name + ".xml").c_str(),
                            pugi::parse_default | pugi::parse_trim_pcdata, pugi::encoding_utf8))
@@ -62,7 +62,7 @@ MinionWave *MinionWaveManager::loadWave(const string &directory, const string &n
     MinionManager *manager = AppModel::getInstance().getMinionManager().get();
 
     for (xml_named_node_iterator it = minionNodes.begin(); it != minionNodes.end(); it++)
-        if (cur = manager->addMinion(directory, it->child_value()))
+        if (cur = manager->addMinion(directory, it->child_value(), tm))
             minions.push(cur);
 
     AppModel::getInstance().getMinionManager().release();

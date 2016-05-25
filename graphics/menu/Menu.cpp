@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "../GameWindow.h"
 #include  <iostream>
 #include <cstdio>
 #include <cstdarg>
@@ -36,7 +37,7 @@ bool Menu::addMenuItem(graphics::Label * label){
 	return true;
 }
 
-void Menu::draw(sf::RenderWindow &window) {
+void Menu::draw(graphics::GameWindow &window) {
 	for (graphics::Label* label : this->menu){
 		label->display(window, "");
 	}

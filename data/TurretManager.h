@@ -11,6 +11,8 @@ namespace Data {
 #include "../include/SFML/Graphics.hpp"
 #include "../include/pugixml/pugixml.hpp"
 
+#include "../graphics/TextureManager.h"
+
 #include "../logic/Turret.h"
 #include "../logic/Weapon.h"
 
@@ -28,13 +30,10 @@ namespace data {
 		// adds turret to the manager from file in (directory)(TURRRET_LOCATION)(file).xml
 		// if wasn't already added to the manager
 		// returns nullptr on failiure
-		tower_defense::Turret *addTurret(const std::string &directory, const std::string &file);
+		tower_defense::Turret *addTurret(const std::string &directory, const std::string &file, graphics::TextureManager* tm);
 
 		// returns turret added with the given class
 		const tower_defense::Turret &getTurret(int turretClass) const;
-
-		// returns texture associated with the given turret
-		const sf::Texture &getTexture(int turretClass) const;
 
 		// returns name of the given turret
 		const std::string &getName(int turretClass) const;
@@ -52,8 +51,10 @@ namespace data {
 
 		int nextClass = 0;
 
-		std::pair<tower_defense::Turret*, std::pair<std::string, int> > load(const std::string &directory, const std::string &file);
-		tower_defense::Weapon* load(const pugi::xml_node& weaponNode, const std::string &directory, int turretObjClass);
+		std::pair<tower_defense::Turret*, std::pair<std::string, int> > load(const std::string &directory,
+			const std::string &file, graphics::TextureManager* tm);
+		tower_defense::Weapon* load(const pugi::xml_node& weaponNode, const std::string &directory,
+			int turretObjClass, graphics::TextureManager* tm);
 	};
 }
 

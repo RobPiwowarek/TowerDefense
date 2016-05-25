@@ -17,7 +17,7 @@ namespace data {
         void clear();
 
         // loads waves from (directory)(WAVE_LOCATION)*.xml
-        void load(const std::string &directory, const std::vector<std::string> &waves);
+        void load(const std::string &directory, const std::vector<std::string> &waves, graphics::TextureManager* tm);
 
         // returns minionwave with given index
         const tower_defense::MinionWave &get(int i) const;
@@ -29,7 +29,7 @@ namespace data {
     private:
         std::vector<tower_defense::MinionWave *> waves;
 
-        tower_defense::MinionWave *loadWave(const std::string &directory, const std::string &path);
+		tower_defense::MinionWave *loadWave(const std::string &directory, const std::string &path, graphics::TextureManager* tm);
     };
 }
 

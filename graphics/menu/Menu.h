@@ -9,6 +9,7 @@
 
 namespace graphics {
     class Menu;
+	class GameWindow;
 }
 
 class Menu {
@@ -21,7 +22,7 @@ public:
 
 	bool addMenuItem(graphics::Label* label);
 
-    void draw(sf::RenderWindow &window);
+    void draw(graphics::GameWindow &window);
 
     void moveUp();
 

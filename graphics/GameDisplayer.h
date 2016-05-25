@@ -9,6 +9,7 @@ namespace graphics {
 #include "../logic/Entity.h"
 #include "../logic/Point.h"
 #include "../logic/Game.h"
+#include "../data/MinionManager.h"
 
 namespace graphics {
 	class GameDisplayer {
@@ -17,7 +18,7 @@ namespace graphics {
 		static const int MAX_PPU = 600;
 
 		// refreshes given window
-		void refresh(sf::RenderWindow& window);
+		void refresh(graphics::GameWindow& window);
 		// sets current points per unit,
 		// maintaing the current centre of the screen
 		void setPointsPerUnit(int ppu);
@@ -30,19 +31,19 @@ namespace graphics {
 		//sets turret that is prepared to be build
 		void setBuildingTurret(const tower_defense::Turret* t);
 
-		sf::Vector2f gameToScreen(const sf::RenderWindow& window, const tower_defense::Point& inGame) const;
-		tower_defense::Point screenToGame(const sf::RenderWindow& window, const sf::Vector2f& onScreen) const;
+		sf::Vector2f gameToScreen(const graphics::GameWindow& window, const tower_defense::Point& inGame) const;
+		tower_defense::Point screenToGame(const graphics::GameWindow& window, const sf::Vector2f& onScreen) const;
 
-		tower_defense::Point getSelecetedTurretsLocation(sf::RenderWindow& w);
+		tower_defense::Point getSelecetedTurretsLocation(graphics::GameWindow& w);
 
 		GameDisplayer(const tower_defense::Point& startingLocation);
 	private:
-		void drawBuildingTurret(sf::RenderWindow& window, tower_defense::Game* g);
-		void drawTurrets(sf::RenderWindow& window, tower_defense::Game* g);
-		void drawMinions(sf::RenderWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager);
-		void drawMapAndMinions(sf::RenderWindow& window, tower_defense::Game* g);
+		void drawBuildingTurret(graphics::GameWindow& window, tower_defense::Game* g);
+		void drawTurrets(graphics::GameWindow& window, tower_defense::Game* g);
+		void drawMinions(graphics::GameWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager);
+		void drawMapAndMinions(graphics::GameWindow& window, tower_defense::Game* g);
 
-		bool onScreen(sf::RenderWindow& window, const tower_defense::Entity &e);
+		bool onScreen(graphics::GameWindow& window, const tower_defense::Entity &e);
 		void checkCurPosition();
 
 		sf::RectangleShape baseBackground;
@@ -52,7 +53,7 @@ namespace graphics {
 		const tower_defense::Turret* selectedTurretBase = nullptr;
 
 
-		void display(sf::RenderWindow& window, const sf::Texture& texture,
+		void display(graphics::GameWindow& window, const sf::Texture& texture,
 			const tower_defense::Point& size, const tower_defense::Point& position, double angle = 0);
 	};
 }

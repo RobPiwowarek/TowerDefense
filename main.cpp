@@ -87,143 +87,16 @@ int main(int argn, char** argv){
 		std::cout << "Error:" << i;
 		return 0;
 	}
-
+	try {
+		AppModel::getInstance().runWindow();
+	}
+	catch (std::exception e) {
+		std::cout << "DispEsc: " << e.what();
+	}
 #ifndef DISPLAY_TEST
 	std::string b;
 	std::getline(std::cin, b);
 #endif
 
 #endif
-
-
-    sf::RenderWindow window(sf::VideoMode(600, 600), "TowerDefense", sf::Style::None);
-
-#if defined DISPLAY_TEST
-	graphics::GameContent* c = nullptr;
-
-	try {
-		c = new graphics::GameContent(window);
-	}
-	catch (std::exception e) {
-		std::cout << e.what() << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
-	catch (...) {
-		std::cout << "WTH?" << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
-#ifdef RUN_TEST
-	try {
-		AppModel::getInstance().getRefresher().get()->start();
-		AppModel::getInstance().getRefresher().release();
-	}
-	catch (std::exception e) {
-		std::cout << e.what() << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
-	catch (...) {
-		std::cout << "WTH?" << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
-#endif
-
-	while (window.isOpen()) {
-		try {
-			window.clear();
-
-			c->refresh(window);
-
-			window.display();
-
-			std::this_thread::sleep_for(std::chrono::milliseconds(20));
-		}
-		catch (std::exception e) {
-			std::cout << e.what() << std::endl;
-			std::string b;
-			std::getline(std::cin, b);
-			return 0;
-		}
-		catch (...) {
-			std::cout << "WTH?" << std::endl;
-			std::string b;
-			std::getline(std::cin, b);
-			return 0;
-		}
-	}
-	delete c;
-#else
-\
-    Menu menu(window.getSize().x, window.getSize().y);
-
-    while (window.isOpen()){
-        sf::Event event;
-
-        while (window.pollEvent(event)){
-            switch (event.type){
-                case sf::Event::KeyReleased:
-
-                    // navigate between menu items
-
-                    switch(event.key.code){
-                        case sf::Keyboard::Up:
-                            menu.moveUp();
-                            break;
-                        case sf::Keyboard::Down:
-                            menu.moveDown();
-                            break;
-
-
-                        // pressing menu items
-
-                        case sf::Keyboard::Return:
-                            switch(menu.getPressedItem()){
-                                case 0:
-                                    std::cout << "Play button has been pressed" << std::endl;
-                                    break;
-
-                                case 1:
-                                    std::cout << "Options button has been pressed" << std::endl;
-                                    break;
-
-                                case 2:
-                                    window.close();
-                                    break;
-
-                            }
-
-                    }
-                    break;
-
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-            }
-        }
-
-	    window.clear();
-
-		menu.draw(window);
-
-		window.display();
-	}
-
-#endif
-#if defined LOAD_TEST || defined DISPLAY_TEST
-	try {
-		AppModel::getInstance().closeGame();
-	}
-	catch (std::exception e) {
-		std::cout << e.what() << std::endl;
-		std::string b;
-		std::getline(std::cin, b);
-		return 0;
-	}
-	catch (...) {
-		std::cout << "WTH?" << std::endl;
-		std::string b;
-		std::getline(std::cin, b);
-		return 0;
-	}
-#endif
-    return 0;
 }

@@ -22,13 +22,10 @@ namespace data {
         // adds minion to the manager form file in (GAME_FILE_LOCATION)(MINION_LOCATION)name.xml
         // if wasn't already added to the manager
         // returns nullptr on failiure
-        tower_defense::Minion *addMinion(const std::string &path, const std::string &name);
+		tower_defense::Minion *addMinion(const std::string &path, const std::string &name, graphics::TextureManager* tm);
 
         // returns minion added with the given class
         const tower_defense::Minion &getMinion(int minionClass) const;
-
-        // returns texture associated with the given minion
-        const sf::Texture &getTexture(int minionClass) const;
 
     private:
         std::map<std::string, int> minionClasses;
@@ -36,7 +33,7 @@ namespace data {
         //std::map<int, std::string> textures;
         int nextClass = 0;
 
-        tower_defense::Minion *load(const std::string &mDirectory, const std::string &name);
+		tower_defense::Minion *load(const std::string &mDirectory, const std::string &name, graphics::TextureManager* tm);
     };
 }
 

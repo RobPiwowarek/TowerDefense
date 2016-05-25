@@ -30,17 +30,8 @@ const WeaponFire& WeaponFireManager::getFire(int fireClass) const {
 	return *it->second;
 }
 
-const Texture &WeaponFireManager::getTexture(int fireClass) const {
-	if (fireClass < 0 || fireClass >= nextClass)
-		FIRE_DOES_NOT_EXIST
 
-	const Texture& toRet = AppModel::getInstance().getTextures().get()->get(TextureManager::WEAPON_FIRE);
-	AppModel::getInstance().getTextures().release();
-
-	return toRet;
-}
-
-WeaponFire* WeaponFireManager::load(const string& directory, const std::string& name) {
+WeaponFire* WeaponFireManager::load(const string& directory, const std::string& name, graphics::TextureManager* tm) {
 	map<string, int>::iterator it = this->fireIds.find(name);
 	if (it != this->fireIds.end())
 		return fires[it->second];
@@ -52,9 +43,8 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 
 	xml_node fireNode = doc.child("weaponFire");
 
-	AppModel::getInstance().getTextures().get()->add(graphics::TextureManager::WEAPON_FIRE, nextClass,
+	tm->add(graphics::TextureManager::WEAPON_FIRE, nextClass,
 		directory + WEAPON_FIRES_LOCATION + fireNode.child_value("imgsrc"));
-	AppModel::getInstance().getTextures().release();
 
 	WeaponFire* toRet = nullptr;
 

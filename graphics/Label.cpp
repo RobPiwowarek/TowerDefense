@@ -49,8 +49,8 @@ Color& Label::getForeColor() {
 	return this->foreColor;
 }
 
-void Label::display(sf::RenderWindow& window, std::string text) {
-	sf::Text label(descr + text, *AppModel::getInstance().getFont(), this->fontSize);
+void Label::display(GameWindow& window, std::string text) {
+	sf::Text label(descr + text, *window.getFont(), this->fontSize);
 
 	window.draw(this->background);
 	if (this->icon != nullptr) {

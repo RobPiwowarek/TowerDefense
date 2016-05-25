@@ -1,7 +1,12 @@
 #ifndef LABEL_H
 #define LABEL_H
 
+namespace graphics {
+	class Label;
+}
+
 #include "../include/SFML/Graphics.hpp"
+#include "GameWindow.h"
 #include <string>
 
 namespace graphics {
@@ -41,7 +46,7 @@ namespace graphics {
 		// returns size of the font
 		int getFontSize();
 
-		void display(sf::RenderWindow& window, std::string text);
+		void display(GameWindow& window, std::string text);
 
 		//returns margins
 		const sf::Vector2f& getMargin() const;

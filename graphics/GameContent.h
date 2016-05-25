@@ -4,10 +4,11 @@
 #include "../include/SFML/Graphics.hpp"
 #include "GameDisplayer.h"
 #include "Label.h"
+#include "Content.h"
 #include "../logic/Point.h"
 
 namespace graphics {
-	class GameContent {
+	class GameContent : public Content{
 		const static int MONEY_LABEL_WIDTH = 100;
 		const static int MONEY_LABEL_HEIGHT = 25;
 		const static int MONEY_LABEL_X = 10;
@@ -21,28 +22,26 @@ namespace graphics {
 		const static int TURRET_LABELS_Y_DIFF = 25;
 		const static int TURRET_LABEL_FONT_SIZE = 15;
 
-		const static unsigned int WINDOW_HEIGHT = 600;
-		const static unsigned int WINDOW_WIDTH = 600;
-
 		const static int FINISHED_LABEL_WIDTH = 60;
 		const static int FINISHED_LABEL_HEIGHT = 25;
 		const static int FINISHED_LABEL_X = 270;
 		const static int FINISHED_LABEL_Y = 400;
 		const static int FINISHED_LABEL_FONT_SIZE = 20;
 	public:
-		GameContent(sf::RenderWindow& w);
+		GameContent(graphics::GameWindow& w);
 		~GameContent();
-		void refresh(sf::RenderWindow& w);
+		void display();
 
+		void manageEvent(sf::Event& e);
 	private:
 		void createTurretList();
 
-		void checkKeys(sf::RenderWindow& w);
+		void checkKeys();
 
 		GameDisplayer* displayer;
 
 		// game ui
-		void displayUI_game(sf::RenderWindow& w);
+		void displayUI_game(graphics::GameWindow& w);
 
 		Label* money;
 		std::vector <std::pair<int, std::pair<std::string, int> > > turretList;
@@ -50,23 +49,22 @@ namespace graphics {
 		int turretN = 0;
 
 		// game finished ui
-		void displayUI_finished(sf::RenderWindow& w);
+		void displayUI_finished();
 
 		Label* confirmLabel;
 
 
 		bool keys[sf::Keyboard::KeyCount];
 
-		void manageEvent(sf::Event& e, sf::RenderWindow& w);
-		void manageEvent_mousePress(sf::Event& e, sf::RenderWindow& w);
-		void manageEvent_mousePress_gameGoing(sf::Event& e, sf::RenderWindow& w);
-		void manageEvent_mousePress_gameFinished(sf::Event& e, sf::RenderWindow& w);
+		void manageEvent_mousePress(sf::Event& e);
+		void manageEvent_mousePress_gameGoing(sf::Event& e);
+		void manageEvent_mousePress_gameFinished(sf::Event& e);
 
 		int selectedTurret = -1;
 
 
-		sf::Sprite& getDefeatScreen(sf::RenderWindow& w);
-		sf::Sprite& getVictoryScreen(sf::RenderWindow& w);
+		sf::Sprite& getDefeatScreen();
+		sf::Sprite& getVictoryScreen();
 
 		//DEBUG:
 		Label* debugL;

@@ -33,8 +33,8 @@ void TurretManager::clear() {
 	this->nextClass = 0;
 }
 
-Turret *TurretManager::addTurret(const string &path, const string &file) {
-	pair<Turret*, pair<string, int> > t = load(path, file);
+Turret *TurretManager::addTurret(const string &path, const string &file, graphics::TextureManager* tm) {
+	pair<Turret*, pair<string, int> > t = load(path, file, tm);
 
 	if (t.first == nullptr)
 		return nullptr;
@@ -54,16 +54,6 @@ const tower_defense::Turret &TurretManager::getTurret(int turretClass) const {
 	return *it->second;
 }
 
-const sf::Texture &TurretManager::getTexture(int turretClass) const {
-	if (turretClass >= nextClass || turretClass < 0)
-		NO_SUCH_TURRET
-
-	const Texture& texture = AppModel::getInstance().getTextures().get()->get(graphics::TextureManager::TURRET, turretClass);
-	AppModel::getInstance().getTextures().release();
-
-	return texture;
-}
-
 const string &TurretManager::getName(int turretClass) const {
 	map<int, string>::const_iterator it = this->names.find(turretClass);
 	if (it == this->names.cend())
@@ -72,7 +62,7 @@ const string &TurretManager::getName(int turretClass) const {
 	return it->second;
 }
 
-pair<Turret*, pair<string, int> > TurretManager::load(const string &directory, const string &file) {
+pair<Turret*, pair<string, int> > TurretManager::load(const string &directory, const string &file, graphics::TextureManager* tm) {
 	xml_document doc;
 
 	if (!doc.load_file((directory + TURRET_LOCATION + file + ".xml").c_str(),
@@ -82,9 +72,8 @@ pair<Turret*, pair<string, int> > TurretManager::load(const string &directory, c
 
 	xml_node turretNode = doc.child("turret");
 
-	AppModel::getInstance().getTextures().get()->add(graphics::TextureManager::TURRET, nextClass,
+	tm->add(graphics::TextureManager::TURRET, nextClass,
 		directory + TURRET_LOCATION + turretNode.child_value("imgsrc"));
-	AppModel::getInstance().getTextures().release();
 	string name = turretNode.child_value("name");
 	int cost = atoi(turretNode.child_value("cost"));
 	double size = atof(turretNode.child_value("size"));
@@ -93,14 +82,14 @@ pair<Turret*, pair<string, int> > TurretManager::load(const string &directory, c
 	int health = atoi(turretNode.child_value("health"));
 
 	pair<Turret*, pair<string, int> > toRet = 
-		make_pair(new Turret(size, nextClass, rotationSpeed, 0, *this->load(turretNode.child("weapon"), directory, nextClass)),
+		make_pair(new Turret(size, nextClass, rotationSpeed, 0, *this->load(turretNode.child("weapon"), directory, nextClass, tm)),
 		make_pair(name, cost));
 	nextClass++;
 
 	return toRet;
 }
 
-Weapon* TurretManager::load(const xml_node& weaponNode, const string& directory, int turretObjClass) {
+Weapon* TurretManager::load(const xml_node& weaponNode, const string& directory, int turretObjClass, graphics::TextureManager* tm) {
 	int reloadTime = atoi(weaponNode.child_value("reloadTime"));
 	double range = atof(weaponNode.child_value("range"));
 
@@ -112,7 +101,7 @@ Weapon* TurretManager::load(const xml_node& weaponNode, const string& directory,
 	WeaponFireManager* fireManager = AppModel::getInstance().getWeaponFireManager().get();
 
 	for (xml_named_node_iterator it = fires.begin(); it != fires.end(); it++)
-		if (next = fireManager->load(directory, it->child_value()))
+		if (next = fireManager->load(directory, it->child_value(), tm))
 			wfl->push_back(make_pair(it->attribute("time").as_int(),
 			make_pair(next, it->attribute("angleMod").as_double())));
 

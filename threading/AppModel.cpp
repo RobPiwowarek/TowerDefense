@@ -33,10 +33,6 @@ ResourceManager<Refresher> &AppModel::getRefresher() {
     return *this->refresher;
 }
 
-ResourceManager<graphics::TextureManager> &AppModel::getTextures() {
-    return *this->textureManager;
-}
-
 ResourceManager<data::MinionManager> &AppModel::getMinionManager() {
     return *this->minionManager;
 }
@@ -59,7 +55,6 @@ AppModel::~AppModel() {
     delete this->game;
     delete this->refresher;
 
-    delete this->textureManager;
 	delete this->minionManager;
 	delete this->minionWaveManager;
 	delete this->turretManager;
@@ -71,15 +66,19 @@ AppModel::AppModel() {
     this->game = nullptr;
     this->refresher = nullptr;
 
-	this->textureManager = new ResourceManager<graphics::TextureManager>(new graphics::TextureManager);
+	this->window = new graphics::GameWindow();
+
 	this->minionManager = new ResourceManager<data::MinionManager>(new data::MinionManager);
 	this->gameManager = new ResourceManager<data::GameManager>(new data::GameManager);
 	this->minionWaveManager = new ResourceManager<data::MinionWaveManager>(new data::MinionWaveManager);
 	this->turretManager = new ResourceManager<data::TurretManager>(new data::TurretManager);
 	this->weaponFireManager = new ResourceManager<data::WeaponFireManager>(new data::WeaponFireManager);
 
-	this->loadResources();
 	this->state = AppModel::MainMenu;
+}
+
+void AppModel::runWindow() {
+	this->window->start();
 }
 
 #include <iostream>
@@ -89,7 +88,7 @@ bool AppModel::createGame(const std::string& xmlURI) {
 	srand(time(NULL));
 	bool g = false;
 	try {
-		this->game = new ResourceManager<tower_defense::Game>(this->gameManager->get()->load(xmlURI));
+		this->game = new ResourceManager<tower_defense::Game>(this->gameManager->get()->load(xmlURI, this->window->getTextureManager()));
 		std::cout << "ctrlpt\n";
 		g = true;
 		this->gameManager->release();
@@ -138,70 +137,12 @@ void AppModel::closeGame() {
 	this->minionWaveManager->get()->clear();
 	this->minionWaveManager->release();
 	std::cout << "Done!\n";
-	std::cout << "Clearing manager: Texture...";
-	this->textureManager->get()->clear();
-	this->textureManager->release();
-	std::cout << "Done!\n";
 	std::cout << "Clearing manager: Turret...";
 	this->turretManager->get()->clear();
 	this->turretManager->release();
 	std::cout << "Done!\n";
 
 	AppModel::state = AppModel::MainMenu;
-}
-
-
-const sf::Font* AppModel::getFont() {
-	return this->font;
-}
-
-void AppModel::loadResources() {
-	graphics::TextureManager *tm = this->textureManager->get();
-	tm->add(graphics::TextureManager::MENU, LABEL_BACKGORUND_OID, LABEL_BACKGROUND);
-	tm->add(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID, PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE);
-	tm->add(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE);
-	tm->add(graphics::TextureManager::MENU, VICTORY_TEXTURE_OID, VICTORY_TEXTURE);
-	tm->add(graphics::TextureManager::MENU, DEFEAT_TEXTURE_OID, DEFEAT_TEXTURE);
-	this->textureManager->release();
-
-	this->font = new sf::Font();
-	if (!this->font->loadFromFile(FONT_LOCATION))
-		NO_FONT_LOADED
-}
-
-const sf::Texture* AppModel::getDefeatTexture() {
-	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, DEFEAT_TEXTURE_OID);
-	this->textureManager->release();
-
-	return toRet;
-}
-
-const sf::Texture* AppModel::getVictoryTexture() {
-	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, VICTORY_TEXTURE_OID);
-	this->textureManager->release();
-
-	return toRet;
-}
-
-const sf::Texture* AppModel::getCanPlaceTurretBackground() {
-	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID);
-	this->textureManager->release();
-
-	return toRet;
-}
-
-const sf::Texture* AppModel::getCantPlaceTurretBackground() {
-	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID);
-	this->textureManager->release();
-
-	return toRet;
-}
-
-const sf::Texture* AppModel::getLabelBackground() {
-	const sf::Texture* toRet = &this->textureManager->get()->get(graphics::TextureManager::MENU, LABEL_BACKGORUND_OID);
-	this->textureManager->release();
-
-	return toRet;
 }
 
 void AppModel::setState(AppModel::GameState s) {

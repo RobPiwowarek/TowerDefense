@@ -5,15 +5,13 @@
 #include <atomic>
 #include "../include/SFML/Graphics.hpp"
 #include "ResourceManager.h"
+#include "../graphics/GameWindow.h"
 
 class Refresher;
 
 
 namespace tower_defense {
     class Game;
-}
-namespace graphics {
-    class TextureManager;
 }
 namespace data {
     class MinionManager;
@@ -32,17 +30,6 @@ namespace data {
  */
 
 class AppModel {
-	const char* FONT_LOCATION = "res/basic/arial.ttf";
-	const char* LABEL_BACKGROUND = "res/basic/label.png";
-	const char* VICTORY_TEXTURE = "res/basic/victory.png";
-	const char* DEFEAT_TEXTURE = "res/basic/defeat.png";
-	const char* PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE = "res/turrets/PLACEHOLDER_CAN_PLACE_FLAME.png";
-	const char* PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE = "res/turrets/PLACEHOLDER_CANT_PLACE_FLAME.png";
-	const int LABEL_BACKGORUND_OID = 0;
-	const int PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID = 1;
-	const int PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID = 2;
-	const int VICTORY_TEXTURE_OID = 3;
-	const int DEFEAT_TEXTURE_OID = 4;
 public:
 	enum GameState {
 		MainMenu,
@@ -60,8 +47,6 @@ public:
 	ResourceManager<tower_defense::Game>& getGame();
 	//returns the refresher if was initialized
 	ResourceManager<Refresher>& getRefresher();
-	//returns the texture manager
-	ResourceManager<graphics::TextureManager>& getTextures();
 	//returns the minion manager
 	ResourceManager<data::MinionManager>& getMinionManager();
 	//returns the minion wave manager
@@ -72,22 +57,6 @@ public:
 	ResourceManager<data::WeaponFireManager>& getWeaponFireManager();
 	//returns the game manager
 	ResourceManager<data::GameManager>& getGameManager();
-
-	//returns the default font
-	const sf::Font* getFont();
-	//returns basic texture for the label's background
-	const sf::Texture* getLabelBackground();
-
-	//returns basic texture for placing turrets 
-	const sf::Texture* getCanPlaceTurretBackground();
-
-	//returns basic texture for placing turrets 
-	const sf::Texture* getCantPlaceTurretBackground();
-
-	//returns texture for defeat screen
-	const sf::Texture* getDefeatTexture();
-	//returns texture for victory screen
-	const sf::Texture* getVictoryTexture();
 
 	//creates the game and refresher
 	//does not runs the refresher
@@ -102,21 +71,20 @@ public:
 	
 	void setState(GameState s);
 	GameState getState();
+
+	void runWindow();
 private:
 	std::atomic<GameState> state;
 
+	graphics::GameWindow* window = nullptr;
+
     ResourceManager<tower_defense::Game> *game;
     ResourceManager<Refresher> *refresher;
-    ResourceManager<graphics::TextureManager> *textureManager;
     ResourceManager<data::MinionManager> *minionManager;
 	ResourceManager<data::GameManager> *gameManager;
 	ResourceManager<data::MinionWaveManager> *minionWaveManager;
 	ResourceManager<data::TurretManager> *turretManager;
 	ResourceManager<data::WeaponFireManager> *weaponFireManager;
-
-	sf::Font* font = nullptr;
-
-	void loadResources();
 
 
 	~AppModel();

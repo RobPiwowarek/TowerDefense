@@ -7,6 +7,7 @@ namespace data {
 
 #include <map>
 #include "../logic/Game.h"
+#include "../graphics/TextureManager.h"
 #include "../include/SFML/Graphics.hpp"
 #include "../include/pugixml/pugixml.hpp"
 
@@ -17,30 +18,23 @@ namespace data {
         void clear();
 
         // load game (also other managers) from xml at given path
-        tower_defense::Game *load(const std::string &path);
-
-		// returns texture of the map tile (square of size 1)
-		// at given coordinates
-		const sf::Texture &getMapTexture(int x, int y) const;
-
-		// returns texture of the item
-		const sf::Texture &getItemTexture(int objClass) const;
-
+		tower_defense::Game *load(const std::string &path, graphics::TextureManager* tm);
+		unsigned int GameManager::getTextureId(int x, int y) const;
         ~GameManager();
 
 	private:
 		const std::string MAP_TEXTURES_LOCATION = "map\\";
 		const std::string ITEM_TEXTURES_LOCATION = "items\\";
 
-        tower_defense::Map *loadMap(const std::string &directory, const pugi::xml_node &map);
+        tower_defense::Map *loadMap(const std::string &directory, const pugi::xml_node &map, graphics::TextureManager* tm);
 
-        tower_defense::Player *loadPlayer(const std::string &directory, const pugi::xml_node &player);
+        tower_defense::Player *loadPlayer(const std::string &directory, const pugi::xml_node &player, graphics::TextureManager* tm);
 
-		void loadWaves(const std::string &directory, const pugi::xml_node &waves);
-		void loadTurrets(const std::string &directory, const pugi::xml_node &turrets);
+		void loadWaves(const std::string &directory, const pugi::xml_node &waves, graphics::TextureManager* tm);
+		void loadTurrets(const std::string &directory, const pugi::xml_node &turrets, graphics::TextureManager* tm);
 
 		// returns number of loaded items
-		int loadItems(const std::string &directory, const pugi::xml_node &game, tower_defense::Map* map);
+		int loadItems(const std::string &directory, const pugi::xml_node &game, tower_defense::Map* map, graphics::TextureManager* tm);
 
         int mapSize;
         int playerAreaSize;

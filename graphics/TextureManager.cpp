@@ -32,7 +32,7 @@ unsigned int graphics::TextureManager::add(const unsigned int flag, const unsign
 		}
 	}
 
-	return id;
+	return objId;
 }
 
 void graphics::TextureManager::clear() {

@@ -26,12 +26,12 @@ void MinionManager::clear() {
     this->nextClass = 0;
 }
 
-Minion *MinionManager::addMinion(const string &directory, const string &name) {
+Minion *MinionManager::addMinion(const string &directory, const string &name, graphics::TextureManager* tm) {
     map<string, int>::iterator it = this->minionClasses.find(name);
     if (it != this->minionClasses.end())
         return this->minions[it->second];
 
-    Minion *minion = this->load(directory + MinionManager::MINION_LOCATION, name);
+    Minion *minion = this->load(directory + MinionManager::MINION_LOCATION, name, tm);
 
     if (minion == nullptr)
         return nullptr;
@@ -52,20 +52,7 @@ const Minion &MinionManager::getMinion(int minionClass) const {
     return *it->second;
 }
 
-const Texture &MinionManager::getTexture(int minionClass) const {
-    if (minionClass >= nextClass || minionClass < 0)
-        NO_MINION_EXCEPTION
-
-    ResourceManager<graphics::TextureManager> &textures = AppModel::getInstance().getTextures();
-
-    const Texture &toRet = textures.get()->get(graphics::TextureManager::MINION, minionClass);
-
-    textures.release();
-
-    return toRet;
-}
-
-Minion *MinionManager::load(const string &mDirectory, const string &name) {
+Minion *MinionManager::load(const string &mDirectory, const string &name, graphics::TextureManager* tm) {
     xml_document doc;
 
     if (!doc.load_file((mDirectory + name + ".xml").c_str(),
@@ -95,9 +82,7 @@ Minion *MinionManager::load(const string &mDirectory, const string &name) {
             break;
     }
 
-    AppModel::getInstance().getTextures().get()->add(graphics::TextureManager::MINION, nextClass,
-                                                     mDirectory + root.child_value("img"));
-    AppModel::getInstance().getTextures().release();
+    tm->add(graphics::TextureManager::MINION, nextClass, mDirectory + root.child_value("img"));
 
     return new Minion(velocity, size, nextClass++, reward, health, damage, priority);
 }

@@ -8,6 +8,7 @@ namespace data {
 #include <map>
 #include "../logic/WeaponFire.h"
 #include "../include/SFML/Graphics.hpp"
+#include "../graphics/TextureManager.h"
 
 namespace data {
 	class WeaponFireManager {
@@ -20,12 +21,9 @@ namespace data {
 		// returns weapon fire with given class
 		const tower_defense::WeaponFire& getFire(int fireClass) const;
 
-		// returns texture representing given weapon fire
-		const sf::Texture &getTexture(int fireClass) const;
-
 		//loads a weapon fire from (directory)(WEAPON_FIRES_LOCATION)name.xml
 		//if wasn't already loaded
-		tower_defense::WeaponFire* load(const std::string& directory, const std::string& name);
+		tower_defense::WeaponFire* load(const std::string& directory, const std::string& name, graphics::TextureManager* tm);
 
 		// clears all fires from the manager
 		void clear();
