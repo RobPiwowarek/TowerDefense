@@ -73,18 +73,6 @@ tower_defense::GridElement *tower_defense::GridElement::getRightNeighbour() cons
     return temp;
 }
 
-void tower_defense::GridElement::addMissile(tower_defense::WeaponFire* missile){
-	this->missiles.insert(missile);
-}
-
-void tower_defense::GridElement::removeMissile(tower_defense::WeaponFire* missile){
-	this->missiles.erase(missile);
-}
-
-std::set<tower_defense::WeaponFire*> tower_defense::GridElement::getMissiles() const{
-	return this->missiles;
-}
-
 bool tower_defense::GridElement::hasItem() const{
     return this->distToTarget == 0 && this->item != nullptr;
 }
