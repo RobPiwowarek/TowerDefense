@@ -17,7 +17,9 @@ bool tower_defense::Beam::isHitOnlyFirst() const {
 }
 
 bool tower_defense::Beam::refresh(Grid& g) {
-	for (tower_defense::GridElement* element : g.getElementsInLine(this->location, this->location + this->size, this->width/2)){
+	this->updateEndLocation();
+
+	for (tower_defense::GridElement* element : g.getElementsInLine(this->location, this->endLocation, this->width/2)){
 		for (tower_defense::Minion* minion : element->getMinions()){
 			if (this->checkCollision(minion)){
 				minion->takeDamage(this->damage);
@@ -33,8 +35,28 @@ double tower_defense::Beam::getWidth() const{
 	return this->width;
 }
 
+void tower_defense::Beam::updateEndLocation(){
+	endLocation = { this->location.getX() + this->size*cos(this->angle), this->location.getY() + this->size*sin(this->angle) };
+}
+
+tower_defense::Point tower_defense::Beam::getEndLocation() const{
+	return this->endLocation;
+}
+
 void tower_defense::Beam::setWidth(const double width){
 	this->width = width;
+}
+
+void tower_defense::Beam::setEndLocation(const Point& p){
+	this->endLocation = p;
+}
+
+void tower_defense::Beam::setEndLocation(const int x, const int y){
+	this->endLocation = { x, y };
+}
+
+void tower_defense::Beam::setEndLocation(const double x, const double y){
+	this->endLocation = { x, y };
 }
 
 
@@ -44,8 +66,8 @@ bool tower_defense::Beam::hits(Minion* m) {
 
 bool tower_defense::Beam::checkCollision(tower_defense::Minion * minion){
 
-	const double a = (this->location.getY() - this->location.getY()-this->size) / (this->location.getX() - this->location.getX()-this->size);
-	const double b = a*(-this->location.getX()) + this->location.getY() + this->size;
+	const double a = (this->location.getY() - this->endLocation.getY()) / (this->location.getX() - this->endLocation.getX());
+	const double b = a*(-this->location.getX()) + this->location.getY();
 
 	// y = ax + b => y - ax - b = 0
 

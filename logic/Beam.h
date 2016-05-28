@@ -35,10 +35,22 @@ namespace tower_defense {
 		/// sets width
 		void setWidth(const double width);
 
+		/// returns endLocation
+		Point getEndLocation() const;
+
     private:
         bool hitOnlyFirst;
 		double width;
+		Point endLocation;
         bool hits(Minion* m);
+
+		/// updates end location
+		void updateEndLocation();
+
+		/// sets end location
+		void setEndLocation(const Point& p);
+		void setEndLocation(const int x, const int y);
+		void setEndLocation(const double x, const double y);
     };
 }
 

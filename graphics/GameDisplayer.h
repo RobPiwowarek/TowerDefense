@@ -42,6 +42,7 @@ namespace graphics {
 		void drawTurrets(graphics::GameWindow& window, tower_defense::Game* g);
 		void drawMinions(graphics::GameWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager);
 		void drawMapAndMinions(graphics::GameWindow& window, tower_defense::Game* g);
+		void drawWeaponFires(graphics::GameWindow& window, tower_defense::Game* g);
 
 		bool onScreen(graphics::GameWindow& window, const tower_defense::Entity &e);
 		void checkCurPosition();

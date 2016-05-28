@@ -50,6 +50,7 @@ void GameDisplayer::refresh(GameWindow& window) {
 	window.draw(this->baseBackground);
 
 	this->drawMapAndMinions(window, g);
+	this->drawWeaponFires(window, g);
 
 	if (this->selectedTurretBase != nullptr){
 		this->drawBuildingTurret(window, g);
@@ -69,6 +70,18 @@ void GameDisplayer::refresh(GameWindow& window) {
 			display(window, *window.getTexture(*it), { (*it)->getSize(), (*it)->getSize() }, (*it)->getLocation());
 
 	AppModel::getInstance().getGame().release();
+}
+
+void GameDisplayer::drawWeaponFires(graphics::GameWindow& w, tower_defense::Game* g){
+	tower_defense::Map& map = g->getMap();
+
+	for (tower_defense::WeaponFire* fire : map.getWeaponFires()){
+		if (!fire->shouldBeRemoved()){
+			sf::Texture texture = *w.getTexture(fire);
+			this->display(w, texture, { fire->getSize(), fire->getSize()}, fire->getLocation(), fire->getAngle());
+		}
+	}
+
 }
 
 void GameDisplayer::setPointsPerUnit(int ppu) {

@@ -43,13 +43,38 @@ std::set<tower_defense::Minion *> tower_defense::Map::getMinionsNearPoint(const 
 void tower_defense::Map::refresh(Game &game) {
 	std::set<tower_defense::Minion*> toRemove;
 	std::set<tower_defense::WeaponFire*> bulletsToRemove;
+	std::set<tower_defense::Turret*> turretToRemove;
 
-	
+	/// TURRET
+	for (tower_defense::Turret* t : this->turrets){
+		if (t->shouldBeRemoved()){
+			turretToRemove.insert(t);
+		}
+	}
+
+	for (tower_defense::Turret* t : turretToRemove){
+		if (t){
+			this->turrets.erase(t);
+			delete t;
+		}
+	}
+
+	/// WEAPONFIRE
+
 	for (tower_defense::WeaponFire* w : weaponFires){
 		if (w->shouldBeRemoved()){
 			bulletsToRemove.insert(w);
 		}
 	}
+
+	for (tower_defense::WeaponFire* w : bulletsToRemove){
+		if (w) {
+			this->weaponFires.erase(w);
+			delete w;
+		}
+	}
+
+	/// MINION
 
     for (std::set<tower_defense::Minion*>::iterator it = this->minions.begin(); it != this->minions.end(); ++it){
 		GridElement *next = nullptr, *prev = grid->getElement((*it)->getLocation());
@@ -66,13 +91,6 @@ void tower_defense::Map::refresh(Game &game) {
 			else					toRemove.insert(*it);
 		}
     }
-
-	for (tower_defense::WeaponFire* w : bulletsToRemove){
-		if (w) {
-			this->weaponFires.erase(w);
-			delete w;
-		}
-	}
 
 	for (tower_defense::Minion* m : toRemove) {
 		GridElement* g = grid->getElement(m->getLocation());
@@ -91,6 +109,8 @@ void tower_defense::Map::refresh(Game &game) {
 		delete m;
 		std::cout << "Done\n";
 	}
+
+	/// 
 
     for (std::set<tower_defense::WeaponFire*>::iterator it = this->weaponFires.begin(); it != this->weaponFires.end(); ++it){
         (*it)->refresh(*this->grid);
@@ -162,6 +182,10 @@ void tower_defense::Map::addItem(Item *i) {
 	this->items.insert(i);
 	this->grid->getElement(i->getLocation())->setItem(i);
 	this->grid->calculateDistance(Grid::Item);
+}
+
+void tower_defense::Map::addFire(WeaponFire *w) {
+	this->weaponFires.insert(w);
 }
 
 void tower_defense::Map::addTurret(Turret *t) {

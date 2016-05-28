@@ -63,6 +63,12 @@ namespace tower_defense {
         /// sets armor;
         void setArmor(int armor);
 
+		/// returns toRemove
+		bool shouldBeRemoved() const;
+
+		/// sets toRemove
+		void setToRemove(const bool b);
+
         /// refreshes turret (and it's weapon)
         bool refresh(tower_defense::Map* map);
 
@@ -76,6 +82,7 @@ namespace tower_defense {
         int maxHealth;
         int armor;
         double rotationSpeed;
+		bool toRemove = false;
     };
 }
 

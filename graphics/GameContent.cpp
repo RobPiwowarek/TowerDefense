@@ -115,13 +115,13 @@ void GameContent::checkKeys() {
 	if (keys[sf::Keyboard::PageDown])
 		this->displayer->setPointsPerUnit(this->displayer->getPointsPerUnit() * 2 / 3);
 	if (keys[sf::Keyboard::Up])
-		this->displayer->moveScreen(tower_defense::Point(0, -10.0 / this->displayer->getPointsPerUnit()));
+		this->displayer->moveScreen(tower_defense::Point(0.0, -10.0 / this->displayer->getPointsPerUnit()));
 	if (keys[sf::Keyboard::Down])
-		this->displayer->moveScreen(tower_defense::Point(0, 10.0 / this->displayer->getPointsPerUnit()));
+		this->displayer->moveScreen(tower_defense::Point(0.0, 10.0 / this->displayer->getPointsPerUnit()));
 	if (keys[sf::Keyboard::Left])
-		this->displayer->moveScreen(tower_defense::Point(-10.0 / this->displayer->getPointsPerUnit(), 0));
+		this->displayer->moveScreen(tower_defense::Point(-10.0 / this->displayer->getPointsPerUnit(), 0.0));
 	if (keys[sf::Keyboard::Right])
-		this->displayer->moveScreen(tower_defense::Point(10.0 / this->displayer->getPointsPerUnit(), 0));
+		this->displayer->moveScreen(tower_defense::Point(10.0 / this->displayer->getPointsPerUnit(), 0.0));
 }
 
 void GameContent::manageEvent_mousePress(Event& e) {

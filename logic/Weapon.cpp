@@ -1,4 +1,8 @@
 #include "Weapon.h"
+#include "Beam.h"
+#include "Bullet.h"
+#include "Ring.h"
+
 
 
 tower_defense::Weapon::Weapon(
@@ -31,10 +35,30 @@ int tower_defense::Weapon::getReloading() const {
     return this->reloading;
 }
 #include <iostream>
+
 void tower_defense::Weapon::refresh(bool beginSequence, Map* m) {
 	if (this->reloading != 0 || beginSequence) {
 		while (this->cur->first == this->reloading) {
 			//TODO fire
+
+			WeaponFire * fire;
+
+			/*
+			switch(this->cur->second.first->getType()){
+			case 0: 
+				fire = new Bullet(this->cur->second.first->getDamage(), this->cur->second.first->getSize(), 
+					true, 0.0f, this->cur->second.first->getVelocity(), this->cur->second.first->getLifeTime(), 0);
+				break;
+			case 1:
+				fire = new Beam(this->cur->second.first->getDamage(), this->cur->second.first->getSize(), 1, false, 2.0f);
+				break;
+			case 2:
+				fire = new Ring(this->cur->second.first->getDamage(), this->cur->second.first->getVelocity(), this->cur->second.first->getLifeTime(), 2);
+				break;
+			default: std::cout << "FIRE ERROR " << std::endl;
+			}*/
+
+			m->addFire(fire);
 
 			std::cout << "fire";
 

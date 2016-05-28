@@ -13,6 +13,7 @@ namespace tower_defense {
         /// creates a new instance of Point class,
         /// with coordintase (x, y)
         Point(const double x, const double y);
+		Point(const int x, const int y);
 
         /// creates a new instance of Point class,
         /// equal to the p

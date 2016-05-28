@@ -41,6 +41,7 @@ bool tower_defense::Turret::receiveDamage(const int damage, Grid &g) {
 //TODO: implement
 void tower_defense::Turret::destroy(Grid &g) {
     g.getElement(this->location)->setTurret(nullptr);
+	this->toRemove = true;
 }
 
 void tower_defense::Turret::setCurrentHealth(int currentHealth) {
@@ -64,46 +65,57 @@ double angleDiff(double from, double to) {
 
 #include <iostream>
 
+bool tower_defense::Turret::shouldBeRemoved() const{
+	return this->toRemove;
+}
+
+void tower_defense::Turret::setToRemove(const bool b){
+	this->toRemove = b;
+}
+
 bool tower_defense::Turret::refresh(Map* map) {
     // assuming first enemy is the closest in angle
     // TODO: change to one closest to the item
+	if (!this->toRemove){
 
-	Minion* target = nullptr;
-	double angleD;
-	double nAngleD;
+		Minion* target = nullptr;
+		double angleD;
+		double nAngleD;
 
-	std::set<GridElement*> fireRange = map->getGrid().getElementsInRadius(this->location, this->weapon->getRange());
+		std::set<GridElement*> fireRange = map->getGrid().getElementsInRadius(this->location, this->weapon->getRange());
 
-	for (GridElement* g : fireRange) {
-		for (Minion* m : g->getMinions()) {
-			if (this->location.getSquareDistance(m->getLocation()) <= this->weapon->getRange() * this->weapon->getRange())
-			if (target == nullptr) {
-				target = m;
-				angleD = angleDiff(this->angle,
-					-atan2(this->location.getX() - m->getLocation().getX(),
-					this->location.getY() - m->getLocation().getY()));
-			}
-			else if (abs(nAngleD = angleDiff(this->angle,
-				-atan2(this->location.getX() - m->getLocation().getX(),
-				this->location.getY() - m->getLocation().getY()))) < abs(angleD)) {
-				target = m;
-				angleD = nAngleD;
+		for (GridElement* g : fireRange) {
+			for (Minion* m : g->getMinions()) {
+				if (this->location.getSquareDistance(m->getLocation()) <= this->weapon->getRange() * this->weapon->getRange())
+					if (target == nullptr) {
+						target = m;
+						angleD = angleDiff(this->angle,
+							-atan2(this->location.getX() - m->getLocation().getX(),
+							this->location.getY() - m->getLocation().getY()));
+					}
+					else if (abs(nAngleD = angleDiff(this->angle,
+						-atan2(this->location.getX() - m->getLocation().getX(),
+						this->location.getY() - m->getLocation().getY()))) < abs(angleD)) {
+						target = m;
+						angleD = nAngleD;
+					}
 			}
 		}
+		//std::cout << angle << "\t" << angleD << std::endl;
+		if (target != nullptr) {
+			if (abs(angleD) < this->rotationSpeed)	this->angle -= angleD;
+			else if (angleD > 0)					this->angle -= this->rotationSpeed;
+			else									this->angle += this->rotationSpeed;
+
+			this->angle = normalizeAngle(this->angle);
+
+			this->weapon->refresh(true, map);
+		}
+		else this->weapon->refresh(false, map);
+
+		return true;
+
 	}
-	//std::cout << angle << "\t" << angleD << std::endl;
-	if (target != nullptr) {
-		if (abs(angleD) < this->rotationSpeed)	this->angle -= angleD;
-		else if (angleD > 0)					this->angle -= this->rotationSpeed;
-		else									this->angle += this->rotationSpeed;
-
-		this->angle = normalizeAngle(this->angle);
-
-		this->weapon->refresh(true, map);
-	}
-	else this->weapon->refresh(false, map);
-
-    return true;
 }
 
 tower_defense::Turret::~Turret() {
