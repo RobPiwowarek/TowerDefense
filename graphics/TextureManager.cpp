@@ -52,8 +52,9 @@ const sf::Texture &graphics::TextureManager::get(const unsigned int id) const {
     const std::map<unsigned int, sf::Texture *> &textures = (id & BASE ? this->baseTextures : this->textures);
 
     std::map<unsigned int, sf::Texture *>::const_iterator it = textures.find(id);
-    if (it == textures.end())
-        TEXTURE_DOES_NOT_EXISIT
+	if (it == textures.end()){
+		TEXTURE_DOES_NOT_EXISIT
+	}
 
     return *it->second;
 }
