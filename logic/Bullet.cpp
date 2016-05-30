@@ -4,7 +4,8 @@
 
 tower_defense::Bullet::Bullet(const int damage, const double size, const bool hitOnlyFirst, const double splash,
                               const double velocity, const int lifeTime, const int fireClass)
-        : WeaponFire(damage, size, lifeTime, bullet, fireClass) {
+							  : WeaponFire(damage, size, lifeTime, bullet, fireClass) {
+	std::cout << "{B" << velocity << " " << this->velocity << "}";
     this->hitOnlyFirst = hitOnlyFirst;
     this->splash = splash;
     this->velocity = velocity;
@@ -31,12 +32,19 @@ double tower_defense::Bullet::getVelocity() const {
 }
 
 bool tower_defense::Bullet::refresh(Grid& g) {
+
+	if (this->lifeTime-- == 0) {
+		this->toRemove = true;
+		return false;
+	}
+
 	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
 	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 
 	/// reached map bounds
 	if (!g.inBounds(this->location.getX(), this->location.getY())){
 		this->toRemove = true;
+		return false;
 	}
 
 	/// detect collision
@@ -59,6 +67,7 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 
 				if (this->hitOnlyFirst){
 					this->toRemove = true;
+					return false;
 				}
 				
 				std::cout << "KOLIZJA" << std::endl;
@@ -66,7 +75,7 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 		}
 	}
 
-	return false; //TODO
+	return true; //TODO
 }
 
 bool tower_defense::Bullet::checkCollision(tower_defense::Minion * minion){

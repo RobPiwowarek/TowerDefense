@@ -61,7 +61,7 @@ bool tower_defense::Minion::isDead() const {
 void tower_defense::Minion::death(Game &game) {
     this->dead = true;
 
-    game.getPlayer().setMoney(this->reward);
+    game.getPlayer().setMoney(game.getPlayer().getMoney() + this->reward);
 }
 
 #include <iostream>

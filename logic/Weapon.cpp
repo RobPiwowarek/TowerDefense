@@ -42,22 +42,17 @@ void tower_defense::Weapon::refresh(bool beginSequence, Map* m) {
 			WeaponFire* fire = nullptr;
 			
 			switch(this->cur->second.first->getType()){
-			case 0: 
-				fire = new Bullet(this->cur->second.first->getDamage(), this->cur->second.first->getSize(), 
-					dynamic_cast<tower_defense::Bullet*>(this->cur->second.first)->isHitOnlyFirst(), 
-					dynamic_cast<tower_defense::Bullet*>(this->cur->second.first)->getSplash(), 
-					dynamic_cast<tower_defense::Bullet*>(this->cur->second.first)->getVelocity(), 
-					this->cur->second.first->getLifeTime(), 0);
+			case FireType::bullet: 
+				fire = new Bullet(*dynamic_cast<tower_defense::Bullet*>(this->cur->second.first),
+					this->parent->getLocation(), this->parent->getAngle(), this->cur->second.second);
 				break;
-			case 1:
-				fire = new Beam(this->cur->second.first->getDamage(), this->cur->second.first->getSize(), 1,
-					dynamic_cast<tower_defense::Beam*>(this->cur->second.first)->isHitOnlyFirst(), 
-					dynamic_cast<tower_defense::Beam*>(this->cur->second.first)->getWidth());
+			case FireType::beam:
+				fire = new Beam(*dynamic_cast<tower_defense::Beam*>(this->cur->second.first),
+					this->parent->getLocation(), this->parent->getAngle(), this->cur->second.second);
 				break;
-			case 2:
-				fire = new Ring(this->cur->second.first->getDamage(), 
-					dynamic_cast<tower_defense::Ring*>(this->cur->second.first)->getVelocity(), 
-					this->cur->second.first->getLifeTime(), 2);
+			case FireType::ring:
+				fire = new Ring(*dynamic_cast<tower_defense::Ring*>(this->cur->second.first),
+					this->parent->getLocation(), this->parent->getAngle(), this->cur->second.second);
 				break;
 			default: std::cout << "FIRE ERROR " << std::endl;
 			}

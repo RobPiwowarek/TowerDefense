@@ -38,7 +38,6 @@ void GameContent::createTurretList() {
 			Vector2f(TURRET_LABELS_X, TURRET_LABELS_Y + TURRET_LABELS_Y_DIFF * i),
 			this->parent->getLabelBackground(),
 			this->turretList[i].second.first + ": " + to_string(this->turretList[i].second.second) + "$");
-		cout << this->turretList[i].second.first + ": " + to_string(this->turretList[i].second.second) + "$" << endl;
 		this->turretLabels[i]->setFontSize(TURRET_LABEL_FONT_SIZE);
 	}
 }
@@ -146,7 +145,6 @@ void GameContent::manageEvent_mousePress_gameGoing(Event& e) {
 	int mouseY = sf::Mouse::getPosition().y - this->parent->getPosition().y;
 
 	Point inGame = displayer->screenToGame(*this->parent, Vector2f(mouseX, mouseY));
-	cout << "Mouse: (" << mouseX << ", " << mouseY << ") -> ( " << inGame.getX() << ", " << inGame.getY() << ")\n";
 
 	int label = floor(((double)mouseY - TURRET_LABELS_Y) / TURRET_LABELS_Y_DIFF);
 	if (mouseX >= TURRET_LABELS_X && mouseX <= TURRET_LABELS_X + TURRET_LABEL_WIDTH && label >= 0 && label < turretN) {

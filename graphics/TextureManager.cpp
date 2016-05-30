@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-//#define LOAD_TEST
+#define LOAD_TEST
 
 #include <limits>
 
@@ -15,7 +15,7 @@ unsigned int graphics::TextureManager::add(const unsigned int flag, const unsign
 	const unsigned int id = this->id(flag, objId);
 
 #ifdef LOAD_TEST
-	std::cout << "loading texture: " << path << std::endl;
+	if (id & WEAPON_FIRE) std::cout << "loading texture: " << path << std::endl;
 #endif
 
 	if (this->textures.find(id) == this->textures.end()) {
@@ -23,7 +23,7 @@ unsigned int graphics::TextureManager::add(const unsigned int flag, const unsign
 		if (t->loadFromFile(path)) {
 			((id & BASE) ? this->baseTextures[id] : this->textures[id]) = t;
 #ifdef LOAD_TEST
-			std::cout << "Texture loaded as " << std::bitset<sizeof id * 8>(id) << std::endl;
+			if (id & WEAPON_FIRE) 		std::cout << "Texture loaded as " << std::bitset<sizeof id * 8>(id) << std::endl;
 #endif
 		}
 		else {
@@ -50,7 +50,6 @@ const sf::Texture& graphics::TextureManager::get(const unsigned int flag, const 
 
 const sf::Texture &graphics::TextureManager::get(const unsigned int id) const {
     const std::map<unsigned int, sf::Texture *> &textures = (id & BASE ? this->baseTextures : this->textures);
-
     std::map<unsigned int, sf::Texture *>::const_iterator it = textures.find(id);
 	if (it == textures.end()){
 		TEXTURE_DOES_NOT_EXISIT

@@ -124,7 +124,6 @@ void tower_defense::Map::refresh(Game &game) {
 bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret) {
 	for (GridElement* g : grid->getOccupied(turret, point)) {
 		if (g == nullptr) return false;
-		std::cout << g->getLocation().getX() << " " << g->getLocation().getY() << ": " << g->hasItem() << ", " << g->hasTurret() << ", " << g->getMinions().empty() << std::endl;
 
 		if (g->hasItem() || g->hasTurret() || !g->getMinions().empty()) {
 			return false;
@@ -137,7 +136,6 @@ bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, cons
 bool tower_defense::Map::canPlaceTurret(const double x, const double y, const tower_defense::Turret & turret) {
 	for (GridElement* g : grid->getOccupied(turret, x, y)) {
 		if (g == nullptr) return false;
-		std::cout << g->getLocation().getX() << " " << g->getLocation().getY() << ": " << g->hasItem() << ", " << g->hasTurret() << ", " << g->getMinions().empty() << std::endl;
 
 		if (g->hasItem() || g->hasTurret() || !g->getMinions().empty()) {
 			return false;
@@ -150,7 +148,6 @@ bool tower_defense::Map::canPlaceTurret(const double x, const double y, const to
 bool tower_defense::Map::canPlaceTurret(const int x, const int y, const tower_defense::Turret & turret) {
 	for (GridElement* g : grid->getOccupied(turret, x, y)) {
 		if (g == nullptr) return false;
-		std::cout << g->getLocation().getX() << " " << g->getLocation().getY() << ": " << g->hasItem() << ", " << g->hasTurret() << ", " << g->getMinions().empty() << std::endl;
 
 		if (g->hasItem() || g->hasTurret() || !g->getMinions().empty()) {
 			return false;

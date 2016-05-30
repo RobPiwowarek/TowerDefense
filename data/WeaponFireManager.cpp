@@ -30,7 +30,7 @@ const WeaponFire& WeaponFireManager::getFire(int fireClass) const {
 	return *it->second;
 }
 
-
+#include <iostream>
 WeaponFire* WeaponFireManager::load(const string& directory, const std::string& name, graphics::TextureManager* tm) {
 	map<string, int>::iterator it = this->fireIds.find(name);
 	if (it != this->fireIds.end())
@@ -47,7 +47,6 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 		directory + WEAPON_FIRES_LOCATION + fireNode.child_value("imgsrc"));
 
 	WeaponFire* toRet = nullptr;
-
 	switch (fireNode.child_value("type")[1]) {
 	case 'u':
 		toRet = new Bullet(
@@ -55,23 +54,28 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 			atof(fireNode.child_value("size")),
 			atoi(fireNode.child_value("hitOnlyFirst")),
 			atof(fireNode.child_value("splash")),
-			atoi(fireNode.child_value("velocity")),
+			atof(fireNode.child_value("velocity")),
 			atoi(fireNode.child_value("lifeTime")),
-			nextClass++);
+			nextClass);
+		break;
 	case 'e':
 		toRet = new Beam(
 			atoi(fireNode.child_value("damage")),
 			atof(fireNode.child_value("size")),
-			nextClass++,
+			nextClass,
 			atoi(fireNode.child_value("hitOnlyFirst")),
 			atof(fireNode.child_value("width")));
+		break;
 	case 'i':
 		toRet = new Ring(
 			atoi(fireNode.child_value("damage")),
-			atoi(fireNode.child_value("velocity")),
+			atof(fireNode.child_value("velocity")),
 			atoi(fireNode.child_value("lifeTime")),
-			nextClass++);
+			nextClass);
+		break;
 	}
+
+	nextClass++;
 
 	if (toRet != nullptr) {
 		this->fireIds[name] = toRet->getObjClass();

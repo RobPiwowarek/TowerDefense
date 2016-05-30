@@ -15,13 +15,9 @@ using namespace tower_defense;
 using namespace std;
 
 GameWindow::GameWindow() : RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "TowerDefense", sf::Style::None) {
-	cout << 1;
 	this->tm = new TextureManager();
-	cout << 2;
 	this->loadResources();
-	cout << 3;
 	this->loadingContent = new LoadingContent(this);
-	cout << 4;
 }
 
 const Font* GameWindow::getFont() const {

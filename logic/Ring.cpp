@@ -1,8 +1,9 @@
 #include "Ring.h"
-
+#include <iostream>
 tower_defense::Ring::Ring(const int damage, const double velocity,
 	const int lifeTime, const int fireClass)
-        : WeaponFire(damage, 0, lifeTime, ring, fireClass) {
+	: WeaponFire(damage, 0, lifeTime, ring, fireClass) {
+	std::cout << "{R" << size << " " << this->size << "}";
     this->velocity = velocity;
 }
 
@@ -16,6 +17,10 @@ double tower_defense::Ring::getVelocity() const {
 }
 
 bool tower_defense::Ring::refresh(Grid& g) {
+	if (this->lifeTime-- == 0) {
+		this->toRemove = true;
+		return false;
+	}
 	std::set<tower_defense::GridElement*> elements;
 
 	elements = g.getElementsInRadius(this->location, this->size);
@@ -30,11 +35,7 @@ bool tower_defense::Ring::refresh(Grid& g) {
 
 	this->size += this->velocity;
 
-	if (this->size >= this->lifeTime){
-		this->toRemove = true;
-	}
-
-	return false; //TODO
+	return true; //TODO
 }
 
 bool tower_defense::Ring::hits(Minion* m) {

@@ -9,7 +9,7 @@
  <cost>50</cost>
  <weapon>
   <reloadTime>20</reloadTime>
-  <range>16</range>
+  <range>8</range>
   <weaponFire time='0'>bullet</weaponFire>
  </weapon>
 </turret>

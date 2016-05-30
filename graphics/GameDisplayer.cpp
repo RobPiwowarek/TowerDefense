@@ -78,6 +78,7 @@ void GameDisplayer::drawWeaponFires(graphics::GameWindow& w, tower_defense::Game
 	for (tower_defense::WeaponFire* fire : map.getWeaponFires()){
 		if (!fire->shouldBeRemoved()){
 			sf::Texture texture = *w.getTexture(fire);
+
 			this->display(w, texture, { fire->getSize(), fire->getSize()}, fire->getLocation(), fire->getAngle());
 		}
 	}
@@ -221,10 +222,6 @@ void GameDisplayer::display(GameWindow& window, const sf::Texture& texture, cons
 void GameDisplayer::setBuildingTurret(const Turret* t) {
 	this->selectedTurretBase = t;
 }
-
-#include <iostream>
-
-#define P(P) cout << "(" << P.getX() << ", "<< P.getY() << ")" << endl
 
 Point GameDisplayer::getSelecetedTurretsLocation(GameWindow& w) {
 	Point location = screenToGame(w, Vector2f(Mouse::getPosition() - w.getPosition()));

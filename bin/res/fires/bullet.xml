@@ -3,9 +3,9 @@
 <weaponFire>
  <type>Bullet</type>
  <imgsrc>bullet.png</imgsrc>
- <velocity>0.2</velocity>
- <size>0.1</size>
- <lifeTime>50</lifeTime>
+ <velocity>0.4</velocity>
+ <size>0.2</size>
+ <lifeTime>24</lifeTime>
  <damage>1</damage>
  <splash>0.1</splash>
  <hitOnlyFirst>1</hitOnlyFirst>

@@ -1,7 +1,8 @@
 #include "Beam.h"
-
+#include <iostream>
 tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFirst, const double width)
-        : WeaponFire(damage, maxSize, 1, beam, fireClass) {
+	: WeaponFire(damage, maxSize, 1, beam, fireClass) {
+	std::cout << "{Bm" << size << " " << this->size << "}";
     this->hitOnlyFirst = hitOnlyFirst;
 	this->width = width;
 }

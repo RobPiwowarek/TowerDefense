@@ -6,9 +6,7 @@
 
 tower_defense::Game::Game(Map *m, Player *p) : map(m), player(p) {
     this->curWave = 0;
-	std::cout << "w";
 	this->wave = new MinionWave(AppModel::getInstance().getMinionWaveManager().get()->get(this->curWave));
-	std::cout << "w\n";
 	AppModel::getInstance().getMinionWaveManager().release();
 }
 
