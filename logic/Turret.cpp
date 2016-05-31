@@ -109,7 +109,7 @@ bool tower_defense::Turret::refresh(Map* map) {
 
 			this->angle = normalizeAngle(this->angle);
 
-			this->weapon->refresh(true, map);
+			this->weapon->refresh(abs(angleD) < this->rotationSpeed, map);
 		}
 		else this->weapon->refresh(false, map);
 

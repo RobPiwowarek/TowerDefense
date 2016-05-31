@@ -9,7 +9,7 @@
  <cost>80</cost>
  <weapon>
   <reloadTime>40</reloadTime>
-  <range>1</range>
+  <range>2</range>
   <weaponFire time='0'>magicring</weaponFire>
  </weapon>
 </turret>

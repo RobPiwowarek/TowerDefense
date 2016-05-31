@@ -13,7 +13,7 @@ namespace tower_defense {
     public:
         /// creates new instance of Ring object
         /// using given values
-        Ring(const int damage, const double velocity,
+        Ring(const int damage, const double velocity, const double size,
 			const int lifeTime, const int fireClass, const double innerRadius);
 
         /// creates an instance of Ring object

@@ -1,6 +1,7 @@
 #include "GameDisplayer.h"
 #include "../logic/Game.h"
 #include "../logic/Map.h"
+#include "../logic/Beam.h"
 #include "../threading/AppModel.h"
 #include "../data/GameManager.h"
 #include "../data/MinionManager.h"
@@ -77,11 +78,12 @@ void GameDisplayer::drawWeaponFires(graphics::GameWindow& w, tower_defense::Game
 	tower_defense::Map& map = g->getMap();
 
 	for (tower_defense::WeaponFire* fire : map.getWeaponFires()){
-		if (!fire->shouldBeRemoved()){
 			sf::Texture texture = *w.getTexture(fire);
-
-			this->display(w, texture, { fire->getSize(), fire->getSize()}, fire->getLocation(), fire->getAngle());
-		}
+			if (fire->getType() != FireType::beam)
+				this->display(w, texture, { fire->getSize(), fire->getSize()}, fire->getLocation(), fire->getAngle());
+			else { //BEAM
+				this->display(w, texture, { dynamic_cast<Beam*>(fire)->getWidth(), fire->getSize() }, fire->getLocation(), fire->getAngle());
+			}
 	}
 
 }

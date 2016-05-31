@@ -70,6 +70,7 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 		toRet = new Ring(
 			atoi(fireNode.child_value("damage")),
 			atof(fireNode.child_value("velocity")),
+			atof(fireNode.child_value("size")),
 			atoi(fireNode.child_value("lifeTime")),
 			nextClass, 
 			atof(fireNode.child_value("innerRadius")));

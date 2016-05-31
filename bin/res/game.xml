@@ -4115,7 +4115,7 @@
   </player>
   <waves>
     <wave>wave1</wave>
-    <wave>cpause1000</wave>
+    <!--<wave>cpause1000</wave>
     <wave>wave1</wave>
     <wave>cpause1000</wave>
     <wave>wave2</wave>
@@ -4130,6 +4130,6 @@
     <wave>cpause1000</wave>
     <wave>wave6</wave>
     <wave>cpause1000</wave>
-    <wave>wave6</wave>
+    <wave>wave6</wave>-->
   </waves>
 </game>
