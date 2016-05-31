@@ -3,7 +3,6 @@
 tower_defense::Ring::Ring(const int damage, const double velocity, const double size,
 	const int lifeTime, const int fireClass, const double innerRadius)
 	: WeaponFire(damage, size, lifeTime, ring, fireClass) {
-	std::cout << "{R" << size << " " << this->size << "}";
     this->velocity = velocity;
 	this->innerRadius = innerRadius;
 }

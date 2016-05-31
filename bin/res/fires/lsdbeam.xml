@@ -6,5 +6,5 @@
  <size>24</size>
  <width>0.1</width>
  <damage>1</damage>
- <hitOnlyFirst>0</hitOnlyFirst>
+ <hitOnlyFirst>1</hitOnlyFirst>
 </weaponFire>

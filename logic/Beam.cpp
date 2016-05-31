@@ -1,8 +1,10 @@
 #include "Beam.h"
 #include <iostream>
+
+#define SQ(X) (X)*(X)
+
 tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFirst, const double width)
 	: WeaponFire(damage, maxSize, 1, beam, fireClass) {
-	std::cout << "{Bm" << size << " " << this->size << "}";
     this->hitOnlyFirst = hitOnlyFirst;
 	this->width = width;
 }
@@ -20,13 +22,55 @@ bool tower_defense::Beam::isHitOnlyFirst() const {
 bool tower_defense::Beam::refresh(Grid& g) {
 	this->updateEndLocation();
 
+	Minion* closest = nullptr;
+
 	for (tower_defense::GridElement* element : g.getElementsInLine(this->location, this->endLocation, this->width/2)){
 		for (tower_defense::Minion* minion : element->getMinions()){
 			if (this->checkCollision(minion)){
-				minion->takeDamage(this->damage);
+				if (!hitOnlyFirst)
+					minion->takeDamage(this->damage);
+				else closest = closest == nullptr ? minion :
+					this->location.getSquareDistance(closest->getLocation()) < this->location.getSquareDistance(minion->getLocation()) ?
+				closest : minion;
 			}
 		}
 	}
+
+	if (hitOnlyFirst && closest) {
+		closest->takeDamage(this->damage);
+
+		double nx, ny;
+		if (this->location.getX() == this->endLocation.getX()) {
+			nx = this->endLocation.getX();
+			ny = sqrt(SQ(closest->getSize() /2) - SQ(nx - closest->getLocation().getX())) + closest->getLocation().getY();
+		}
+		else { //y = ax + b
+			double a = this->location.getX() - this->endLocation.getX() / this->location.getY() - this->endLocation.getY();
+			double b = this->location.getY() - a * this->location.getX();
+
+			//(x-Cx)2 + (y-Cy)2 = r2 AND y = ax + b
+			//x2 + Cx2 - 2xCx + Cy2 +a2x2 + b2 - 2abx -2bCy - 2axCy - r2 = 0
+			//(1 + a2)x2 - (2Cx + 2ab + 2aCy)x + Cx2 + Cy2 + b2 - 2bCy - r2 = 0
+			//Ax + By + C = 0
+			double A = 1 + SQ(a);
+			double B = -2 * closest->getLocation().getX() - 2 * a * b - 2 * a * closest->getLocation().getY();
+			double C = SQ(closest->getLocation().getX()) + SQ(closest->getLocation().getY()) + SQ(b) 
+				- 2 * b * closest->getLocation().getY() - SQ(closest->getSize() / 2);
+
+			//need only one solution, lets say x = (sqrt(B2 - 4AC) - B) / (2 * A) and y = ax + b
+			nx = (sqrt(SQ(B) - 4 * A*C) - B) / (2 * A);
+			ny = a * nx + b;
+		}
+
+		this->endLocation = { nx, ny };
+	}
+
+
+	//for purpose of displaying:
+	this->location = (this->location + this->endLocation) / 2;
+
+
+	this->size = 2 * sqrt(SQ(this->location.getX() - this->endLocation.getX()) + SQ(this->location.getY() - this->endLocation.getY()));
 
 	this->toRemove = true;
 	return false; //TODO
@@ -49,7 +93,7 @@ double tower_defense::Beam::getWidth() const{
 }
 
 void tower_defense::Beam::updateEndLocation(){
-	this->endLocation = { this->location.getX() + this->size*cos(this->angle), this->location.getY() + this->size*sin(this->angle) };
+	this->endLocation = this->location + Point { this->size * sin(angle), -this->size * cos(angle)};
 }
 
 tower_defense::Point tower_defense::Beam::getEndLocation() const{

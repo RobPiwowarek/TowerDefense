@@ -60,7 +60,6 @@ void tower_defense::Map::refresh(Game &game) {
 	}
 
 	/// WEAPONFIRE
-
 	for (tower_defense::WeaponFire* w : weaponFires){
 		if (w->shouldBeRemoved()){
 			bulletsToRemove.insert(w);
@@ -112,13 +111,14 @@ void tower_defense::Map::refresh(Game &game) {
 
 	/// 
 
+	for (tower_defense::Turret* t : this->turrets) {
+		t->refresh(this);
+	}
+
     for (std::set<tower_defense::WeaponFire*>::iterator it = this->weaponFires.begin(); it != this->weaponFires.end(); ++it){
         (*it)->refresh(*this->grid);
     }
 
-	for (tower_defense::Turret* t : this->turrets) {
-		t->refresh(this);
-	}
 }
 
 bool tower_defense::Map::canPlaceTurret(const tower_defense::Point & point, const tower_defense::Turret & turret) {

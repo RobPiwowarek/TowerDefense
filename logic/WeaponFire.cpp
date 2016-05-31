@@ -5,7 +5,6 @@
 tower_defense::WeaponFire::WeaponFire(const int damage, const double size,
                                       const int lifeTime, const tower_defense::FireType type, const int fireClass)
         : Entity(Point(), 0, size, fireClass) {
-	std::cout << "[" << size << " " << this->size << "]";
 
     this->damage = damage;
     this->lifeTime = lifeTime;

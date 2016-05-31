@@ -76,7 +76,6 @@ void GameDisplayer::refresh(GameWindow& window) {
 
 void GameDisplayer::drawWeaponFires(graphics::GameWindow& w, tower_defense::Game* g){
 	tower_defense::Map& map = g->getMap();
-
 	for (tower_defense::WeaponFire* fire : map.getWeaponFires()){
 			sf::Texture texture = *w.getTexture(fire);
 			if (fire->getType() != FireType::beam)
@@ -213,7 +212,7 @@ void GameDisplayer::display(GameWindow& window, const sf::Texture& texture, cons
 	Sprite s(texture);
 	Vector2f location = gameToScreen(window, position);
 
-	s.setOrigin(Vector2f(s.getLocalBounds().height * 0.5, s.getLocalBounds().width * 0.5));
+	s.setOrigin(Vector2f(s.getLocalBounds().width * 0.5, s.getLocalBounds().height * 0.5));
 	s.setScale(((double)this->pointsPerUnit * size.getX()) / texture.getSize().x,
 		((double)this->pointsPerUnit * size.getY()) / texture.getSize().y);
 	s.setPosition(location);
