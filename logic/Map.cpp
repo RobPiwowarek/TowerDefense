@@ -177,7 +177,7 @@ void tower_defense::Map::removeMinion(Game& game, Minion* m) {
 
 void tower_defense::Map::addItem(Item *i) {
 	this->items.insert(i);
-	this->grid->getElement(i->getLocation())->setItem(i);
+	this->grid->getElement(i->getLocation())->addItem(i);
 	this->grid->calculateDistance(Grid::Item);
 }
 

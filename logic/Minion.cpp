@@ -193,7 +193,10 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
 
     if (this->target == Item) {
 		if (g.getElement(this->location)->hasItem()){
-			g.getElement(this->location)->getItem().pickUp(this, g);
+			
+			tower_defense::Item* i = *g.getElement(this->location)->getItems().begin();
+			i->pickUp(this, g);
+			
 			g.calculateDistance(Grid::Item);
 			g.calculateDistance(Grid::Escape);
 		}
