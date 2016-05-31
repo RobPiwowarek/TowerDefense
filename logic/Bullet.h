@@ -40,6 +40,12 @@ namespace tower_defense {
 		/// returns endLocation
 		Point getEndLocation() const;
 
+		/// return object info in a string
+		std::string toString() const;
+
+		/// print object info to standard output
+		void print() const;
+
     private:
         bool hitOnlyFirst;
         double splash;

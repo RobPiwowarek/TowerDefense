@@ -69,7 +69,7 @@ namespace tower_defense {
         bool hasTurret() const;
 
         /// returns item
-        Item& getItem() const;
+        std::set<Item*> getItems() const;
 
         /// checks if element has item.
         bool hasItem() const;
@@ -78,7 +78,7 @@ namespace tower_defense {
         bool hasItem(Item * item) const;
 
         /// sets item
-        void setItem(Item * item);
+        void addItem(Item * item);
 
         /// adds minion to grid element
         void addMinion(Minion* m);
@@ -95,7 +95,7 @@ namespace tower_defense {
         bool occupied = false; // has turret?
 
         Grid &grid;
-        Item *item = nullptr;
+		std::set<Item*> items;
         Turret *turret = nullptr;
         std::set<Minion *> minions;
     };

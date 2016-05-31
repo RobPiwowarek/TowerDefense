@@ -18,8 +18,8 @@ double tower_defense::Ring::getVelocity() const {
 }
 
 std::string tower_defense::Ring::toString() const {
-	std::string info = std::string("Beam: Damage: ") + (char)this->damage + " Angle: " + (char)this->angle + " Size: " + (char)this->size
-		+ " Inner Radius: " + (char)this->innerRadius  + " LifeTime: " + (char) this->lifeTime + " Velocity: " + (char) this->velocity + " Location: " 
+	std::string info = std::string("Beam: Damage: ") + std::to_string(this->damage) + " Angle: " + std::to_string(this->angle) + " Size: " + std::to_string(this->size)
+		+ " Inner Radius: " + std::to_string(this->innerRadius) + " LifeTime: " + std::to_string(this->lifeTime) + " Velocity: " + std::to_string(this->velocity) + " Location: "
 		+ this->location.toString();
 
 	return info;

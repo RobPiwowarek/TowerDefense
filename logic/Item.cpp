@@ -30,11 +30,13 @@ tower_defense::Minion* tower_defense::Item::getHoldingMinion() {
 bool tower_defense::Item::pickUp(tower_defense::Minion* minion, tower_defense::Grid& grid) {
     if (this->held) return false;
 
+	GridElement* g = grid.getElement(this->location);
+
     this->holdingMinion = minion;
     minion->setItem(this);
 	minion->setTargetPriority(tower_defense::Minion::Escape);
 	std::cout << "ITEM PICKEDUP " << minion->getTargetPriority() << std::endl;
-    grid.getElement(this->location)->setItem(nullptr);
+	g->getItems().erase(this);
 
     this->held = true;
     return true;

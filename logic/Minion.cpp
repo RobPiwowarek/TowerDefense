@@ -52,6 +52,8 @@ bool tower_defense::Minion::takeDamage(const double damage){
 
 #ifdef DMG_TEST
 	std::cout << "DAMAGE TAKEN: " << damage << " HEALTH: " << this->health << std::endl;
+	std::cout << "Minion: size: " << size << " speed: " << velocity << std::endl;
+	std::cout << "location: " << location.toString() << std::endl;
 #endif
 
 	if (this->health <= 0 || this->dead) return false; //check if already dead
@@ -191,7 +193,10 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
 
     if (this->target == Item) {
 		if (g.getElement(this->location)->hasItem()){
-			g.getElement(this->location)->getItem().pickUp(this, g);
+			
+			tower_defense::Item* i = *g.getElement(this->location)->getItems().begin();
+			i->pickUp(this, g);
+			
 			g.calculateDistance(Grid::Item);
 			g.calculateDistance(Grid::Escape);
 		}

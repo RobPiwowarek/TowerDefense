@@ -74,16 +74,19 @@ tower_defense::GridElement *tower_defense::GridElement::getRightNeighbour() cons
 }
 
 bool tower_defense::GridElement::hasItem() const{
-    return this->distToTarget == 0 && this->item != nullptr;
+    return this->distToTarget == 0 && this->items.size() != 0;
 }
 
 bool tower_defense::GridElement::hasItem(tower_defense::Item *item) const{
-    return this->item == item;
+	for (Item* i : this->items){
+		if (i == item) return true;
+	}
+	return false;
 }
 
-tower_defense::Item& tower_defense::GridElement::getItem() const { return *this->item; }
+std::set<tower_defense::Item*> tower_defense::GridElement::getItems() const { return this->items; }
 
-void tower_defense::GridElement::setItem(tower_defense::Item *item) { this->item = item; }
+void tower_defense::GridElement::addItem(tower_defense::Item *item) { this->items.insert(item); }
 
 bool tower_defense::GridElement::hasTurret() const {
     return occupied;

@@ -51,11 +51,14 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 
 			std::cout << "MINION" << std::endl;
 
+			
 			if (this->splash != 0){
 				for (GridElement* element : g.getElementsInRadius(minion, this->splash)){
 					for (Minion* m : element->getMinions()){
-						if (m->getSqDistance(minion) <= pow(this->splash/2 + m->getSize()/2, 2.0f)){
-							m->takeDamage(this->damage);
+						if (this->checkCollision(m)){
+							if (m->getSqDistance(minion) <= pow(this->splash / 2 + m->getSize() / 2, 2.0f)){
+								m->takeDamage(this->damage);
+							}
 						}
 					}
 				}
@@ -80,14 +83,18 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 bool tower_defense::Bullet::checkCollision(tower_defense::Minion * minion){
 	if (!minion) return false;
 
+	std::cout << this->toString() << std::endl;
+
+	
 	const double a = (this->location.getY() - this->endLocation.getY()) / (this->location.getX() - this->endLocation.getX());
 	const double b = a*(-this->location.getX()) + this->location.getY();
-
+	
 	// y = ax + b => ax - y + b = 0
 
 	double d = minion->getSqDistanceFromLine(a, -1, b);
+	
 
-	if (pow(this->size/2 + minion->getSize()/2, 2.0f) >= d){
+	if (pow(this->size/2 + minion->getSize()/2, 2.0f) > d){
 		return true;
 	}
 
@@ -100,6 +107,17 @@ tower_defense::Point tower_defense::Bullet::getEndLocation() const{
 
 void tower_defense::Bullet::updateEndLocation(){
 	this->endLocation = { this->location.getX() + this->velocity*sin(this->angle), this->location.getY() - this->velocity*cos(this->angle) };
+}
+
+std::string tower_defense::Bullet::toString() const {
+	std::string info = std::string("Bullet: Damage: ") + std::to_string(this->damage) + " Angle: " + std::to_string(this->angle) + " Size: " + std::to_string(this->size)
+		+ " LifeTime: " + std::to_string(this->lifeTime) + " Velocity: " + std::to_string(this->velocity) + " Location: " + this->location.toString();
+
+	return info;
+}
+
+void tower_defense::Bullet::print() const{
+	std::cout << this->toString() << std::endl;
 }
 
 bool tower_defense::Bullet::hits(Minion* m) {
