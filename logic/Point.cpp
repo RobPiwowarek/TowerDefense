@@ -19,7 +19,7 @@ tower_defense::Point::Point(const Point &p) : Point(p.x, p.y) {
 }
 
 std::string tower_defense::Point::toString() const {
-	std::string info = std::string("(") + (char)this->x + ',' + (char)this->y + ")";
+	std::string info = std::string("(") + std::to_string(this->x) + ',' + std::to_string(this->y) + ")";
 
 	return info;
 }

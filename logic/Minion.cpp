@@ -52,6 +52,8 @@ bool tower_defense::Minion::takeDamage(const double damage){
 
 #ifdef DMG_TEST
 	std::cout << "DAMAGE TAKEN: " << damage << " HEALTH: " << this->health << std::endl;
+	std::cout << "Minion: size: " << size << " speed: " << velocity << std::endl;
+	std::cout << "location: " << location.toString() << std::endl;
 #endif
 
 	if (this->health <= 0 || this->dead) return false; //check if already dead
