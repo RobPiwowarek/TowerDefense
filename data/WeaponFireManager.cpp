@@ -71,7 +71,8 @@ WeaponFire* WeaponFireManager::load(const string& directory, const std::string& 
 			atoi(fireNode.child_value("damage")),
 			atof(fireNode.child_value("velocity")),
 			atoi(fireNode.child_value("lifeTime")),
-			nextClass);
+			nextClass, 
+			atof(fireNode.child_value("innerRadius")));
 		break;
 	}
 

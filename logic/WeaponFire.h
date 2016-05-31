@@ -11,6 +11,7 @@ namespace tower_defense {
 #include "FireType.h"
 #include "Minion.h"
 #include "Grid.h"
+#include <string>
 
 namespace tower_defense {
     /// class representing basic bullet/beam/ring or
@@ -41,6 +42,13 @@ namespace tower_defense {
 
 		/// checks collision with minion
 		virtual bool checkCollision(tower_defense::Minion * minion) = 0;
+
+		/// return object info in a string
+		std::string toString() const;
+
+		/// print object info to standard output
+		void print() const;
+
 
     protected:
 

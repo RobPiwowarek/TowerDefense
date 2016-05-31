@@ -1,5 +1,6 @@
 #include "Point.h"
 #include <cmath>
+#include <iostream>
 
 tower_defense::Point::Point() : Point(0.0, 0.0) {
 }
@@ -15,6 +16,16 @@ tower_defense::Point::Point(int x, int y) {
 }
 
 tower_defense::Point::Point(const Point &p) : Point(p.x, p.y) {
+}
+
+std::string tower_defense::Point::toString() const {
+	std::string info = std::string("(") + (char)this->x + ',' + (char)this->y + ")";
+
+	return info;
+}
+
+void tower_defense::Point::print() const {
+	std::cout << this->toString() << std::endl;
 }
 
 double tower_defense::Point::getX() const {

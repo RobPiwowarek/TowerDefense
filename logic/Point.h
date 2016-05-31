@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <string>
+
 namespace tower_defense {
 
     ///the Point class, representing a point on the map
@@ -33,6 +35,12 @@ namespace tower_defense {
 
 		/// returns square distance between 2 points
 		double getSquareDistance(const tower_defense::Point &p);
+
+		/// prints (x, y) to standard output
+		void print() const;
+
+		/// returns string representation of point
+		std::string toString() const;
 
         /// sets xy
         void setPoint(const Point &p);

@@ -7,4 +7,5 @@
  <size>1</size>
  <lifeTime>16</lifeTime>
  <damage>2</damage>
+ <innerRadius>0.75</innerRadius>
 </weaponFire>

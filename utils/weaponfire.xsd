@@ -16,6 +16,8 @@
         <xs:element name="imgsrc" type="xs:anyURI"/>
         <xs:element name="velocity" type="xs:double"
                     minOccurs="0"/>
+        <!--Ring only-->
+        <xs:element name="innerRadius" type="xs:double"/>            
         <!--Beam only-->
         <xs:element name="width" type="xs:double"/>
         <!--Bullet & Ring ONLY-->

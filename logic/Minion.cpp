@@ -1,6 +1,8 @@
 #include "Minion.h"
+#include <iostream>
 
 #define PI 3.1415
+#define DMG_TEST
 
 // TODO: czemu entity(point(0,0))? Re: w sumie nie ma znaczenia, ale konstruktor wymaga jakiegos
 tower_defense::Minion::Minion(
@@ -47,6 +49,11 @@ bool tower_defense::Minion::setItem(tower_defense::Item* item) {
 }
 
 bool tower_defense::Minion::takeDamage(const double damage){
+
+#ifdef DMG_TEST
+	std::cout << "DAMAGE TAKEN: " << damage << " HEALTH: " << this->health << std::endl;
+#endif
+
 	if (this->health <= 0 || this->dead) return false; //check if already dead
 
 	this->health -= damage;

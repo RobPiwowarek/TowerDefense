@@ -7,6 +7,7 @@ namespace tower_defense {
 
 #include "WeaponFire.h"
 #include "Minion.h"
+#include <string>
 
 namespace tower_defense {
     class Beam : public WeaponFire {
@@ -25,6 +26,12 @@ namespace tower_defense {
 
         /// refreshes the beam
         bool refresh(Grid& grid);
+
+		/// return object info in a string
+		std::string toString() const;
+
+		/// print object info to standard output
+		void print() const;
 
 		/// check collision
 		bool checkCollision(tower_defense::Minion * minion);

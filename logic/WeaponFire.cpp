@@ -21,6 +21,16 @@ tower_defense::WeaponFire::WeaponFire(const WeaponFire &base, const Point &locat
 	this->angle = angle + angleModifier;
 }
 
+std::string tower_defense::WeaponFire::toString() const{
+	std::string info = std::string("WeaponFire: Damage: ") + (char)this->damage + " Angle: " + (char)this->angle + " Size: " + (char)this->size + " LifeTime: " + (char) this->lifeTime;
+
+	return info;
+}
+
+void tower_defense::WeaponFire::print() const{
+	std::cout << this->toString() << std::endl;
+}
+
 bool tower_defense::WeaponFire::shouldBeRemoved() const{
 	return this->toRemove;
 }

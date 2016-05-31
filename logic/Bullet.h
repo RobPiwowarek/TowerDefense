@@ -37,10 +37,17 @@ namespace tower_defense {
 		/// checks if collision occured with a minion
 		bool checkCollision(tower_defense::Minion * minion);
 
+		/// returns endLocation
+		Point getEndLocation() const;
+
     private:
         bool hitOnlyFirst;
         double splash;
         double velocity;
+		Point endLocation;
+
+		/// updates end location
+		void updateEndLocation();
 
         bool hits(Minion* m);
     };

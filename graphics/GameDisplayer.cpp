@@ -50,7 +50,6 @@ void GameDisplayer::refresh(GameWindow& window) {
 	window.draw(this->baseBackground);
 
 	this->drawMapAndMinions(window, g);
-	this->drawWeaponFires(window, g);
 
 	if (this->selectedTurretBase != nullptr){
 		this->drawBuildingTurret(window, g);
@@ -68,6 +67,8 @@ void GameDisplayer::refresh(GameWindow& window) {
 	for (set<Item*>::const_iterator it = g->getMap().getItems().cbegin(); it != g->getMap().getItems().cend(); it++)
 		if (onScreen(window, **it))
 			display(window, *window.getTexture(*it), { (*it)->getSize(), (*it)->getSize() }, (*it)->getLocation());
+
+	this->drawWeaponFires(window, g);
 
 	AppModel::getInstance().getGame().release();
 }

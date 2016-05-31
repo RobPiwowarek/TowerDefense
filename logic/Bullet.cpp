@@ -32,14 +32,12 @@ double tower_defense::Bullet::getVelocity() const {
 }
 
 bool tower_defense::Bullet::refresh(Grid& g) {
+	this->updateEndLocation();
 
 	if (this->lifeTime-- == 0) {
 		this->toRemove = true;
 		return false;
 	}
-
-	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
-	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 
 	/// reached map bounds
 	if (!g.inBounds(this->location.getX(), this->location.getY())){
@@ -48,32 +46,33 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 	}
 
 	/// detect collision
-	tower_defense::GridElement * temp = g.getElement(this->location);
+	for (GridElement * temp : g.getElementsInRadius(this->location, this->size)){
+		for (Minion * minion : temp->getMinions()){
 
-	if (!temp->getMinions().empty()){
-		for (tower_defense::Minion* minion : temp->getMinions()){
-			if (this->checkCollision(minion)){
-				if (!this->splash){
-					for (GridElement* element : g.getElementsInRadius(minion, this->splash)){
-						for (Minion* m : element->getMinions()){
-							if (m->getSqDistance(minion) <= pow(this->splash, 2.0f)){
-								m->takeDamage(this->damage);
-							}
+			std::cout << "MINION" << std::endl;
+
+			if (this->splash != 0){
+				for (GridElement* element : g.getElementsInRadius(minion, this->splash)){
+					for (Minion* m : element->getMinions()){
+						if (m->getSqDistance(minion) <= pow(this->splash/2 + m->getSize()/2, 2.0f)){
+							m->takeDamage(this->damage);
 						}
 					}
 				}
-
-				minion->takeDamage(this->damage); // damage the main minion
-
+			}
+			else if (this->checkCollision(minion)){
+				minion->takeDamage(this->damage);
 				if (this->hitOnlyFirst){
 					this->toRemove = true;
 					return false;
 				}
-				
-				std::cout << "KOLIZJA" << std::endl;
 			}
+
 		}
 	}
+
+	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
+	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
 
 	return true; //TODO
 }
@@ -81,11 +80,26 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 bool tower_defense::Bullet::checkCollision(tower_defense::Minion * minion){
 	if (!minion) return false;
 
-	if (pow((this->size + minion->getSize()), 2.0f) >= minion->getSqDistance(this)){
+	const double a = (this->location.getY() - this->endLocation.getY()) / (this->location.getX() - this->endLocation.getX());
+	const double b = a*(-this->location.getX()) + this->location.getY();
+
+	// y = ax + b => ax - y + b = 0
+
+	double d = minion->getSqDistanceFromLine(a, -1, b);
+
+	if (pow(this->size/2 + minion->getSize()/2, 2.0f) >= d){
 		return true;
 	}
 
 	return false;
+}
+
+tower_defense::Point tower_defense::Bullet::getEndLocation() const{
+	return this->endLocation;
+}
+
+void tower_defense::Bullet::updateEndLocation(){
+	this->endLocation = { this->location.getX() + this->velocity*sin(this->angle), this->location.getY() - this->velocity*cos(this->angle) };
 }
 
 bool tower_defense::Bullet::hits(Minion* m) {
