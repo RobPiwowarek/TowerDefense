@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+
+<weaponFire>
+ <type>Beam</type>
+ <imgsrc>lsdbeam.png</imgsrc>
+ <size>24</size>
+ <width>0.1</width>
+ <damage>1</damage>
+ <hitOnlyFirst>0</hitOnlyFirst>
+</weaponFire>

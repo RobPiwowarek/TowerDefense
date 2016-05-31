@@ -4105,31 +4105,16 @@
     <items>
       <item img="item.png" size="0.5" />
       <item img="item.png" size="0.5" />
+      <item img="item.png" size="0.5" />
+      <item img="item.png" size="0.5" />
     </items>
     <turrets>
-      <turret>balista</turret>
-      <turret>machinegun</turret>
-      <turret>magicgun</turret>
-      <turret>lsdgun</turret>
+      <turret>gun</turret>
+      <turret>flamethrower</turret>
+      <turret>ion</turret>
     </turrets>
   </player>
   <waves>
-    <wave>wave1</wave>
-    <wave>cpause1000</wave>
-    <wave>wave1</wave>
-    <wave>cpause1000</wave>
-    <wave>wave2</wave>
-    <wave>cpause1000</wave>
-    <wave>wave3</wave>
-    <wave>cpause1000</wave>
-    <wave>wave4</wave>
-    <wave>cpause1000</wave>
-    <wave>wave5</wave>
-    <wave>cpause1000</wave>
-    <wave>wave6</wave>
-    <wave>cpause1000</wave>
-    <wave>wave6</wave>
-    <wave>cpause1000</wave>
-    <wave>wave6</wave>
+    <wave>test</wave>
   </waves>
 </game>

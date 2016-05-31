@@ -1,0 +1,43 @@
+﻿<?xml version="1.0"?>
+
+<wave>
+    <timeBetweenMinions>
+        30
+    </timeBetweenMinions>
+    <minion>
+		attacker
+    </minion>
+    <minion>
+		casual
+    </minion>
+    <minion>
+		fast
+    </minion>
+    <minion>
+		attacker
+    </minion>
+    <minion>
+		casual
+    </minion>
+    <minion>
+		fast
+    </minion>
+    <minion>
+		attacker
+    </minion>
+    <minion>
+		casual
+    </minion>
+    <minion>
+		fast
+    </minion>
+    <minion>
+		attacker
+    </minion>
+    <minion>
+		casual
+    </minion>
+    <minion>
+		fast
+    </minion>
+</wave>

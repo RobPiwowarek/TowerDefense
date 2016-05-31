@@ -2,9 +2,9 @@
 
 <weaponFire>
  <type>Ring</type>
- <imgsrc>firering.png</imgsrc>
+ <imgsrc>magicring.png</imgsrc>
  <velocity>0.0625</velocity>
- <size>1</size>
+ <size>4</size>
  <lifeTime>16</lifeTime>
  <damage>2</damage>
 </weaponFire>

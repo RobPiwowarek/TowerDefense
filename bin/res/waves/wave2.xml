@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+
+<wave>
+    <timeBetweenMinions>
+        100
+    </timeBetweenMinions>
+    <minion>
+        attacker
+    </minion>
+</wave>

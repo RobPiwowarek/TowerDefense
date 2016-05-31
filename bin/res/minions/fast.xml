@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+
+<minion>
+    <img>fast.png</img>
+    <size>0.4</size>
+    <velocity>0.15</velocity>
+    <damage>1</damage>
+    <reward>15</reward>
+    <attackSpeed>10</attackSpeed>
+    <health>2</health>
+    <priority>Item</priority>
+</minion>

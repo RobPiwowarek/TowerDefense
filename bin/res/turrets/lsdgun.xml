@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>lsdgun.png</imgsrc>
+ <name>Beam tower</name>
+ <size>2</size>
+ <rotationSpeed>0.15</rotationSpeed>
+ <health>75</health>
+ <cost>200</cost>
+ <weapon>
+  <reloadTime>100</reloadTime>
+  <range>10</range>
+  <weaponFire time='0'>lsdbeam</weaponFire>
+  <weaponFire time='1'>lsdbeam</weaponFire>
+  <weaponFire time='2'>lsdbeam</weaponFire>
+  <weaponFire time='3'>lsdbeam</weaponFire>
+  <weaponFire time='4'>lsdbeam</weaponFire>
+  <weaponFire time='5'>lsdbeam</weaponFire>
+  <weaponFire time='6'>lsdbeam</weaponFire>
+  <weaponFire time='7'>lsdbeam</weaponFire>
+  <weaponFire time='8'>lsdbeam</weaponFire>
+  <weaponFire time='9'>lsdbeam</weaponFire>
+  <weaponFire time='10'>lsdbeam</weaponFire>
+  <weaponFire time='11'>lsdbeam</weaponFire>
+  <weaponFire time='12'>lsdbeam</weaponFire>
+  <weaponFire time='13'>lsdbeam</weaponFire>
+  <weaponFire time='14'>lsdbeam</weaponFire>
+  <weaponFire time='15'>lsdbeam</weaponFire>
+  <weaponFire time='16'>lsdbeam</weaponFire>
+  <weaponFire time='17'>lsdbeam</weaponFire>
+  <weaponFire time='18'>lsdbeam</weaponFire>
+  <weaponFire time='19'>lsdbeam</weaponFire>
+  <weaponFire time='20'>lsdbeam</weaponFire>
+  <weaponFire time='21'>lsdbeam</weaponFire>
+  <weaponFire time='22'>lsdbeam</weaponFire>
+  <weaponFire time='23'>lsdbeam</weaponFire>
+  <weaponFire time='24'>lsdbeam</weaponFire>
+ </weapon>
+</turret>

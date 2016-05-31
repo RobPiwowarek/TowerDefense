@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>machinegun.png</imgsrc>
+ <name>Machine gun</name>
+ <size>2</size>
+ <rotationSpeed>0.20</rotationSpeed>
+ <health>150</health>
+ <cost>150</cost>
+ <weapon>
+  <reloadTime>30</reloadTime>
+  <range>8</range>
+  <weaponFire time='0'>bullet</weaponFire>
+  <weaponFire time='1'>bullet</weaponFire>
+  <weaponFire time='2'>bullet</weaponFire>
+  <weaponFire time='3'>bullet</weaponFire>
+  <weaponFire time='4'>bullet</weaponFire>
+  <weaponFire time='5'>bullet</weaponFire>
+  <weaponFire time='6'>bullet</weaponFire>
+  <weaponFire time='7'>bullet</weaponFire>
+  <weaponFire time='8'>bullet</weaponFire>
+  <weaponFire time='9'>bullet</weaponFire>
+ </weapon>
+</turret>

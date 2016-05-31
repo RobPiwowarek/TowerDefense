@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>balista.png</imgsrc>
+ <name>Ballista</name>
+ <size>1</size>
+ <rotationSpeed>0.1</rotationSpeed>
+ <health>150</health>
+ <cost>50</cost>
+ <weapon>
+  <reloadTime>20</reloadTime>
+  <range>12</range>
+  <weaponFire time='0'>arrow</weaponFire>
+ </weapon>
+</turret>
