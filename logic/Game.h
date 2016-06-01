@@ -16,14 +16,19 @@ namespace tower_defense {
 
         ~Game();
 
+		// returns map
         tower_defense::Map &getMap();
 
+		// returns current wave
         tower_defense::MinionWave &getCurrentWave();
 
+		// returns player object
         tower_defense::Player &getPlayer();
 
+		// adds turret to the game and map etc
 		void addTurret(const Turret* base, const Point& p, const int cost);
 
+		// refreshes all the game
         void refresh();
 
     private:

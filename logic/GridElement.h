@@ -59,10 +59,13 @@ namespace tower_defense {
         /// these methods return grid elements next to this one
         GridElement *getLeftNeighbour() const;
 
+		/// these methods return grid elements next to this one
         GridElement *getRightNeighbour() const;
 
+		/// these methods return grid elements next to this one
         GridElement *getUpNeighbour() const;
 
+		/// these methods return grid elements next to this one
         GridElement *getDownNeighbour() const;
 
         /// returns false if turret isn't present

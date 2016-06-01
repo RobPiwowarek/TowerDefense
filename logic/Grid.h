@@ -65,9 +65,11 @@ namespace tower_defense {
 		/// returns grid elements in a line given by starting point and ending point
 		std::set<GridElement*> getElementsInLine(const Point & startingPoint, const Point & endingPoint, const double offset=0) const;
 
+		// returns if coords are in bounds
 		bool inBounds(double x, double y) const;
 		bool inBounds(int x, int y) const;
 
+		// returns elements occupied by given entity
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity);
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const Point& p);
 		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const double x, const double y);
