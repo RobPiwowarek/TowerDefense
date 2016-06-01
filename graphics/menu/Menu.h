@@ -11,31 +11,31 @@ namespace graphics {
     class Menu;
 	class GameWindow;
 }
+namespace graphics {
+	class Menu {
+	public:
+		Menu(int n, ...); // assuming: graphics::Label* 
+		Menu(std::vector<graphics::Label*> labels);
+		Menu();
 
-class Menu {
-public:
-	Menu(int n, ...); // assuming: graphics::Label* 
-    Menu(std::vector<graphics::Label*> labels);
-	Menu();
+		~Menu();
 
-    ~Menu();
+		bool addMenuItem(graphics::Label* label);
 
-	bool addMenuItem(graphics::Label* label);
+		void draw(graphics::GameWindow &window);
 
-    void draw(graphics::GameWindow &window);
+		void moveUp();
 
-    void moveUp();
+		void moveDown();
 
-    void moveDown();
+		std::set<graphics::Label *>& getMenuItems() const;
 
-	std::set<graphics::Label *>& getMenuItems() const;
+		graphics::Label* getCurrentItem() const;
 
-	graphics::Label* getCurrentItem() const;
-
-private:
-	int selectedItemIndex = 0;
-	std::vector<graphics::Label*> menu;
-};
-
+	private:
+		int selectedItemIndex = 0;
+		std::vector<graphics::Label*> menu;
+	};
+}
 
 #endif //TOWERDEFENSE_MENU_H

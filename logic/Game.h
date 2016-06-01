@@ -7,7 +7,7 @@ namespace tower_defense {
 #include "Map.h"
 #include "MinionWave.h"
 #include "Player.h"
-
+#include "../graphics/menu/Menu.h"
 
 namespace tower_defense {
     class Game {

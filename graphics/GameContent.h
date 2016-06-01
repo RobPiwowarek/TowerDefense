@@ -6,6 +6,7 @@
 #include "Label.h"
 #include "Content.h"
 #include "../logic/Point.h"
+#include "../graphics/menu/Menu.h"
 
 namespace graphics {
 	class GameContent : public Content{
@@ -27,6 +28,14 @@ namespace graphics {
 		const static int FINISHED_LABEL_X = 270;
 		const static int FINISHED_LABEL_Y = 400;
 		const static int FINISHED_LABEL_FONT_SIZE = 20;
+
+		const static int MENU_LABEL_WIDTH = 300;
+		const static int MENU_LABEL_HEIGHT = 50;
+		const static int MENU_LABEL_X = 270;
+		const static int MENU_LABEL_Y = 100;
+		const static int MENU_LABEL_Y_DIFF = 75;
+		const static int MENU_LABEL_FONT_SIZE = 30;
+
 	public:
 		GameContent(graphics::GameWindow& w);
 		~GameContent();
@@ -39,6 +48,22 @@ namespace graphics {
 		void createTurretList();
 
 		void checkKeys();
+
+		/// Menus
+		Menu * mainMenu;
+
+		Menu * pauseMenu;
+		// returns main menu
+		Menu* getMainMenu() const;
+
+		// returns pause menu
+		Menu* getPauseMenu() const;
+
+		// creates main menu
+		void createMainMenu(graphics::GameWindow& w);
+
+		// creates pause menu
+		void createPauseMenu(graphics::GameWindow& w);
 
 		GameDisplayer* displayer;
 
@@ -55,12 +80,13 @@ namespace graphics {
 
 		Label* confirmLabel;
 
-
 		bool keys[sf::Keyboard::KeyCount];
 
 		void manageEvent_mousePress(sf::Event& e);
 		void manageEvent_mousePress_gameGoing(sf::Event& e);
 		void manageEvent_mousePress_gameFinished(sf::Event& e);
+		void manageEvent_mousePress_mainMenu(sf::Event& e);
+		void manageEvent_mousePress_paused(sf::Event& e);
 
 		int selectedTurret = -1;
 

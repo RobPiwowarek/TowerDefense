@@ -4,6 +4,8 @@
 #include <cstdio>
 #include <cstdarg>
 
+using namespace graphics;
+
 Menu::Menu(){}
 
 Menu::Menu(int n, ...){
