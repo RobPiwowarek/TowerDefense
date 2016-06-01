@@ -108,6 +108,7 @@ void GameWindow::refresh() {
 				this->stop();
 				AppModel::getInstance().closeGame();
 				this->close();
+				return;
 			default:
 				this->currentContent->manageEvent(e);
 			}

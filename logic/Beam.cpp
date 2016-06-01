@@ -1,7 +1,7 @@
 #include "Beam.h"
 #include <iostream>
 
-#define SQ(X) (X)*(X)
+#define SQ(X) ((X)*(X))
 
 tower_defense::Beam::Beam(const int damage, const double maxSize, const int fireClass, const bool hitOnlyFirst, const double width)
 	: WeaponFire(damage, maxSize, 1, beam, fireClass) {
@@ -45,18 +45,18 @@ bool tower_defense::Beam::refresh(Grid& g) {
 			ny = sqrt(SQ(closest->getSize() /2) - SQ(nx - closest->getLocation().getX())) + closest->getLocation().getY();
 		}
 		else { //y = ax + b
-			double a = this->location.getX() - this->endLocation.getX() / this->location.getY() - this->endLocation.getY();
+			double a = (this->location.getY() - this->endLocation.getY()) / (this->location.getX() - this->endLocation.getX());
 			double b = this->location.getY() - a * this->location.getX();
 
 			//(x-Cx)2 + (y-Cy)2 = r2 AND y = ax + b
-			//x2 + Cx2 - 2xCx + Cy2 +a2x2 + b2 - 2abx -2bCy - 2axCy - r2 = 0
-			//(1 + a2)x2 - (2Cx + 2ab + 2aCy)x + Cx2 + Cy2 + b2 - 2bCy - r2 = 0
+			//x2 + Cx2 - 2xCx + Cy2 +a2x2 + b2 + 2abx -2bCy - 2axCy - r2 = 0
+			//(1 + a2)x2 + (-2Cx + 2ab - 2aCy)x + Cx2 + Cy2 + b2 - 2bCy - r2 = 0
 			//Ax + By + C = 0
 			double A = 1 + SQ(a);
-			double B = -2 * closest->getLocation().getX() - 2 * a * b - 2 * a * closest->getLocation().getY();
+			double B = -2 * closest->getLocation().getX() + 2 * a * b - 2 * a * closest->getLocation().getY();
 			double C = SQ(closest->getLocation().getX()) + SQ(closest->getLocation().getY()) + SQ(b) 
 				- 2 * b * closest->getLocation().getY() - SQ(closest->getSize() / 2);
-
+			
 			//need only one solution, lets say x = (sqrt(B2 - 4AC) - B) / (2 * A) and y = ax + b
 			nx = (sqrt(SQ(B) - 4 * A*C) - B) / (2 * A);
 			ny = a * nx + b;
@@ -121,13 +121,9 @@ bool tower_defense::Beam::hits(Minion* m) {
 }
 
 bool tower_defense::Beam::checkCollision(tower_defense::Minion * minion){
+	double d = minion->getLocation().getSqDistFromSegment(this->location, this->endLocation);
 
-	const double a = (this->location.getY() - this->endLocation.getY()) / (this->location.getX() - this->endLocation.getX());
-	const double b = a*(-this->location.getX()) + this->location.getY();
-
-	// y = ax + b => ax - y + b = 0
-
-	double d = minion->getSqDistanceFromLine(a, -1, b);
+	std::cout << "d2: " << d << " r2: " << pow(minion->getSize() / 2 + this->width / 2, 2.0f) << std::endl;
 
 	if (d <= pow(minion->getSize()/2 + this->width/2, 2.0f)) return true;
 

@@ -7,6 +7,6 @@
     <damage>1</damage>
     <reward>5</reward>
     <attackSpeed>10</attackSpeed>
-    <health>2</health>
+    <health>12</health>
     <priority>Item</priority>
 </minion>

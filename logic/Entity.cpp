@@ -15,17 +15,17 @@ tower_defense::Entity::Entity(const Entity &e)
 
 /// according to kuba (d2 + x)^2 + (d2 + y)^2  
 double tower_defense::Entity::getSqDistance(const tower_defense::Entity *e) const {
-    return pow(e->getLocation().getX() - this->getLocation().getX(), 2.0f) +
-           pow(e->getLocation().getY() - this->getLocation().getY(), 2.0f) ;
+	return this->location.getSquareDistance(e->location);
 }
 
+/*
 double tower_defense::Entity::getSqDistanceFromLine(const double A, const double B, const double C)const{
 	/// Ax + By + C = 0;
 	double d = pow((A*this->location.getX() + B*this->location.getY() + C), 2.0f) / (A*A + B*B);
 
 	return d;
 }
-
+*/
 double tower_defense::Entity::getAngle() const {
     return this->angle;
 }

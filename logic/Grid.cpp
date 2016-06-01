@@ -14,41 +14,22 @@ tower_defense::Grid::Grid(int width, int height, Map &m) : map(m) {
     }
 }
 
+inline double min(const double a, const double b) { return a > b ? b : a; }
+inline double max(const double a, const double b) { return a > b ? a : b; }
 
 std::set<tower_defense::GridElement*> tower_defense::Grid::getElementsInLine(const Point & startingPoint, const Point & endingPoint, const double width) const{
 	if (startingPoint.getX() > endingPoint.getX()) return this->getElementsInLine(endingPoint, startingPoint);
-	
+
 	std::set<tower_defense::GridElement*> elements;
-
-	/// calculate coefficients for y = ax + b
-	const double a = (endingPoint.getY() - startingPoint.getY()) / (endingPoint.getX() - startingPoint.getX());
-	const double b = a*(-startingPoint.getX()) + startingPoint.getY();
-
-	if (a == 0){
-		double x = startingPoint.getX();
-
-		for (double i = startingPoint.getY(); i <= endingPoint.getY(); ++i){
-			if (inBounds(x, i)) elements.insert(this->getElement(x, i));
-			if (inBounds(x + width, i + width)) elements.insert(this->getElement(x + width, i + width));
-			if (inBounds(x - width, i - width)) elements.insert(this->getElement(x - width, i - width));
+	for (int i = min(startingPoint.getX(), endingPoint.getX()) - width; i < max(startingPoint.getX(), endingPoint.getX()) + width; i++) {
+		for (int j = min(startingPoint.getY(), endingPoint.getY()) - width; j < max(startingPoint.getY(), endingPoint.getY()) + width; j++) {
+			if (inBounds(i, j))
+				elements.insert(getElement(i, j));
 		}
-
-		return elements;
 	}
-	else {
 
-		for (double i = startingPoint.getX(); i <= endingPoint.getX(); ++i){
-			double y = a*i + b;
 
-			if (inBounds(i, y)) elements.insert(this->getElement(i, y));
-
-			if (inBounds(i + width, y + width)) elements.insert(this->getElement(i + width, y + width));
-
-			if (inBounds(i - width, y - width)) elements.insert(this->getElement(i - width, y - width));
-		}
-
-		return elements;
-	}
+	return elements;
 }
 
 bool tower_defense::Grid::inBounds(double x, double y)const {

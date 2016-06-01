@@ -74,8 +74,7 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 		}
 	}
 
-	this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
-	this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
+	this->location = endLocation;
 
 	return true; //TODO
 }
@@ -83,22 +82,10 @@ bool tower_defense::Bullet::refresh(Grid& g) {
 bool tower_defense::Bullet::checkCollision(tower_defense::Minion * minion){
 	if (!minion) return false;
 
-	std::cout << this->toString() << std::endl;
-
-	
-	const double a = (this->location.getY() - this->endLocation.getY()) / (this->location.getX() - this->endLocation.getX());
-	const double b = a*(-this->location.getX()) + this->location.getY();
-	
-	// y = ax + b => ax - y + b = 0
-
-	double d = minion->getSqDistanceFromLine(a, -1, b);
+	double d = minion->getLocation().getSqDistFromSegment(location, endLocation);
 	
 
-	if (pow(this->size/2 + minion->getSize()/2, 2.0f) > d){
-		return true;
-	}
-
-	return false;
+	return pow(this->size / 2 + minion->getSize() / 2, 2.0f) > d;
 }
 
 tower_defense::Point tower_defense::Bullet::getEndLocation() const{

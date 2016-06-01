@@ -94,7 +94,10 @@ void tower_defense::Map::refresh(Game &game) {
 	for (tower_defense::Minion* m : toRemove) {
 		GridElement* g = grid->getElement(m->getLocation());
 		if (g != nullptr) {
+			if (m->hasItem())
+				g->addItem(m->getItem());
 			g->removeMinion(m);
+			
 		}
 		else if (m->hasItem()) {
 			this->items.erase(m->getItem());

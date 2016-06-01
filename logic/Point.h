@@ -34,7 +34,10 @@ namespace tower_defense {
         void setY(double y);
 
 		/// returns square distance between 2 points
-		double getSquareDistance(const tower_defense::Point &p);
+		double getSquareDistance(const tower_defense::Point &p) const;
+
+		// returns squared distance from segment AB
+		double getSqDistFromSegment(const tower_defense::Point& A, const tower_defense::Point& B) const;
 
 		/// prints (x, y) to standard output
 		void print() const;

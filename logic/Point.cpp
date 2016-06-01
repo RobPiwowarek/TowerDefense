@@ -49,8 +49,32 @@ void tower_defense::Point::setPoint(const Point &p) {
     this->y = p.getY();
 }
 
-double tower_defense::Point::getSquareDistance(const tower_defense::Point &p){
-	return pow(this->x - p.getX(), 2.0f) + pow(this->y - p.getY(), 2.0f);
+inline double square(double x) { return x * x; }
+
+double tower_defense::Point::getSquareDistance(const tower_defense::Point &p) const {
+	return square(this->x - p.getX()) + square(this->y - p.getY());
+}
+
+double tower_defense::Point::getSqDistFromSegment(const tower_defense::Point& A, const tower_defense::Point& B) const {
+	//lets say that the segment is a part of line k, with given equation: k = (vec)A + (vec)AB * t
+	//then lets count t0 that is t with minimal distance from this point
+
+	std::cout << A.x << " " << A.y << std::endl;
+	std::cout << B.x << " " << B.y << std::endl;
+	std::cout << x << " " << y << std::endl;
+
+	tower_defense::Point AB = B - A;
+	double t0 = (this->x * AB.x + this->y * AB.y - A.x * AB.x - A.y * AB.y) / (AB.x * AB.x + AB.y * AB.y);
+
+	std::cout << t0 << std::endl;
+
+	// if t0 is between 0 and 1 than it is closer to the segment than points A and B
+	// else if t0 is lower than 0 it is closer to point A
+	// else id it is greater than 1 it is closer to point B
+
+	if (t0 < 0) return getSquareDistance(A);
+	if (t0 > 1) return getSquareDistance(B);
+	else return square(A.x + AB.x * t0 - this->x) + square(A.y + AB.y * t0 - this->y);
 }
 
 tower_defense::Point tower_defense::Point::operator-(const Point &p) const {
