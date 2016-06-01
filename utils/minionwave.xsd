@@ -6,7 +6,15 @@
       <xs:sequence>
 
         <xs:element name="timeBetweenMinions" type="xs:positiveInteger" />
-        <xs:element name="minion" type="xs:anyURI" maxOccurs="unbounded" />
+        <xs:element name="minion" maxOccurs="unbounded" >
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:anyURI">
+                <xs:attribute name="count" type="xs:nonNegativeInteger" use="optional" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
         
       </xs:sequence>
     </xs:complexType>

@@ -2,18 +2,20 @@
 #include <iostream>
 
 #define PI 3.1415
-#define DMG_TEST
 
 // TODO: czemu entity(point(0,0))? Re: w sumie nie ma znaczenia, ale konstruktor wymaga jakiegos
 tower_defense::Minion::Minion(
         const double velocity, const double size, const int minionClass,
-        const int reward, const int health, const int damage, const TargetPriority priority)
+        const int reward, const int health, const int damage, const TargetPriority priority, const int attackSpeed)
         : Entity(Point(0, 0), 0.0, size, minionClass) {
     this->velocity = velocity;
     this->reward = reward;
     this->health = health;
     this->next = nullptr;
     this->target = priority;
+
+	this->damage = damage;
+	this->attackSpeed = attackSpeed;
 }
 
 tower_defense::Minion::Minion(const Minion &base, const Point &x0)
@@ -24,14 +26,15 @@ tower_defense::Minion::Minion(const Minion &base, const Point &x0)
     this->location = x0;
     this->next = nullptr;
 	this->target = base.target;
+	this->damage = base.damage;
+	this->attackSpeed = base.attackSpeed;
+	this->attackRefreshing = 0;
 }
 
-void tower_defense::Minion::attack(tower_defense::Turret &turret) const{
-    int damage = this->damage - turret.getArmor();
-
-    if (damage < 0) return;
-
-    turret.setCurrentHealth(turret.getCurrentHealth() - damage);
+void tower_defense::Minion::attack(tower_defense::Turret &turret) {
+	if (this->attackRefreshing) return;
+    turret.attack(this->damage);
+	this->attackRefreshing = this->attackSpeed;
 }
 
 tower_defense::Item* tower_defense::Minion::getItem() const { return this->item; }
@@ -50,11 +53,6 @@ bool tower_defense::Minion::setItem(tower_defense::Item* item) {
 
 bool tower_defense::Minion::takeDamage(const double damage){
 
-#ifdef DMG_TEST
-	std::cout << "DAMAGE TAKEN: " << damage << " HEALTH: " << this->health << std::endl;
-	std::cout << "Minion: size: " << size << " speed: " << velocity << std::endl;
-	std::cout << "location: " << location.toString() << std::endl;
-#endif
 
 	if (this->health <= 0 || this->dead) return false; //check if already dead
 
@@ -91,7 +89,6 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 			this->next = currentLocation;
 			return;
 		}
-
 		if (left != nullptr)
 			if (!left->hasTurret() && left->getDistToCorner() < dist) {
 				this->next = left;
@@ -119,7 +116,6 @@ void tower_defense::Minion::chooseDestination(Grid &g, Game &game) {
 	}
     else if (currentLocation->getDistToTarget() != -1 && (target == Item || currentLocation->getDistToTurret() == -1
 		|| (target == Closer &&	(currentLocation->getDistToTarget() <= currentLocation->getDistToTurret())))) { // Go to target
-
 		int dist = currentLocation->getDistToTarget();
         if (left != nullptr)
 			if (!left->hasTurret() && left->getDistToTarget() < dist) {
@@ -182,6 +178,9 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
         this->death(game);
 		return;
     }
+	if (this->attackRefreshing)
+		this->attackRefreshing--;
+
 	if (this->next == nullptr || this->next == g.getElement(this->location))
 		this->chooseDestination(g, game);
 	else if (this->next->hasTurret() && this->target != Turret)
@@ -204,8 +203,10 @@ void tower_defense::Minion::refresh(Grid &g, Game &game) {
 
     // Update location
 	if (this->next != nullptr) {
-		this->location.setX(this->location.getX() + this->velocity*sin(this->angle));
-		this->location.setY(this->location.getY() - this->velocity*cos(this->angle));
+		Point newLocation = location + 
+			Point{this->velocity*sin(this->angle), -this->velocity*cos(this->angle)};
+		if (g.getElement(newLocation) != next || !next->hasTurret())
+			this->location = newLocation;
 	}
 	
 	if (this->hasItem())

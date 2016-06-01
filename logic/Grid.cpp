@@ -181,7 +181,6 @@ void tower_defense::Grid::calculateDistance(const Target target) {
     while (!initialNodes.empty()) {
         _calcDistNode node = initialNodes.top();
 		initialNodes.pop();
-		//std::cout << "n" << node.first;
 
         GridElement *up = node.second->getUpNeighbour();
         GridElement *down = node.second->getDownNeighbour();
@@ -213,10 +212,10 @@ tower_defense::GridElement *tower_defense::Grid::getElement(const Point &p) cons
     return this->elements[x][y];
 }
 
-std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity) const {
+std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity) {
 	return this->getOccupied(entity, entity.getLocation());
 }
-std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity, const Point& p) const {
+std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity, const Point& p) {
 	std::set<GridElement*> toRet;
 	for (int i = 0; i < entity.getSize(); i++) {
 		for (int j = 0; j < entity.getSize(); j++) {
@@ -228,7 +227,8 @@ std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tow
 	return toRet;
 }
 
-std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(const tower_defense::Entity & entity, const double x, const double y) const {
+std::set<tower_defense::GridElement*> tower_defense::Grid::getOccupied(
+	const tower_defense::Entity & entity, const double x, const double y) {
 	std::set<GridElement*> toRet;
 	for (int i = 0; i < entity.getSize(); i++) {
 		for (int j = 0; j < entity.getSize(); j++) {

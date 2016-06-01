@@ -68,9 +68,9 @@ namespace tower_defense {
 		bool inBounds(double x, double y) const;
 		bool inBounds(int x, int y) const;
 
-		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity) const;
-		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const Point& p) const;
-		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const double x, const double y) const;
+		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity);
+		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const Point& p);
+		std::set<GridElement*> getOccupied(const tower_defense::Entity & entity, const double x, const double y);
     private:
         int height;
         int width;

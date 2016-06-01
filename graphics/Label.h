@@ -12,21 +12,25 @@ namespace graphics {
 namespace graphics {
 	class Label {
 	public:
+		// creates label with given size, location and background
 		Label(const sf::Vector2f &size, const sf::Vector2f &location, const sf::Texture* background);
+		// creates label with given size, location, background and icon
 		Label(const sf::Vector2f &size, const sf::Vector2f & location, const sf::Texture* background,
 			const sf::Texture* icon);
+		// creates label with given size, location, background and description
 		Label(const sf::Vector2f &size, const sf::Vector2f &location, const sf::Texture* background,
 			const std::string& descr);
+		// creates label with given size, location, background and both icon and description
 		Label(const sf::Vector2f &size, const sf::Vector2f &location, const sf::Texture* background,
 			const sf::Texture* icon, const std::string& descr);
 
-		// returns item size
+		// returns label size
 		sf::Vector2f& getSize();
-		// sets item size
+		// sets label size
 		void setSize(const sf::Vector2f& size);
-		// returns item location
+		// returns label location
 		sf::Vector2f& getLocation();
-		// sets item location
+		// sets label location
 		void setLocation(const sf::Vector2f& location);
 
 		// sets color of the displayed text
@@ -46,6 +50,7 @@ namespace graphics {
 		// returns size of the font
 		int getFontSize();
 
+		// displays label on given window with given text value (appends description)
 		void display(GameWindow& window, std::string text);
 
 		//returns margins

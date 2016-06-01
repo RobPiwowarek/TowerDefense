@@ -27,13 +27,13 @@ namespace tower_defense {
 
         /// creates a minion prototype with given values
         Minion(const double velocity, const double size, const int minionClass, const int reward,
-               const int health, const int damage, const TargetPriority priority);
+               const int health, const int damage, const TargetPriority priority, const int attackSpeed);
 
         /// creates a minion using given
         /// that will follow given Path
         Minion(const Minion &base, const Point &x0);
 
-        void attack(tower_defense::Turret &turret) const;
+        void attack(tower_defense::Turret &turret);
 
 		/// return targetPriority
 		TargetPriority getTargetPriority() const;

@@ -69,9 +69,12 @@ public:
 	//runs paused game
 	void unpauseGame();
 	
+	// sets given game state
 	void setState(GameState s);
+	// returns current game state
 	GameState getState();
 
+	// opens game window
 	void runWindow();
 private:
 	std::atomic<GameState> state;

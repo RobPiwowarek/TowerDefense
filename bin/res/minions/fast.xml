@@ -4,9 +4,9 @@
     <img>fast.png</img>
     <size>0.4</size>
     <velocity>0.15</velocity>
-    <damage>1</damage>
+    <damage>2</damage>
     <reward>15</reward>
-    <attackSpeed>10</attackSpeed>
+    <attackSpeed>1</attackSpeed>
     <health>2</health>
     <priority>Item</priority>
 </minion>

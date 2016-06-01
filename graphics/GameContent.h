@@ -30,8 +30,10 @@ namespace graphics {
 	public:
 		GameContent(graphics::GameWindow& w);
 		~GameContent();
-		void display();
 
+		// displays content on the parent GameWindow
+		void display();
+		// manages event
 		void manageEvent(sf::Event& e);
 	private:
 		void createTurretList();

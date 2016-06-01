@@ -30,6 +30,11 @@ void GameWindow::loadResources() {
 	tm->add(graphics::TextureManager::MENU, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID, PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE);
 	tm->add(graphics::TextureManager::MENU, VICTORY_TEXTURE_OID, VICTORY_TEXTURE);
 	tm->add(graphics::TextureManager::MENU, DEFEAT_TEXTURE_OID, DEFEAT_TEXTURE);
+	tm->add(graphics::TextureManager::MENU, MENU_BACKGROUND_OID, MENU_BACKGROUND);
+
+	for (int i = 0; i < EXPLOSIONS_N; i++) {
+		tm->add(graphics::TextureManager::EXPLOSION, i, EXPLOSIONS + to_string(i) + EXPLOSION_SUFFIX);
+	}
 
 	this->font = new sf::Font();
 	if (!this->font->loadFromFile(FONT_LOCATION))
@@ -136,4 +141,11 @@ void GameWindow::start() {
 
 void GameWindow::stop() {
 	stopFlag = true;
+}
+
+const Texture* GameWindow::getMenuBackground() const {
+	return &this->tm->get(TextureManager::MENU, MENU_BACKGROUND_OID);
+}
+const Texture* GameWindow::getExplosion() const {
+	return &this->tm->get(TextureManager::EXPLOSION, rand() % EXPLOSIONS_N);
 }

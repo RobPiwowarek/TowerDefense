@@ -17,8 +17,8 @@ namespace tower_defense {
         // minion picks up the item
         bool pickUp(tower_defense::Minion* minion, tower_defense::Grid& grid);
 
-        // drop the item on specific location
-        bool drop(tower_defense::Point& location, tower_defense::Grid& grid);
+        // drop the item
+        bool drop();
 
         // returns held
         bool isHeld() const;

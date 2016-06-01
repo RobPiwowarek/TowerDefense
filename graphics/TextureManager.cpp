@@ -1,30 +1,18 @@
 #include "TextureManager.h"
 
-#define LOAD_TEST
-
 #include <limits>
 
 #include "../exceptions.h"
-#ifdef LOAD_TEST
-#include <iostream> 
-#include <bitset>
-#endif
 
 unsigned int graphics::TextureManager::add(const unsigned int flag, const unsigned int objId, const std::string& path) {
 
 	const unsigned int id = this->id(flag, objId);
 
-#ifdef LOAD_TEST
-	if (id & WEAPON_FIRE) std::cout << "loading texture: " << path << std::endl;
-#endif
 
 	if (this->textures.find(id) == this->textures.end()) {
 		sf::Texture* t = new sf::Texture();
 		if (t->loadFromFile(path)) {
 			((id & BASE) ? this->baseTextures[id] : this->textures[id]) = t;
-#ifdef LOAD_TEST
-			if (id & WEAPON_FIRE) 		std::cout << "Texture loaded as " << std::bitset<sizeof id * 8>(id) << std::endl;
-#endif
 		}
 		else {
 			delete t;

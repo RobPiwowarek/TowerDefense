@@ -20,7 +20,9 @@ namespace graphics {
 	public:
 		LoadingContent(GameWindow* w);
 		~LoadingContent();
+		// displays LoadingContent on parent GameWindow
 		void display();
+		// manages event
 		void manageEvent(sf::Event& e) {
 
 		}

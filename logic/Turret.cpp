@@ -2,12 +2,13 @@
 
 
 tower_defense::Turret::Turret(const int size, const int turretClass, const double rotationSpeed, const int level,
-                              const Weapon &wBase, int armor)
+                              const Weapon &wBase, int health, int armor)
         : Entity(Point(), 0, size, turretClass) {
     this->weapon = new Weapon(wBase, this);
     this->rotationSpeed = rotationSpeed;
     this->level = level;
     this->armor = armor;
+	this->maxHealth = health;
 }
 
 tower_defense::Turret::Turret(const Turret &base, const Point &location)
@@ -17,6 +18,8 @@ tower_defense::Turret::Turret(const Turret &base, const Point &location)
     this->level = base.level;
     this->rotationSpeed = base.rotationSpeed;
     this->armor = base.armor;
+	this->maxHealth = base.maxHealth;
+	this->currentHealth = this->maxHealth;
 }
 
 int tower_defense::Turret::getArmor() const { return this->armor; }
@@ -50,6 +53,8 @@ void tower_defense::Turret::setCurrentHealth(int currentHealth) {
     }
     else
         this->currentHealth = currentHealth;
+	if (this->currentHealth <= 0)
+		this->toRemove = true;
 }
 
 const double PI = 3.1415;
@@ -73,10 +78,26 @@ void tower_defense::Turret::setToRemove(const bool b){
 	this->toRemove = b;
 }
 
+void tower_defense::Turret::attack(int damage) {
+	damage -= this->armor;
+	if (damage < 0) return;
+
+
+	this->setCurrentHealth(currentHealth - damage);
+	this->recentlyAttacked = RECENTLY_ATTACKED_DEFAULT_DURATION;
+}
+
+bool tower_defense::Turret::wasRecentlyAttacked() const {
+	return this->recentlyAttacked;
+}
+
 bool tower_defense::Turret::refresh(Map* map) {
     // assuming first enemy is the closest in angle
     // TODO: change to one closest to the item
 	if (!this->toRemove){
+
+		if (this->recentlyAttacked > 0)
+			this->recentlyAttacked--;
 
 		Minion* target = nullptr;
 		double angleD;

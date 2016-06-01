@@ -156,15 +156,20 @@ void GameContent::manageEvent_mousePress_gameGoing(Event& e) {
 			AppModel::getInstance().getTurretManager().release();
 	}
 	else if (selectedTurret != -1) {
-		Point turLocation = this->displayer->getSelecetedTurretsLocation(*this->parent);
-		std::cout << "Placing turret at (" << turLocation.getX() << ", " << turLocation.getY() << ")\n";
+		if (e.mouseButton.button != Mouse::Button::Left) {
+			this->selectedTurret = -1;
+			this->displayer->setBuildingTurret(nullptr);
+		}
+		else {
+			Point turLocation = this->displayer->getSelecetedTurretsLocation(*this->parent);
 
-		AppModel::getInstance().getGame().get()->addTurret(
-			&AppModel::getInstance().getTurretManager().get()->getTurret(selectedTurret),
-			turLocation, this->turretList[selectedTurret].second.second);
+			AppModel::getInstance().getGame().get()->addTurret(
+				&AppModel::getInstance().getTurretManager().get()->getTurret(selectedTurret),
+				turLocation, this->turretList[selectedTurret].second.second);
 
-		AppModel::getInstance().getTurretManager().release();
-		AppModel::getInstance().getGame().release();
+			AppModel::getInstance().getTurretManager().release();
+			AppModel::getInstance().getGame().release();
+		}
 	}
 
 	/*

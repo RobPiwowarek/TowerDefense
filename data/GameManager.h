@@ -19,6 +19,8 @@ namespace data {
 
         // load game (also other managers) from xml at given path
 		tower_defense::Game *load(const std::string &path, graphics::TextureManager* tm);
+
+		// returns id of the texture of map field at given coordinates
 		unsigned int GameManager::getTextureId(int x, int y) const;
         ~GameManager();
 

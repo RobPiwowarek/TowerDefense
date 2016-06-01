@@ -16,7 +16,9 @@ namespace graphics {
 	class Content {
 	public:
 		Content(GameWindow* parent);
+		// displays content on the parent GameWindow
 		virtual void display() = 0;
+		// manages event
 		virtual void manageEvent(sf::Event& e) = 0;
 	protected:
 		GameWindow* parent;

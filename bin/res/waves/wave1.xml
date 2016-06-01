@@ -4,49 +4,10 @@
     <timeBetweenMinions>
         50
     </timeBetweenMinions>
-    <minion>
+    <minion count='10'>
         casual
     </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
-    <minion>
-        casual
-    </minion>
+	<minion count='10'>
+		fast
+	</minion>
 </wave>

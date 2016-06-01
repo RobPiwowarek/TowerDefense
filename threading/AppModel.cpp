@@ -89,7 +89,6 @@ bool AppModel::createGame(const std::string& xmlURI) {
 	bool g = false;
 	try {
 		this->game = new ResourceManager<tower_defense::Game>(this->gameManager->get()->load(xmlURI, this->window->getTextureManager()));
-		std::cout << "ctrlpt\n";
 		g = true;
 		this->gameManager->release();
 		this->refresher = new ResourceManager<Refresher>(new Refresher());

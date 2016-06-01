@@ -123,8 +123,6 @@ bool tower_defense::Beam::hits(Minion* m) {
 bool tower_defense::Beam::checkCollision(tower_defense::Minion * minion){
 	double d = minion->getLocation().getSqDistFromSegment(this->location, this->endLocation);
 
-	std::cout << "d2: " << d << " r2: " << pow(minion->getSize() / 2 + this->width / 2, 2.0f) << std::endl;
-
 	if (d <= pow(minion->getSize()/2 + this->width/2, 2.0f)) return true;
 
 	return false; //TODO

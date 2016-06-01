@@ -26,9 +26,8 @@ void MinionWaveManager::load(const string &directory, const vector<string> &wave
 		if (cur = this->loadWave(directory, waves[i], tm))
             this->waves.push_back(cur);
 }
-#include<iostream>
+
 const MinionWave &MinionWaveManager::get(int i) const {
-	std::cout << "Getting wave " << i << std::endl;
 	if (this->waves.size() <= i || i < 0)
 		WAVE_DOES_NOT_EXIST
 
@@ -62,8 +61,13 @@ MinionWave *MinionWaveManager::loadWave(const string &directory, const string &n
     MinionManager *manager = AppModel::getInstance().getMinionManager().get();
 
     for (xml_named_node_iterator it = minionNodes.begin(); it != minionNodes.end(); it++)
-        if (cur = manager->addMinion(directory, it->child_value(), tm))
-            minions.push(cur);
+		if (cur = manager->addMinion(directory, it->child_value(), tm)) {
+			if (it->attribute("count").empty())
+				minions.push(cur);
+			else
+				for (int i = 0; i < it->attribute("count").as_int(); i++)
+					minions.push(cur);
+		}
 
     AppModel::getInstance().getMinionManager().release();
 

@@ -34,10 +34,8 @@ void Refresher::start() {
 }
 
 void Refresher::stop() {
-	std::cout << "[sSM]\n";
     this->startStopMutex.lock();
 
-	std::cout << "[sGM]\n";
     this->goingMutex.lock();
     if (this->going) {
 		this->going = false;
@@ -47,10 +45,8 @@ void Refresher::stop() {
 		this->thread = nullptr;
     }
 	else this->goingMutex.unlock();
-	std::cout << "[\\GM]\n";
 
 	this->startStopMutex.unlock();
-	std::cout << "[\\SM]\n";
 }
 
 int Refresher::getInterval() const {

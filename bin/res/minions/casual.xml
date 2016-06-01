@@ -4,7 +4,7 @@
     <img>common.png</img>
     <size>0.4</size>
     <velocity>0.08</velocity>
-    <damage>1</damage>
+    <damage>5</damage>
     <reward>5</reward>
     <attackSpeed>10</attackSpeed>
     <health>12</health>

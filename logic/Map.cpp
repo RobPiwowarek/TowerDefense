@@ -55,9 +55,17 @@ void tower_defense::Map::refresh(Game &game) {
 	for (tower_defense::Turret* t : turretToRemove){
 		if (t){
 			this->turrets.erase(t);
+			for (GridElement* g : grid->getOccupied(*t))
+				g->setTurret(nullptr);
 			delete t;
 		}
 	}
+	if (!turretToRemove.empty()) {
+		grid->calculateDistance(Grid::Target::Item);
+		grid->calculateDistance(Grid::Target::Escape);
+		grid->calculateDistance(Grid::Target::Turret);
+	}
+		
 
 	/// WEAPONFIRE
 	for (tower_defense::WeaponFire* w : weaponFires){
@@ -94,8 +102,10 @@ void tower_defense::Map::refresh(Game &game) {
 	for (tower_defense::Minion* m : toRemove) {
 		GridElement* g = grid->getElement(m->getLocation());
 		if (g != nullptr) {
-			if (m->hasItem())
-				g->addItem(m->getItem());
+			if (m->hasItem()) {
+				m->getItem()->drop();
+				this->addItem(m->getItem());
+			}
 			g->removeMinion(m);
 			
 		}
@@ -105,11 +115,8 @@ void tower_defense::Map::refresh(Game &game) {
 			game.getPlayer().setNItems(game.getPlayer().getNItems() - 1);
 		}
 
-		std::cout << "Removing " << m << "... ";
 		this->removeMinion(game, m);
-		std::cout << "Destroying... ";
 		delete m;
-		std::cout << "Done\n";
 	}
 
 	/// 

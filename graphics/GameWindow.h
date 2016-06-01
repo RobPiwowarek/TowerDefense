@@ -32,12 +32,17 @@ namespace graphics {
 		const char* DEFEAT_TEXTURE = "res/basic/defeat.png";
 		const char* PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE = "res/turrets/PLACEHOLDER_CAN_PLACE_FLAME.png";
 		const char* PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE = "res/turrets/PLACEHOLDER_CANT_PLACE_FLAME.png";
+		const char* MENU_BACKGROUND = "res/basic/menu.png";
+		const char* EXPLOSIONS = "res/basic/expl";
+		const int EXPLOSIONS_N = 6;
+		const char* EXPLOSION_SUFFIX = ".png";
 
 		const int LABEL_BACKGORUND_OID = 0;
 		const int PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE_OID = 1;
 		const int PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE_OID = 2;
 		const int VICTORY_TEXTURE_OID = 3;
 		const int DEFEAT_TEXTURE_OID = 4;
+		const int MENU_BACKGROUND_OID = 5;
 
 		const int REFRESHER_DELAY = 20;
 
@@ -50,10 +55,14 @@ namespace graphics {
 
 		//returns texture for given entity
 		const sf::Texture* getTexture(const tower_defense::Turret* const) const;
+		//returns texture for given entity
 		const sf::Texture* getTexture(const tower_defense::Minion* const) const;
+		//returns texture for given entity
 		const sf::Texture* getTexture(const tower_defense::WeaponFire* const) const;
+		//returns texture for given entity
 		const sf::Texture* getTexture(const tower_defense::Item* const) const;
 
+		// returns texture for map piece at given coordinates
 		const sf::Texture* getMapTexture(int x, int y) const;
 
 		//returns the default font
@@ -72,9 +81,18 @@ namespace graphics {
 		//returns texture for victory screen
 		const sf::Texture* getVictoryTexture() const;
 
+		//returns texture for menu
+		const sf::Texture* getMenuBackground() const;
+
+		//returns random explosion texture
+		const sf::Texture* getExplosion() const;
+
+		//returns pointer to the texture manager (thread unsafe!)
 		TextureManager* getTextureManager();
 
+		//starts refreshing of graphics
 		void start();
+		//stops refreshing of graphics
 		void stop();
 	private:
 		Content* currentContent = nullptr;

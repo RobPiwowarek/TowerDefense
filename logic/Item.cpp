@@ -7,11 +7,7 @@ tower_defense::Item::Item(const tower_defense::Point &location, const double ang
 
 }
 
-bool tower_defense::Item::drop(tower_defense::Point &location, tower_defense::Grid& grid) {
-
-	if (grid.getElement(location)->hasItem()) return false; // cannot drop on another item.
-
-    this->setLocation(location);
+bool tower_defense::Item::drop() {
     this->holdingMinion = nullptr;
 
     this->held = false;
@@ -35,7 +31,6 @@ bool tower_defense::Item::pickUp(tower_defense::Minion* minion, tower_defense::G
     this->holdingMinion = minion;
     minion->setItem(this);
 	minion->setTargetPriority(tower_defense::Minion::Escape);
-	std::cout << "ITEM PICKEDUP " << minion->getTargetPriority() << std::endl;
 	g->getItems().erase(this);
 
     this->held = true;

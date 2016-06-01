@@ -4111,11 +4111,13 @@
       <turret>machinegun</turret>
       <turret>magicgun</turret>
       <turret>lsdgun</turret>
+	  <turret>shotgun</turret>
     </turrets>
   </player>
   <waves>
-    <wave>wave1</wave>
-    <!--<wave>cpause1000</wave>
+	<wave>wave6</wave>
+    <!--<wave>wave1</wave>
+    <wave>cpause1000</wave>
     <wave>wave1</wave>
     <wave>cpause1000</wave>
     <wave>wave2</wave>

@@ -31,15 +31,17 @@ namespace graphics {
 		//sets turret that is prepared to be build
 		void setBuildingTurret(const tower_defense::Turret* t);
 
+		// converts given inGame point to on-screen point at given window
 		sf::Vector2f gameToScreen(const graphics::GameWindow& window, const tower_defense::Point& inGame) const;
+		// converts given onScreen point with given window to in-game point
 		tower_defense::Point screenToGame(const graphics::GameWindow& window, const sf::Vector2f& onScreen) const;
 
+		// returns location of the selected turret (use only if any selected and mouse is over the screen)
 		tower_defense::Point getSelecetedTurretsLocation(graphics::GameWindow& w);
 
 		GameDisplayer(const tower_defense::Point& startingLocation);
 	private:
 		void drawBuildingTurret(graphics::GameWindow& window, tower_defense::Game* g);
-		void drawTurrets(graphics::GameWindow& window, tower_defense::Game* g);
 		void drawMinions(graphics::GameWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager);
 		void drawMapAndMinions(graphics::GameWindow& window, tower_defense::Game* g);
 		void drawWeaponFires(graphics::GameWindow& window, tower_defense::Game* g);

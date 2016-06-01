@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+
+<turret>
+ <imgsrc>shotgun.png</imgsrc>
+ <name>Shotgun</name>
+ <size>1</size>
+ <rotationSpeed>0.1</rotationSpeed>
+ <health>150</health>
+ <cost>60</cost>
+ <weapon>
+  <reloadTime>20</reloadTime>
+  <range>12</range>
+  <weaponFire time='0'>bullet</weaponFire>
+  <weaponFire time='0' angleMod='0.52' >bullet</weaponFire>
+  <weaponFire time='0' angleMod='-0.52' >bullet</weaponFire>
+  <weaponFire time='0' angleMod='0.26' >bullet</weaponFire>
+  <weaponFire time='0' angleMod='-0.26' >bullet</weaponFire>
+ </weapon>
+</turret>

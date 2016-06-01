@@ -57,8 +57,6 @@ void tower_defense::Weapon::refresh(bool beginSequence, Map* m) {
 			default: std::cout << "FIRE ERROR " << std::endl;
 			}
 
-			//std::cout << "fire";
-
 			if (fire != nullptr) {
 				m->addFire(fire);
 			}

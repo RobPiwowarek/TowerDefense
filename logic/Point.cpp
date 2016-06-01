@@ -59,14 +59,8 @@ double tower_defense::Point::getSqDistFromSegment(const tower_defense::Point& A,
 	//lets say that the segment is a part of line k, with given equation: k = (vec)A + (vec)AB * t
 	//then lets count t0 that is t with minimal distance from this point
 
-	std::cout << A.x << " " << A.y << std::endl;
-	std::cout << B.x << " " << B.y << std::endl;
-	std::cout << x << " " << y << std::endl;
-
 	tower_defense::Point AB = B - A;
 	double t0 = (this->x * AB.x + this->y * AB.y - A.x * AB.x - A.y * AB.y) / (AB.x * AB.x + AB.y * AB.y);
-
-	std::cout << t0 << std::endl;
 
 	// if t0 is between 0 and 1 than it is closer to the segment than points A and B
 	// else if t0 is lower than 0 it is closer to point A

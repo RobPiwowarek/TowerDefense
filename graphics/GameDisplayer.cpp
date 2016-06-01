@@ -19,32 +19,6 @@ using namespace data;
 
 #include <iostream>
 
-#define DIST_TEST
-#ifdef DIST_TEST
-
-RenderTexture* getMapTexture(int i, int j, Game* g) {
-#define DIST getDistToTarget
-	static sf::RenderTexture** t = nullptr;
-	if (t == nullptr) {
-		t = new RenderTexture*[256];
-		for (int k = 0; k < 256; k++) {
-			cout << "k" << k << endl;
-			t[k] = new RenderTexture();
-			t[k]->create(1, 1);
-			sf::RectangleShape r({ 1, 1 });
-			r.setFillColor(Color(0, 0, k));
-			t[k]->draw(r);
-		}
-
-	}
-
-	int blue = g->getMap().getGrid().getElement(Point(i, j))->DIST();
-	if (blue < 0) blue = 0;
-	if (blue > 255) blue = 255;
-	return t[255-blue];
-}
-
-#endif
 
 void GameDisplayer::refresh(GameWindow& window) {
 	Game* g = AppModel::getInstance().getGame().get();
@@ -59,9 +33,14 @@ void GameDisplayer::refresh(GameWindow& window) {
 	TurretManager* tm = AppModel::getInstance().getTurretManager().get();
 
 	for (set<Turret*>::const_iterator it = g->getMap().getTurrets().cbegin(); it != g->getMap().getTurrets().cend(); it++)
-		if (onScreen(window, **it))
+		if (onScreen(window, **it)) {
 			display(window, *window.getTexture(*it),
 			{ (*it)->getSize(), (*it)->getSize() }, (*it)->getLocation(), (*it)->getAngle());
+
+			if ((*it)->wasRecentlyAttacked())
+				display(window, *window.getExplosion(),
+				{ (*it)->getSize(), (*it)->getSize() }, (*it)->getLocation(), (*it)->getAngle());
+		}
 
 	AppModel::getInstance().getTurretManager().release();
 
@@ -77,12 +56,14 @@ void GameDisplayer::refresh(GameWindow& window) {
 void GameDisplayer::drawWeaponFires(graphics::GameWindow& w, tower_defense::Game* g){
 	tower_defense::Map& map = g->getMap();
 	for (tower_defense::WeaponFire* fire : map.getWeaponFires()){
+		if (this->onScreen(w, *fire)) {
 			sf::Texture texture = *w.getTexture(fire);
 			if (fire->getType() != FireType::beam)
 				this->display(w, texture, { fire->getSize(), fire->getSize()}, fire->getLocation(), fire->getAngle());
 			else { //BEAM
 				this->display(w, texture, { dynamic_cast<Beam*>(fire)->getWidth(), fire->getSize() }, fire->getLocation(), fire->getAngle());
 			}
+		}
 	}
 
 }
@@ -128,11 +109,7 @@ void GameDisplayer::drawMapAndMinions(GameWindow& window, Game* g) {
 	for (int i = x_beginFrom; i < x_goTo; i++)
 		for (int j = y_beginFrom; j < y_goTo; j++)
 			this->display(window,
-#ifndef DISP_TEST
 			*window.getMapTexture(i, j)
-#else
-			getMapTexture(i, j, g)->getTexture()
-#endif		
 			, Point(1, 1), Point(i + 0.5, j + 0.5));
 	for (int i = x_beginFrom; i < x_goTo; i++)
 		for (int j = y_beginFrom; j < y_goTo; j++)
@@ -154,9 +131,6 @@ void GameDisplayer::drawBuildingTurret(GameWindow& window, Game* g) {
 	}
 	this->display(window, texture, { this->selectedTurretBase->getSize(), this->selectedTurretBase->getSize() }, loc);
 
-}
-void GameDisplayer::drawTurrets(GameWindow& window, tower_defense::Game* g) {
-	//TODO
 }
 void GameDisplayer::drawMinions(GameWindow& window, tower_defense::GridElement* g, data::MinionManager* mManager) {
 	for (set<Minion*>::const_iterator it = g->getMinions().cbegin(); it != g->getMinions().cend(); it++)

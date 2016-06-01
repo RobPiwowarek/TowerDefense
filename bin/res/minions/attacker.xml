@@ -4,9 +4,9 @@
     <img>attacker.png</img>
     <size>0.7</size>
     <velocity>0.05</velocity>
-    <damage>4</damage>
+    <damage>10</damage>
     <reward>50</reward>
-    <attackSpeed>10</attackSpeed>
+    <attackSpeed>4</attackSpeed>
     <health>50</health>
     <priority>Turret</priority>
 </minion>

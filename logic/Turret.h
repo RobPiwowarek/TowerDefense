@@ -21,7 +21,7 @@ namespace tower_defense {
 
         /// creates a new instance of turret
         /// using given values
-        Turret(const int size, const int turretClass, const double rotationSpeed, const int level, const Weapon &wBase, int armor = 0);
+        Turret(const int size, const int turretClass, const double rotationSpeed, const int level, const Weapon &wBase, int health, int armor = 0);
 
         /// creates a new instance of turret
         /// that is a copy of base located in
@@ -47,6 +47,9 @@ namespace tower_defense {
 
         /// sets current turret's health
         void setCurrentHealth(int currentHealth);
+
+		/// removes health from turret (counting armor) and sets flag as recently attacked
+		void attack(int damage);
 
         /// returns current turret's max health
         int getMaxHealth() const;
@@ -75,7 +78,12 @@ namespace tower_defense {
         /// returns turret current weapon
         Weapon &getWeapon();
 
+		/// returns if the turret was recently attacked
+		bool wasRecentlyAttacked() const;
+
     private:
+		const int RECENTLY_ATTACKED_DEFAULT_DURATION = 2;
+
         Weapon *weapon;
         int level;
         int currentHealth;
@@ -83,6 +91,7 @@ namespace tower_defense {
         int armor;
         double rotationSpeed;
 		bool toRemove = false;
+		int recentlyAttacked = 0;
     };
 }
 

@@ -84,7 +84,7 @@ Minion *MinionManager::load(const string &mDirectory, const string &name, graphi
 
     tm->add(graphics::TextureManager::MINION, nextClass, mDirectory + root.child_value("img"));
 
-    return new Minion(velocity, size, nextClass++, reward, health, damage, priority);
+    return new Minion(velocity, size, nextClass++, reward, health, damage, priority, attackSpeed);
 }
 
 MinionManager::~MinionManager() {

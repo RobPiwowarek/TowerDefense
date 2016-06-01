@@ -82,7 +82,7 @@ pair<Turret*, pair<string, int> > TurretManager::load(const string &directory, c
 	int health = atoi(turretNode.child_value("health"));
 
 	pair<Turret*, pair<string, int> > toRet = 
-		make_pair(new Turret(size, nextClass, rotationSpeed, 0, *this->load(turretNode.child("weapon"), directory, nextClass, tm)),
+		make_pair(new Turret(size, nextClass, rotationSpeed, 0, *this->load(turretNode.child("weapon"), directory, nextClass, tm), health),
 		make_pair(name, cost));
 	nextClass++;
 

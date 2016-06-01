@@ -3,8 +3,8 @@
 tower_defense::GridElement::GridElement(const Point &location, Grid &g) : grid(g) {
     this->location = location;
 
-    this->distToTarget = 0;
-    this->distToTurret = 0;
+    this->distToTarget = -1;
+    this->distToTurret = -1;
 }
 
 int tower_defense::GridElement::getDistToCorner() const{
@@ -36,8 +36,14 @@ void tower_defense::GridElement::removeMinion(Minion *m) {
 }
 
 bool tower_defense::GridElement::setTurret(Turret *t) {
-    this->occupied = true;
-    this->turret = t;
+	if (t != nullptr) {
+		this->occupied = true;
+		this->turret = t;
+	}
+	else {
+		this->occupied = false;
+		this->turret = nullptr;
+	}
     return true;
 }
 
@@ -74,7 +80,7 @@ tower_defense::GridElement *tower_defense::GridElement::getRightNeighbour() cons
 }
 
 bool tower_defense::GridElement::hasItem() const{
-    return this->distToTarget == 0 && this->items.size() != 0;
+    return this->items.size() != 0;
 }
 
 bool tower_defense::GridElement::hasItem(tower_defense::Item *item) const{
