@@ -45,7 +45,7 @@ Game *GameManager::load(const string &path, graphics::TextureManager* tm) {
 		pugi::parse_full | pugi::parse_trim_pcdata, pugi::encoding_utf8);
 
 	if (result.status != pugi::status_ok) {
-		std::cout << '[' << result.status << ']';
+		std::cout << '[' << result.status  << " " << path << "]\n";
 		FAILED_TO_LOAD_GAME
 	}
 

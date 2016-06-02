@@ -29,6 +29,7 @@ namespace data {
  * Singleton class
  */
 
+
 class AppModel {
 public:
 	enum GameState {
@@ -39,6 +40,8 @@ public:
 		Victory,
 		Defeat
 	};
+	
+	std::string DEFAULT_GAME = "\\res\\game.xml";
 
 	// returns the instance
 	static AppModel& getInstance();
@@ -59,9 +62,11 @@ public:
 	ResourceManager<data::GameManager>& getGameManager();
 
 	//creates the game and refresher
-	//does not runs the refresher
+	//runs the refresher
 	//return true on success
 	bool createGame(const std::string& xmlURI);
+	//creates a game from DEFAULT_GAME
+	bool createGame();
 	//closes the game
 	void closeGame();
 	//pauses the game

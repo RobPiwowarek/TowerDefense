@@ -10,6 +10,8 @@ namespace graphics {
 	class LoadingContent;
 	class GameContent;
 	class Content;
+	class MainMenu;
+	class PauseMenu;
 }
 
 #include "../include/SFML/Graphics.hpp"
@@ -30,8 +32,8 @@ namespace graphics {
 		const char* LABEL_BACKGROUND = "res/basic/label.png";
 		const char* VICTORY_TEXTURE = "res/basic/victory.png";
 		const char* DEFEAT_TEXTURE = "res/basic/defeat.png";
-		const char* PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE = "res/turrets/PLACEHOLDER_CAN_PLACE_FLAME.png";
-		const char* PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE = "res/turrets/PLACEHOLDER_CANT_PLACE_FLAME.png";
+		const char* PLACEHOLDER_TURRET_BACKGROUND_CAN_PLACE = "res/turrets/PLACEHOLDER_CAN_PLACE.png";
+		const char* PLACEHOLDER_TURRET_BACKGROUND_CANT_PLACE = "res/turrets/PLACEHOLDER_CANT_PLACE.png";
 		const char* MENU_BACKGROUND = "res/basic/menu.png";
 		const char* EXPLOSIONS = "res/basic/expl";
 		const int EXPLOSIONS_N = 6;
@@ -98,6 +100,8 @@ namespace graphics {
 		Content* currentContent = nullptr;
 		LoadingContent* loadingContent = nullptr;
 		GameContent* gameContent = nullptr;
+		MainMenu* mainMenu = nullptr;
+		PauseMenu* pauseMenu = nullptr;
 
 		sf::Font* font = nullptr;
 

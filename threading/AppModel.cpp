@@ -83,6 +83,7 @@ void AppModel::runWindow() {
 
 #include <iostream>
 
+bool AppModel::createGame() { return createGame(DEFAULT_GAME); }
 bool AppModel::createGame(const std::string& xmlURI) {
 	this->state = Loading;
 	srand(time(NULL));
@@ -109,6 +110,8 @@ bool AppModel::createGame(const std::string& xmlURI) {
 }
 
 void AppModel::closeGame() {
+	AppModel::state = AppModel::MainMenu;
+
 	if (this->refresher != nullptr) {
 		std::cout << "Stopping refresher...";
 		this->refresher->get()->stop();
@@ -139,9 +142,7 @@ void AppModel::closeGame() {
 	std::cout << "Clearing manager: Turret...";
 	this->turretManager->get()->clear();
 	this->turretManager->release();
-	std::cout << "Done!\n";
-
-	AppModel::state = AppModel::MainMenu;
+	std::cout << "Done!\n";	
 }
 
 void AppModel::setState(AppModel::GameState s) {

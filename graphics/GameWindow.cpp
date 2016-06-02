@@ -6,6 +6,8 @@
 #include "../logic/WeaponFire.h"
 #include "../logic/Item.h"
 #include "../data/GameManager.h"
+#include "menu/MainMenu.h"
+#include "menu/PauseMenu.h"
 
 using namespace graphics;
 using namespace sf;
@@ -18,6 +20,9 @@ GameWindow::GameWindow() : RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), 
 	this->tm = new TextureManager();
 	this->loadResources();
 	this->loadingContent = new LoadingContent(this);
+	this->mainMenu = new MainMenu(this);
+	this->pauseMenu = new PauseMenu(this);
+	cout << "Init finished\n";
 }
 
 const Font* GameWindow::getFont() const {
@@ -104,13 +109,24 @@ void GameWindow::refresh() {
 				this->gameContent = new GameContent(*this);
 			this->currentContent = gameContent;
 			break;
+		case AppModel::GameState::MainMenu:
+			this->currentContent = this->mainMenu;
+			if (this->gameContent != nullptr) {
+				delete this->gameContent;
+				this->gameContent = nullptr;
+			}
+			break;
+		case AppModel::GameState::Paused:
+			this->currentContent = this->pauseMenu;
 		}
+
+		this->currentContent->display();
+		this->display();
 
 		Event e;
 		while (pollEvent(e)) {
 			switch (e.type) {
 			case Event::Closed:
-				this->stop();
 				AppModel::getInstance().closeGame();
 				this->close();
 				return;
@@ -118,10 +134,7 @@ void GameWindow::refresh() {
 				this->currentContent->manageEvent(e);
 			}
 		}
-
-		this->currentContent->display();
-		this->display();
-
+		
 		if (this->stopFlag) return;
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
@@ -132,6 +145,8 @@ GameWindow::~GameWindow() {
 	this->stop();
 	delete this->loadingContent;
 	delete this->gameContent;
+	delete this->mainMenu;
+	delete this->pauseMenu;
 }
 
 void GameWindow::start() {

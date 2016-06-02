@@ -6,21 +6,8 @@
 
 using namespace graphics;
 
-Menu::Menu(){}
+Menu::Menu(GameWindow* parent) : Content(parent) {
 
-Menu::Menu(int n, ...){
-	va_list args;
-	va_start(args, n);
-
-	while (n-- > 0){
-		this->menu.push_back(va_arg(args, graphics::Label*));
-	}
-
-	va_end(args);
-}
-
-Menu::Menu(std::vector<graphics::Label*> labels) {
-	this->menu = labels;
 }
 
 Menu::~Menu() { }
@@ -39,24 +26,25 @@ bool Menu::addMenuItem(graphics::Label * label){
 	return true;
 }
 
-void Menu::draw(graphics::GameWindow &window) {
+void Menu::display() {
+	static sf::Sprite background(*this->parent->getMenuBackground());
+
+	this->parent->draw(background);
+
 	for (graphics::Label* label : this->menu){
-		label->display(window, "");
+		label->display(*this->parent, "");
 	}
 }
 
-void Menu::moveUp() {
-    if (selectedItemIndex >= 1) {
-		this->menu[selectedItemIndex]->setForeColor(this->menu[selectedItemIndex]->getOriginalColor());
-        selectedItemIndex--;
-        menu[selectedItemIndex]->setForeColor(sf::Color::Red);
-    }
+void Menu::manageEvent(sf::Event& e) {
+
 }
 
-void Menu::moveDown() {
-    if (selectedItemIndex < MAX_NUMBER_OF_ITEMS - 1) {
-        menu[selectedItemIndex]->setForeColor(this->menu[selectedItemIndex]->getOriginalColor());
-        selectedItemIndex++;
-        menu[selectedItemIndex]->setForeColor(sf::Color::Red);
-    }
+graphics::Label* Menu::getLabel(sf::Vector2f loc) const {
+	for (Label* l : this->menu) {
+		if (loc.x >= l->getLocation().x && loc.y >= l->getLocation().y && loc.x <= l->getLocation().x + l->getSize().x && loc.y <= l->getLocation().y + l->getSize().y)
+			return l;
+	}
+
+	return nullptr;
 }

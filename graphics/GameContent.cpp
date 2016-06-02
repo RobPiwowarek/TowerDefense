@@ -20,48 +20,8 @@ GameContent::GameContent(GameWindow& w) : Content(&w) {
 
 	this->createTurretList();
 
-	this->createMainMenu(w);
-	this->createPauseMenu(w);
-
 	for (bool b : this->keys)
 		b = false;
-
-	this->debugL = new Label({ 150, 20 }, { 0, 580 }, w.getLabelBackground(), "selected turret: ");
-	this->debugL->setFontSize(15);
-}
-
-graphics::Menu* GameContent::getMainMenu() const{
-	return this->mainMenu;
-}
-
-graphics::Menu* GameContent::getPauseMenu() const{
- 	return this->pauseMenu;
-}
-
-void GameContent::createMainMenu(GameWindow& w){
-	this->mainMenu = new Menu();
-	Label* startGameButton = new Label(Vector2f(MENU_LABEL_WIDTH, MENU_LABEL_HEIGHT), Vector2f(MENU_LABEL_X, MENU_LABEL_Y), w.getLabelBackground(), "START GAME");
-	Label* quitButton = new Label(Vector2f(MENU_LABEL_WIDTH, MENU_LABEL_HEIGHT), Vector2f(MENU_LABEL_X, MENU_LABEL_Y + MENU_LABEL_Y_DIFF), w.getLabelBackground(), "QUIT");
-
-	startGameButton->setFontSize(MENU_LABEL_FONT_SIZE);
-	quitButton->setFontSize(MENU_LABEL_FONT_SIZE);
-
-	this->mainMenu->addMenuItem(startGameButton);
-	this->mainMenu->addMenuItem(quitButton);
-}
-
-void GameContent::createPauseMenu(GameWindow& w){
-	Label* continueButton = new Label(Vector2f(MENU_LABEL_WIDTH, MENU_LABEL_HEIGHT), Vector2f(MENU_LABEL_X, MENU_LABEL_Y), w.getLabelBackground(), "CONTINUE");
-	Label* quitButton = new Label(Vector2f(MENU_LABEL_WIDTH, MENU_LABEL_HEIGHT), Vector2f(MENU_LABEL_X, MENU_LABEL_Y + 2*MENU_LABEL_Y_DIFF), w.getLabelBackground(), "QUIT GAME");
-	Label* quitToMainMenuButton = new Label(Vector2f(MENU_LABEL_WIDTH, MENU_LABEL_HEIGHT), Vector2f(MENU_LABEL_X, MENU_LABEL_Y + MENU_LABEL_Y_DIFF), w.getLabelBackground(), "QUIT TO MAIN MENU");
-
-	continueButton->setFontSize(MENU_LABEL_FONT_SIZE);
-	quitToMainMenuButton->setFontSize(MENU_LABEL_FONT_SIZE);
-	quitButton->setFontSize(MENU_LABEL_FONT_SIZE);
-
-	this->pauseMenu->addMenuItem(continueButton);
-	this->pauseMenu->addMenuItem(quitToMainMenuButton);
-	this->pauseMenu->addMenuItem(quitButton);
 }
 
 #include <iostream>
@@ -104,13 +64,6 @@ void GameContent::display() {
 	this->displayer->refresh(*this->parent);
 
 	switch (AppModel::getInstance().getState()) {
-	case AppModel::GameState::MainMenu:
-		this->mainMenu->draw(*this->parent);
-		break;
-	case AppModel::GameState::Paused:
-		AppModel::getInstance().pauseGame();
-		this->pauseMenu->draw(*this->parent);
-		break;
 	case AppModel::GameState::Going:
 		this->displayUI_game(*this->parent);
 		break;
@@ -125,15 +78,11 @@ void GameContent::display() {
 		this->displayUI_finished();
 		break;
 	}
-
-	this->debugL->display(*this->parent, to_string(this->selectedTurret));
 }
 
 GameContent::~GameContent() {
 	delete this->displayer;
 	delete this->money;
-	delete this->mainMenu;
-	delete this->pauseMenu;
 
 	for (int i = 0; i < turretN; i++)
 		delete this->turretLabels[i];
@@ -167,16 +116,15 @@ void GameContent::checkKeys() {
 		this->displayer->moveScreen(tower_defense::Point(-10.0 / this->displayer->getPointsPerUnit(), 0.0));
 	if (keys[sf::Keyboard::Right] || keys[sf::Keyboard::D])
 		this->displayer->moveScreen(tower_defense::Point(10.0 / this->displayer->getPointsPerUnit(), 0.0));
+	if (keys[sf::Keyboard::Escape] && AppModel::getInstance().getState() == AppModel::GameState::Going) {
+		AppModel::getInstance().pauseGame();
+		for (int i = 0; i < Keyboard::KeyCount; i++)
+			keys[i] = false;
+	}
 }
 
 void GameContent::manageEvent_mousePress(Event& e) {
 	switch (AppModel::getInstance().getState()) {
-	case AppModel::GameState::MainMenu:
-		this->manageEvent_mousePress_mainMenu(e);
-		break;
-	case AppModel::GameState::Paused:
-		this->manageEvent_mousePress_paused(e);
-		break;
 	case AppModel::GameState::Going:
 		this->manageEvent_mousePress_gameGoing(e);
 		break;
@@ -187,8 +135,10 @@ void GameContent::manageEvent_mousePress(Event& e) {
 	}
 }
 void GameContent::manageEvent_mousePress_gameFinished(Event& e) {
-	if (Mouse::getPosition().x >= FINISHED_LABEL_X && Mouse::getPosition().x <= FINISHED_LABEL_X + FINISHED_LABEL_WIDTH &&
-		Mouse::getPosition().y >= FINISHED_LABEL_Y && Mouse::getPosition().y <= FINISHED_LABEL_Y + FINISHED_LABEL_HEIGHT);
+	Vector2i mousePos = Mouse::getPosition() - parent->getPosition();
+	if (mousePos.x >= FINISHED_LABEL_X && mousePos.x <= FINISHED_LABEL_X + FINISHED_LABEL_WIDTH &&
+		mousePos.y >= FINISHED_LABEL_Y && mousePos.y <= FINISHED_LABEL_Y + FINISHED_LABEL_HEIGHT)
+		AppModel::getInstance().closeGame();
 }
 
 void GameContent::manageEvent_mousePress_gameGoing(Event& e) {
@@ -233,14 +183,6 @@ void GameContent::manageEvent_mousePress_gameGoing(Event& e) {
 	AppModel::getInstance().getGame().release();
 	AppModel::getInstance().getMinionManager().release();
 	*/
-}
-
-void GameContent::manageEvent_mousePress_mainMenu(Event& e){
-
-}
-
-void GameContent::manageEvent_mousePress_paused(Event& e){
-
 }
 
 

@@ -28,7 +28,19 @@
 
 #endif
 
-int main(int argn, char** argv){
+int main(int argn, char** argv) {
+	try {
+		AppModel::getInstance().DEFAULT_GAME =
+			std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\/"))
+			+ AppModel::getInstance().DEFAULT_GAME;
+		AppModel::getInstance().runWindow();
+	}
+	catch (std::exception e) {
+		//an error occured
+		std::cout << e.what();
+	}
+	getchar();
+	/*
 	for (int i = 0; i < argn; i++)
 		std::cout << argv[i] << std::endl;
 
@@ -98,5 +110,5 @@ int main(int argn, char** argv){
 	std::getline(std::cin, b);
 #endif
 
-#endif
+#endif */
 }
